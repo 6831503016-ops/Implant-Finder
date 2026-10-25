@@ -53,6 +53,39 @@ public class AdminModelController {
         return "redirect:/admin/data-management";
     }
 
+    // =====  เปิดหน้าแก้ไข โดยโหลดข้อมูลเดิมมาใส่ฟอร์ม =====
+    @GetMapping("/edit-model/{id}")
+    public String editModelForm(@PathVariable Long id, Model model) {
+        ImplantModel implant = modelRepo.findById(id).orElseThrow();
+        model.addAttribute("implant", implant);
+        model.addAttribute("brands", brandRepo.findAll());
+        return "admin/edit-model";
+    }
+
+    // =====  บันทึกการแก้ไข =====
+    @PostMapping("/edit-model/{id}")
+    public String updateModel(@PathVariable Long id, @ModelAttribute ImplantModel form) {
+        ImplantModel implant = modelRepo.findById(id).orElseThrow();
+
+        implant.setModelName(form.getModelName());
+        implant.setMaterial(form.getMaterial());
+        implant.setSizes(form.getSizes());
+
+        // เปลี่ยนแบรนด์ (ดึงจากฐานข้อมูลตาม id ที่เลือก)
+        if (form.getBrand() != null && form.getBrand().getBrandId() != null) {
+            implant.setBrand(brandRepo.findById(form.getBrand().getBrandId()).orElseThrow());
+        }
+
+        // เปลี่ยนรูปเฉพาะตอนที่กรอกลิงก์ใหม่ ถ้าเว้นว่างไว้จะใช้รูปเดิม
+        if (form.getImageUrl() != null && !form.getImageUrl().isBlank()) {
+            implant.setImageUrl(form.getImageUrl());
+        }
+
+        // status ไม่แตะ เพื่อให้สถานะเปิด/ปิดเหมือนเดิม
+        modelRepo.save(implant);
+        return "redirect:/admin/data-management";
+    }
+
     @PostMapping("/toggle-status/{id}")
     public String toggleStatus(@PathVariable Long id) {
         implantService.toggleStatus(id);
