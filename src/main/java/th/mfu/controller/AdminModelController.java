@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import th.mfu.domain.Brand;
 import th.mfu.domain.ImplantModel;
 import th.mfu.repository.BrandRepository;
 import th.mfu.repository.ImplantModelRepository;
@@ -36,8 +37,19 @@ public class AdminModelController {
     }
 
     @PostMapping("/add-model")
-    public String saveModel(@ModelAttribute ImplantModel implant) {
-        modelRepo.save(implant);
+    public String saveModel(@ModelAttribute ImplantModel implant, @RequestParam("brandId") Long brandId) {
+        Brand brand = brandRepo.findById(brandId).orElse(null);
+        if (brand != null) {
+            implant.setBrand(brand);
+            // กำหนดค่าเริ่มต้นกรณีเว้นว่าง
+            if (implant.getImageUrl() == null || implant.getImageUrl().trim().isEmpty()) {
+                implant.setImageUrl("https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop");
+            }
+            if (implant.getStatus() == null) {
+                implant.setStatus("Visible");
+            }
+            modelRepo.save(implant);
+        }
         return "redirect:/admin/data-management";
     }
 

@@ -20,8 +20,10 @@ public class AuthController {
 
     @PostMapping("/admin/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session) {
-        Admin admin = adminRepo.findByEmailOrUsername(email, email).orElse(null);
-        if (admin != null && admin.getPasswordHash().equals(password)) {
+        String cleanInput = email != null ? email.trim() : "";
+        Admin admin = adminRepo.findByEmailOrUsername(cleanInput, cleanInput).orElse(null);
+
+        if (admin != null && admin.getPasswordHash().equals(password.trim())) {
             session.setAttribute("admin", admin);
             return "redirect:/admin/data-management";
         }
