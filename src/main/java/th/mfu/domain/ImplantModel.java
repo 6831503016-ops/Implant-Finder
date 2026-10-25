@@ -22,6 +22,7 @@ public class ImplantModel {
     private String surfaceTreatment;
     private String country;
     private String color;
+    @Column(length = 4000)
     private String sizes;
     private String status = "Visible"; // Visible / Hidden[cite: 51]
     private String imageUrl;

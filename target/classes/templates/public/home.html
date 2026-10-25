@@ -1,65 +1,74 @@
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Implant - Find Your Brand</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
 </head>
 <body class="bg-[#f4f7fc] min-h-screen text-slate-800">
-    <!-- Navbar -->
     <nav class="px-8 py-4 bg-white shadow-sm flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">🦷</div>
-            <span class="text-xl font-bold text-slate-900 tracking-tight">Implant</span>
-        </div>
+        <a href="/" class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white text-lg">🦷</div>
+            <span class="text-xl font-bold text-[#0b2545] tracking-tight">Implant</span>
+        </a>
         <div class="flex items-center gap-4">
             <a href="/admin/login" class="bg-[#2563eb] hover:bg-blue-700 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition shadow-sm">Admin Login</a>
-            <button onclick="alert('Admin Contact Email: admin@implant.com')" class="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition">🎧</button>
+            <button onclick="alert('Admin Contact Email: admin@implant.com')" class="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition">🎧</button>
         </div>
     </nav>
 
-    <!-- Hero Banner -->
     <div class="max-w-6xl mx-auto px-6 pt-8 pb-12">
         <div class="bg-gradient-to-r from-[#eef4ff] to-[#e0ebff] rounded-3xl p-10 flex flex-col md:flex-row justify-between items-center gap-8 shadow-sm">
-            <div class="max-w-xl">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-3">
+            <div class="max-w-xl w-full">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-[#0b2545] leading-tight mb-3">
                     Find Your <br><span class="text-[#2563eb]">Implant Brand</span>
                 </h1>
                 <p class="text-slate-500 mb-8 font-medium">Explore leading dental implant brands worldwide</p>
                 <div class="relative max-w-md">
                     <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">🔍</span>
-                    <input type="text" id="searchInput" onkeyup="filterBrands()" placeholder="Search for a brand..." class="w-full pl-11 pr-4 py-3.5 bg-white rounded-full text-sm border-none shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" id="searchInput" oninput="filterBrands()" placeholder="Search for a brand..."
+                           class="w-full pl-11 pr-4 py-3.5 bg-white rounded-full text-sm shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
             </div>
-            <div class="w-full md:w-96 h-56 bg-slate-900 rounded-2xl overflow-hidden shadow-md flex items-center justify-center border border-slate-700">
-                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop" class="w-full h-full object-cover opacity-80" alt="Dental X-Ray">
+            <div class="w-full md:w-96 h-56 bg-black rounded-2xl overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop"
+                     class="w-full h-full object-cover opacity-80" alt="Dental X-Ray">
             </div>
         </div>
 
-        <!-- Brands Grid -->
-        <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-6">Brands</h2>
+        <h2 class="text-2xl font-bold text-[#0b2545] mt-10 mb-6">Brands</h2>
         <div class="grid grid-cols-2 md:grid-cols-5 gap-5" id="brandGrid">
-            <div th:each="brand : ${brands}" class="brand-card bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition text-center cursor-pointer">
-                <a th:href="@{'/brand/' + ${brand.brandId}}">
-                    <div class="h-16 flex items-center justify-center mb-3">
-                        <span class="text-2xl font-black text-blue-900 brand-name" th:text="${brand.brandName}"></span>
-                    </div>
-                    <p class="text-xs font-semibold text-slate-400" th:text="${brand.country}"></p>
-                </a>
-            </div>
+            <a th:each="b : ${brands}" th:href="@{'/brand/' + ${b.brandId}}"
+               class="brand-card bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:-translate-y-0.5 transition text-center block">
+                <div class="h-16 flex items-center justify-center mb-3">
+                    <img th:if="${b.logoUrl != null and !#strings.isEmpty(b.logoUrl)}" th:src="${b.logoUrl}" th:alt="${b.brandName}"
+                         class="max-h-14 max-w-full object-contain"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    <span class="text-xl font-black text-blue-900"
+                          th:style="${b.logoUrl != null and !#strings.isEmpty(b.logoUrl)} ? 'display:none' : ''"
+                          th:text="${b.brandName}"></span>
+                </div>
+                <p class="brand-name text-sm font-semibold text-slate-500" th:text="${b.brandName}"></p>
+            </a>
         </div>
+        <p id="noBrand" class="hidden text-center text-slate-400 mt-8">No brands found.</p>
     </div>
 
     <script>
         function filterBrands() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('brand-card');
-            for (let card of cards) {
-                let name = card.querySelector('.brand-name').innerText.toLowerCase();
-                card.style.display = name.includes(input) ? 'block' : 'none';
-            }
+            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            let shown = 0;
+            document.querySelectorAll('.brand-card').forEach(card => {
+                const match = card.querySelector('.brand-name').textContent.toLowerCase().includes(q);
+                card.style.display = match ? 'block' : 'none';
+                if (match) shown++;
+            });
+            document.getElementById('noBrand').classList.toggle('hidden', shown > 0);
         }
     </script>
 </body>
