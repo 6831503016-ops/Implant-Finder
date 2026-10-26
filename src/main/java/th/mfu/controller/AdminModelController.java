@@ -36,22 +36,50 @@ public class AdminModelController {
         return "admin/add-model";
     }
 
-    @PostMapping("/add-model")
-    public String saveModel(@ModelAttribute ImplantModel implant, @RequestParam("brandId") Long brandId) {
-        Brand brand = brandRepo.findById(brandId).orElse(null);
-        if (brand != null) {
-            implant.setBrand(brand);
-            // กำหนดค่าเริ่มต้นกรณีเว้นว่าง
-            if (implant.getImageUrl() == null || implant.getImageUrl().trim().isEmpty()) {
-                implant.setImageUrl("https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop");
-            }
-            if (implant.getStatus() == null) {
-                implant.setStatus("Visible");
-            }
-            modelRepo.save(implant);
-        }
-        return "redirect:/admin/data-management";
+    
+@PostMapping("/add-model")
+public String saveModel(
+        @ModelAttribute ImplantModel implant,
+        @RequestParam("brandName") String brandName) {
+
+    if (brandName == null || brandName.isBlank()) {
+        return "redirect:/admin/add-model";
     }
+
+    String name = brandName.trim();
+
+    // Find an existing brand, ignoring capitalization
+    Brand brand = brandRepo.findAll().stream()
+            .filter(b -> b.getBrandName() != null
+                    && b.getBrandName().trim().equalsIgnoreCase(name))
+            .findFirst()
+            .orElse(null);
+
+    // Create the brand if it does not already exist
+    if (brand == null) {
+        brand = new Brand();
+        brand.setBrandName(name);
+        brand = brandRepo.save(brand);
+    }
+
+    implant.setBrand(brand);
+
+    if (implant.getImageUrl() == null
+            || implant.getImageUrl().isBlank()) {
+        implant.setImageUrl(
+            "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop"
+        );
+    }
+
+    if (implant.getStatus() == null) {
+        implant.setStatus("Visible");
+    }
+
+    modelRepo.save(implant);
+
+    return "redirect:/admin/data-management";
+}
+
 
     // =====  เปิดหน้าแก้ไข โดยโหลดข้อมูลเดิมมาใส่ฟอร์ม =====
     @GetMapping("/edit-model/{id}")
