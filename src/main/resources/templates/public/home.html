@@ -1,73 +1,216 @@
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Implant - Find Your Brand</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .page-content {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 0 32px 48px;
+            box-sizing: border-box;
+        }
+
+        .hero-banner {
+            width: 100%;
+            min-height: 390px;
+            margin: 0;
+            padding: 48px 24px;
+            box-sizing: border-box;
+            background:
+                linear-gradient(rgba(5, 18, 35, 0.5), rgba(5, 18, 35, 0.5)),
+                url("https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1800&auto=format&fit=crop")
+                center 45% / cover no-repeat;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            width: min(100%, 900px);
+        }
+
+        .hero-banner h1 {
+            color: white;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.12;
+            margin: 0 0 14px;
+        }
+
+        .hero-banner h1 span {
+            color: #93c5fd;
+        }
+
+        .hero-banner p {
+            color: white;
+            margin: 0;
+            font-size: clamp(1rem, 1.8vw, 1.35rem);
+        }
+
+        .hero-search {
+            position: relative;
+            width: min(100%, 700px);
+            margin: 30px auto 0;
+        }
+
+        .hero-search input {
+            width: 100%;
+            height: 56px;
+            padding: 0 22px 0 52px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+            color: #fff;
+            font: inherit;
+            font-size: 15px;
+            outline: none;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .hero-search input::placeholder {
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .hero-search input:focus {
+            background: rgba(255, 255, 255, 0.24);
+            border-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .hero-search-icon {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.9);
+            pointer-events: none;
+        }
+
+        .brands-heading {
+            margin-top: 36px;
+        }
+
+        @media (max-width: 640px) {
+            .page-content {
+                padding: 0 16px 32px;
+            }
+
+            .hero-banner {
+                min-height: 350px;
+                padding: 36px 18px;
+            }
+
+            .hero-search {
+                margin-top: 24px;
+            }
+
+            .hero-search input {
+                height: 52px;
+            }
+        }
+    </style>
 </head>
+
 <body class="bg-[#f4f7fc] min-h-screen text-slate-800">
     <nav class="px-8 py-4 bg-white shadow-sm flex justify-between items-center">
         <a href="/" class="flex items-center gap-3">
             <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white text-lg">🦷</div>
             <span class="text-xl font-bold text-[#0b2545] tracking-tight">Implant</span>
         </a>
+
         <div class="flex items-center gap-4">
-            <a href="/admin/login" class="bg-[#2563eb] hover:bg-blue-700 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition shadow-sm">Admin Login</a>
-            <button onclick="alert('Admin Contact Email: admin@implant.com')" class="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition">🎧</button>
+            <a href="/admin/login"
+               class="bg-[#2563eb] hover:bg-blue-700 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition shadow-sm">
+                Admin Login
+            </a>
+
+            <button onclick="alert('Admin Contact Email: admin@implant.com')"
+                    class="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition">
+                🎧
+            </button>
         </div>
     </nav>
 
-    <div class="max-w-6xl mx-auto px-6 pt-8 pb-12">
-        <div class="bg-gradient-to-r from-[#eef4ff] to-[#e0ebff] rounded-3xl p-10 flex flex-col md:flex-row justify-between items-center gap-8 shadow-sm">
-            <div class="max-w-xl w-full">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-[#0b2545] leading-tight mb-3">
-                    Find Your <br><span class="text-[#2563eb]">Implant Brand</span>
-                </h1>
-                <p class="text-slate-500 mb-8 font-medium">Explore leading dental implant brands worldwide</p>
-                <div class="relative max-w-md">
-                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">🔍</span>
-                    <input type="text" id="searchInput" oninput="filterBrands()" placeholder="Search for a brand..."
-                           class="w-full pl-11 pr-4 py-3.5 bg-white rounded-full text-sm shadow-sm outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-            </div>
-            <div class="w-full md:w-96 h-56 bg-black rounded-2xl overflow-hidden shadow-md">
-                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop"
-                     class="w-full h-full object-cover opacity-80" alt="Dental X-Ray">
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h1 class="font-extrabold">
+                Find Your <span>Implant Brand</span>
+            </h1>
+
+            <p>Explore leading dental implant brands worldwide</p>
+
+            <div class="hero-search">
+                <span class="hero-search-icon">🔍</span>
+                <input type="text"
+                       id="searchInput"
+                       oninput="filterBrands()"
+                       placeholder="Search for a brand..."
+                       aria-label="Search for a brand">
             </div>
         </div>
+    </section>
 
-        <h2 class="text-2xl font-bold text-[#0b2545] mt-10 mb-6">Brands</h2>
+    <main class="page-content">
+        <h2 class="brands-heading text-2xl font-bold text-[#0b2545] mb-6">Brands</h2>
+
         <div class="grid grid-cols-2 md:grid-cols-5 gap-5" id="brandGrid">
-            <a th:each="b : ${brands}" th:href="@{'/brand/' + ${b.brandId}}"
+            <a th:each="b : ${brands}"
+               th:href="@{'/brand/' + ${b.brandId}}"
                class="brand-card bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:-translate-y-0.5 transition text-center block">
                 <div class="h-16 flex items-center justify-center mb-3">
-                    <img th:if="${b.logoUrl != null and !#strings.isEmpty(b.logoUrl)}" th:src="${b.logoUrl}" th:alt="${b.brandName}"
+                    <img th:if="${b.logoUrl != null and !#strings.isEmpty(b.logoUrl)}"
+                         th:src="${b.logoUrl}"
+                         th:alt="${b.brandName}"
                          class="max-h-14 max-w-full object-contain"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+
                     <span class="text-xl font-black text-blue-900"
                           th:style="${b.logoUrl != null and !#strings.isEmpty(b.logoUrl)} ? 'display:none' : ''"
-                          th:text="${b.brandName}"></span>
+                          th:text="${b.brandName}">
+                    </span>
                 </div>
-                <p class="brand-name text-sm font-semibold text-slate-500" th:text="${b.brandName}"></p>
+
+                <p class="brand-name text-sm font-semibold text-slate-500"
+                   th:text="${b.brandName}">
+                </p>
             </a>
         </div>
-        <p id="noBrand" class="hidden text-center text-slate-400 mt-8">No brands found.</p>
-    </div>
+
+        <p id="noBrand" class="hidden text-center text-slate-400 mt-8">
+            No brands found.
+        </p>
+    </main>
 
     <script>
         function filterBrands() {
-            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
             let shown = 0;
+
             document.querySelectorAll('.brand-card').forEach(card => {
-                const match = card.querySelector('.brand-name').textContent.toLowerCase().includes(q);
-                card.style.display = match ? 'block' : 'none';
-                if (match) shown++;
+                const brandName = card.querySelector('.brand-name').textContent.toLowerCase();
+                const matches = brandName.includes(query);
+
+                card.style.display = matches ? 'block' : 'none';
+
+                if (matches) {
+                    shown++;
+                }
             });
+
             document.getElementById('noBrand').classList.toggle('hidden', shown > 0);
         }
     </script>
