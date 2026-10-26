@@ -202,7 +202,9 @@
 
             document.querySelectorAll('.brand-card').forEach(card => {
                 const brandName = card.querySelector('.brand-name').textContent.toLowerCase();
-                const matches = brandName.includes(query);
+              const matches = brandName
+               .split(/\s+/)
+               .some(word => word.startsWith(query));
 
                 card.style.display = matches ? 'block' : 'none';
 

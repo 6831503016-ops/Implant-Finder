@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -5,51 +6,110 @@
     <title>Implant Data Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+
+    <style>
+        /* Set the font used throughout the page */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
 </head>
+
 <body class="bg-[#f0f4f9] flex min-h-screen">
 
-        <!-- Sidebar -->
+    <!-- Sidebar -->
     <div class="w-64 bg-[#0a192f] text-white p-6">
         <div class="space-y-8">
+
+            <!-- Application logo and name -->
             <div class="flex items-center gap-3">
                 <span class="text-2xl">🦷</span>
                 <span class="text-xl font-bold tracking-tight">Implant</span>
             </div>
+
+            <!-- Navigation links -->
             <nav class="space-y-2">
-                <a href="/admin/data-management" class="flex items-center gap-3 py-3 px-4 bg-[#2563eb] font-bold rounded-xl text-sm">💾 Implant Data</a>
-                <a href="/admin/profile" class="flex items-center gap-3 py-3 px-4 text-slate-400 hover:bg-slate-800 rounded-xl text-sm font-semibold transition">👤 Profile</a>
-                <a href="/admin/logout" class="flex items-center gap-3 py-3 px-4 text-slate-400 hover:bg-slate-800 hover:text-red-400 rounded-xl text-sm font-semibold transition">🚪 Logout</a>
+                <a href="/admin/data-management"
+                   class="flex items-center gap-3 py-3 px-4 bg-[#2563eb] font-bold rounded-xl text-sm">
+                    💾 Implant Data
+                </a>
+
+                <a href="/admin/profile"
+                   class="flex items-center gap-3 py-3 px-4 text-slate-400 hover:bg-slate-800 rounded-xl text-sm font-semibold transition">
+                    👤 Profile
+                </a>
+
+                <a href="/admin/logout"
+                   class="flex items-center gap-3 py-3 px-4 text-slate-400 hover:bg-slate-800 hover:text-red-400 rounded-xl text-sm font-semibold transition">
+                    🚪 Logout
+                </a>
             </nav>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="flex-1 p-8">
+
+        <!-- Page title and admin information -->
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-black text-slate-800">Implant Data Management</h1>
+            <h1 class="text-2xl font-black text-slate-800">
+                Implant Data Management
+            </h1>
+
             <div class="flex items-center gap-4">
-                <a href="/" class="px-4 py-2 bg-white text-slate-700 rounded-xl font-bold text-xs shadow-sm border border-slate-200"> View as user</a>
+
+                <!-- Link to the public home page -->
+                <a href="/"
+                   class="px-4 py-2 bg-white text-slate-700 rounded-xl font-bold text-xs shadow-sm border border-slate-200">
+                    View as user
+                </a>
+
+                <!-- Admin profile indicator -->
                 <div class="flex items-center gap-3 bg-white p-2 rounded-xl shadow-sm border border-slate-200">
-                    <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600">A</div>
+                    <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600">
+                        A
+                    </div>
                     <span class="text-xs font-bold text-slate-800">Admin</span>
                 </div>
             </div>
         </div>
 
+        <!-- Tabs, search bar, and Add button -->
         <div class="flex justify-between items-center mb-6">
+
+            <!-- Page tabs -->
             <div class="flex gap-6 border-b border-slate-200 font-bold text-sm">
-                <span class="pb-2 border-b-2 border-blue-600 text-blue-600">Models</span>
-                <span class="pb-2 text-slate-400">Brands</span>
+                <span class="pb-2 border-b-2 border-blue-600 text-blue-600">
+                    Models
+                </span>
+                <span class="pb-2 text-slate-400">
+                    Brands
+                </span>
             </div>
+
             <div class="flex gap-4">
-                <input type="text" placeholder="Search models..." class="px-4 py-2 bg-white rounded-xl text-sm border-none shadow-sm outline-none">
-                <a href="/admin/add-model" class="px-5 py-2 bg-[#2563eb] hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition shadow-sm">+ Add</a>
+
+                <!-- Search bar:
+                     Calls filterModels() whenever the input changes. -->
+                <input type="text"
+                       id="searchInput"
+                       oninput="filterModels()"
+                       placeholder="Search models..."
+                       class="px-4 py-2 bg-white rounded-xl text-sm border-none shadow-sm outline-none">
+
+                <!-- Navigate to the Add Model page -->
+                <a href="/admin/add-model"
+                   class="px-5 py-2 bg-[#2563eb] hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition shadow-sm">
+                    + Add
+                </a>
             </div>
         </div>
 
+        <!-- Table displaying implant model data -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
             <table class="w-full text-left border-collapse">
+
+                <!-- Table headings -->
                 <thead class="bg-slate-50 border-b border-slate-200 text-slate-400 text-xs uppercase font-extrabold">
                     <tr>
                         <th class="p-4">Image</th>
@@ -60,41 +120,101 @@
                         <th class="p-4 text-right">Actions</th>
                     </tr>
                 </thead>
+
                 <tbody class="divide-y divide-slate-100 text-sm font-semibold text-slate-700">
-                    <tr th:each="m : ${models}">
+
+                    <!-- Thymeleaf generates one row for each model.
+                         The model-row class allows JavaScript to find each row. -->
+                    <tr th:each="m : ${models}" class="model-row">
+
+                        <!-- Model image -->
                         <td class="p-4">
                             <div class="w-12 h-12 bg-black rounded-lg p-1 flex items-center justify-center">
-                                <img th:src="${m.imageUrl}" class="max-h-10 object-contain" alt="Thumbnail">
+                                <img th:src="${m.imageUrl}"
+                                     class="max-h-10 object-contain"
+                                     alt="Thumbnail">
                             </div>
                         </td>
-                        <td class="p-4 font-bold text-slate-900" th:text="${m.brand.brandName}"></td>
-                        <td class="p-4" th:text="${m.modelName}"></td>
-                        <td class="p-4 text-slate-500" th:text="${m.material}"></td>
-                        <td class="p-4 text-xs font-mono text-slate-600" th:text="${m.sizes}"></td>
+
+                        <!-- Brand name -->
+                        <td class="p-4 font-bold text-slate-900"
+                            th:text="${m.brand.brandName}">
+                        </td>
+
+                        <!-- Model name -->
+                        <td class="p-4"
+                            th:text="${m.modelName}">
+                        </td>
+
+                        <!-- Material -->
+                        <td class="p-4 text-slate-500"
+                            th:text="${m.material}">
+                        </td>
+
+                        <!-- Available sizes -->
+                        <td class="p-4 text-xs font-mono text-slate-600"
+                            th:text="${m.sizes}">
+                        </td>
+
+                        <!-- Actions: Edit, toggle status, and Delete -->
                         <td class="p-4 text-right">
                             <div class="flex items-center justify-end gap-3">
 
-                                <!-- ปุ่ม Edit (ดินสอ) เพิ่มใหม่ -->
+                                <!-- Edit button: opens the selected model's edit page -->
                                 <a th:href="@{'/admin/edit-model/' + ${m.modelId}}"
                                    title="Edit"
                                    class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
+
+                                    <!-- Pencil SVG icon -->
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                         class="w-5 h-5"
+                                         fill="none"
+                                         viewBox="0 0 24 24"
+                                         stroke="currentColor"
+                                         stroke-width="2">
+                                        <path stroke-linecap="round"
+                                              stroke-linejoin="round"
                                               d="M15.232 5.232l3.536 3.536M9 13l6.768-6.768a2.5 2.5 0 113.536 3.536L12.536 16.536 8 18l1-5z" />
                                     </svg>
                                 </a>
 
-                                <!-- ปุ่ม toggle เดิม -->
-                                <form th:action="@{'/admin/toggle-status/' + ${m.modelId}}" method="post">
-                                    <button type="submit" th:class="${m.status == 'Visible' ? 'w-10 h-6 bg-yellow-400 rounded-full p-1 flex items-center justify-end' : 'w-10 h-6 bg-slate-300 rounded-full p-1 flex items-center justify-start'}">
+                                <!-- Toggle button: submits a request to change model status -->
+                                <form th:action="@{'/admin/toggle-status/' + ${m.modelId}}"
+                                      method="post">
+
+                                    <!-- Button color and position depend on the current status -->
+                                    <button type="submit"
+                                            th:class="${m.status == 'Visible' ? 'w-10 h-6 bg-yellow-400 rounded-full p-1 flex items-center justify-end' : 'w-10 h-6 bg-slate-300 rounded-full p-1 flex items-center justify-start'}">
                                         <div class="w-4 h-4 bg-white rounded-full shadow-sm"></div>
                                     </button>
                                 </form>
 
-                                <!-- ปุ่มถังขยะเดิม -->
-                                <form th:action="@{'/admin/delete/' + ${m.modelId}}" method="post">
-                                    <button type="submit" onclick="return confirm('Delete model?')" class="text-red-500 font-bold hover:text-red-700 text-lg">🗑</button>
+                                <!-- Delete button: asks for confirmation before deleting -->
+                                <form th:action="@{'/admin/delete/' + ${m.modelId}}"
+                                      method="post">
+
+                                    <button type="submit"
+                                            onclick="return confirm('Delete model?')"
+                                            title="Delete model"
+                                            aria-label="Delete model"
+                                            class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition">
+
+                                        <!-- Professional outline trash-can SVG icon -->
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             class="w-5 h-5"
+                                             fill="none"
+                                             viewBox="0 0 24 24"
+                                             stroke="currentColor"
+                                             stroke-width="1.8">
+
+                                            <path stroke-linecap="round"
+                                                  stroke-linejoin="round"
+                                                  d="M6 7h12M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5" />
+                                        </svg>
+
+                                    </button>
                                 </form>
+
                             </div>
                         </td>
                     </tr>
@@ -102,5 +222,32 @@
             </table>
         </div>
     </div>
+
+
+
+<script>
+    function filterModels() {
+        const query = document.getElementById('searchInput')
+            .value.toLowerCase().trim();
+
+        document.querySelectorAll('.model-row').forEach(row => {
+            // Read only the brand and model names.
+            const brandName = row.cells[1].textContent
+                .toLowerCase().trim();
+
+            const modelName = row.cells[2].textContent
+                .toLowerCase().trim();
+
+            // Match only if the brand OR model starts with the query.
+            const matches =
+                brandName.startsWith(query) ||
+                modelName.startsWith(query);
+
+            row.style.display = matches ? '' : 'none';
+        });
+    }
+</script>
+
+
 </body>
 </html>
