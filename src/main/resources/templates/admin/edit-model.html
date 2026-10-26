@@ -8,8 +8,9 @@
     <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
 </head>
 <body class="bg-[#f0f4f9] flex min-h-screen">
+
     <!-- Sidebar -->
-    <div class="w-64 bg-[#0a192f] text-white p-6 flex flex-col justify-between">
+    <div class="w-64 bg-[#0a192f] text-white p-6">
         <div class="space-y-8">
             <div class="flex items-center gap-3">
                 <span class="text-2xl">🦷</span>
@@ -18,36 +19,36 @@
             <nav class="space-y-2">
                 <a href="/admin/data-management" class="flex items-center gap-3 py-3 px-4 bg-[#2563eb] font-bold rounded-xl text-sm">💾 Implant Data</a>
                 <a href="/admin/profile" class="flex items-center gap-3 py-3 px-4 text-slate-400 hover:bg-slate-800 rounded-xl text-sm font-semibold transition">👤 Profile</a>
+                <a href="/admin/logout" class="flex items-center gap-3 py-3 px-4 text-slate-400 hover:bg-slate-800 hover:text-red-400 rounded-xl text-sm font-semibold transition">🚪 Logout</a>
             </nav>
         </div>
-        <a href="/admin/logout" class="flex items-center gap-3 py-3 px-4 text-slate-400 hover:text-red-400 text-sm font-bold transition">🚪 Logout</a>
     </div>
 
     <!-- Main Content -->
-    <form th:action="@{'/admin/edit-model/' + ${implant.modelId}}" th:object="${implant}" method="post"
+    <form id="editForm" th:action="@{'/admin/edit-model/' + ${implant.modelId}}" th:object="${implant}" method="post"
           class="flex-1 p-8 flex flex-col">
 
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
-           <div class="flex items-center gap-4">
-    <a href="/admin/data-management" title="Back"
-       class="w-11 h-11 bg-white rounded-xl shadow-sm flex items-center justify-center text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6" />
-        </svg>
-    </a>
-    <h1 class="text-2xl font-black text-slate-800">Edit Model</h1>
-</div>
+            <div class="flex items-center gap-4">
+                <a href="/admin/data-management" title="Back"
+                   class="w-11 h-11 bg-white rounded-xl shadow-sm flex items-center justify-center text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6" />
+                    </svg>
+                </a>
+                <h1 class="text-2xl font-black text-slate-800">Edit Model</h1>
+            </div>
             <div class="flex items-center gap-3">
                 <a href="/admin/data-management" class="px-5 py-2.5 bg-white hover:bg-slate-50 text-slate-700 font-bold rounded-xl text-sm border border-slate-200 shadow-sm transition">Cancel</a>
                 <button type="submit" class="px-6 py-2.5 bg-[#2563eb] hover:bg-blue-700 text-white font-bold rounded-xl text-sm shadow-sm transition">Save changes</button>
             </div>
         </div>
 
-        <!-- Body: 2 ฝั่ง -->
+        <!-- Body: left image / right details -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1">
 
-            <!-- ซ้าย: รูป -->
+            <!-- Left: image -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
                 <h2 class="text-xs font-extrabold uppercase text-slate-400 mb-4">Image</h2>
                 <div class="flex-1 min-h-[320px] bg-black rounded-xl p-6 flex items-center justify-center">
@@ -56,10 +57,10 @@
                 <label class="block text-xs font-extrabold uppercase text-slate-400 mt-5 mb-2">Image URL</label>
                 <input type="text" th:field="*{imageUrl}" id="imageUrl" placeholder="https://..."
                        class="w-full px-4 py-3 bg-slate-50 rounded-xl text-sm border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500">
-                <p class="text-xs text-slate-400 mt-2">พิมพ์ลิงก์ใหม่แล้วรูปด้านบนจะเปลี่ยนตาม</p>
+                <p class="text-xs text-slate-400 mt-2">Paste a new link to update the preview</p>
             </div>
 
-            <!-- ขวา: ข้อมูล -->
+            <!-- Right: details -->
             <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
                 <h2 class="text-xs font-extrabold uppercase text-slate-400 mb-6">Model details</h2>
 
@@ -83,24 +84,50 @@
                     </div>
 
                     <!-- Material -->
-                    <div>
+                    <div class="md:col-span-2">
                         <label class="block text-xs font-extrabold uppercase text-slate-400 mb-2">Material</label>
                         <input type="text" th:field="*{material}"
                                class="w-full px-4 py-3 bg-slate-50 rounded-xl text-sm font-semibold border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
-
-                    <!-- Size -->
-                    <div>
-                        <label class="block text-xs font-extrabold uppercase text-slate-400 mb-2">Size</label>
-                        <input type="text" th:field="*{sizes}" placeholder="Ø 3.5 x 11.5 mm"
-                               class="w-full px-4 py-3 bg-slate-50 rounded-xl text-sm font-mono border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
                 </div>
 
-                <!-- สรุปข้อมูลปัจจุบัน -->
+                <!-- ===== Sizes builder ===== -->
+                <div class="mt-8 pt-6 border-t border-slate-100">
+                    <h2 class="text-sm font-extrabold text-slate-800 mb-4">Sizes</h2>
+
+                    <!-- Hidden field that is actually sent to the server -->
+                    <input type="hidden" th:field="*{sizes}" id="sizes">
+
+                    <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-2">Diameter (mm)</label>
+                            <input type="number" step="0.01" min="0" id="diameterInput" placeholder="e.g. 4.3"
+                                   class="w-full px-4 py-3 bg-slate-50 rounded-xl text-sm border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-2">Lengths (mm, separate with commas)</label>
+                            <input type="text" id="lengthsInput" placeholder="e.g. 8.5, 10, 11.5"
+                                   class="w-full px-4 py-3 bg-slate-50 rounded-xl text-sm border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <button type="button" id="addSizeBtn"
+                                class="px-5 py-3 bg-[#2563eb] hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition shadow-sm">
+                            + Add
+                        </button>
+                    </div>
+                    <p id="sizeError" class="hidden text-xs text-red-500 font-semibold mt-2">Please enter a diameter and at least one length.</p>
+
+                    <!-- Chips -->
+                    <div class="flex items-center justify-between mt-4 mb-2">
+                        <p id="chipCount" class="text-xs text-slate-400 font-semibold"></p>
+                        <button type="button" id="clearAllBtn" class="hidden text-xs text-slate-400 hover:text-red-500 font-bold transition">Clear all</button>
+                    </div>
+                    <div id="sizeChips" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- Current record -->
                 <div class="mt-8 pt-6 border-t border-slate-100">
                     <h2 class="text-xs font-extrabold uppercase text-slate-400 mb-4">Current record</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-start">
                         <div class="bg-slate-50 rounded-xl p-4">
                             <p class="text-xs text-slate-400 font-bold mb-1">ID</p>
                             <p class="text-sm font-bold text-slate-800" th:text="${implant.modelId}"></p>
@@ -117,7 +144,7 @@
                         </div>
                         <div class="bg-slate-50 rounded-xl p-4">
                             <p class="text-xs text-slate-400 font-bold mb-1">Size</p>
-                            <p class="text-sm font-mono text-slate-800" th:text="${implant.sizes}"></p>
+                            <div id="sizeSummary" class="text-sm"></div>
                         </div>
                     </div>
                 </div>
@@ -126,10 +153,136 @@
     </form>
 
     <script>
-        // พรีวิวรูปทันทีเมื่อพิมพ์ลิงก์ใหม่
+        // ===== Image preview =====
         document.getElementById('imageUrl').addEventListener('input', function () {
             document.getElementById('preview').src = this.value;
         });
+
+        // ===== Helpers =====
+        // 3 -> "3.0", 3.75 -> "3.75"
+        function fmt(n) { return Number.isInteger(n) ? n.toFixed(1) : String(n); }
+
+        // Read "Ø 3.6 x 11 mm, ..." into a list of {d, l}
+        function parseList(raw) {
+            const list = [];
+            const re = /([\d.]+)\s*[x×]\s*([\d.]+)/gi;
+            let m;
+            while ((m = re.exec(raw || '')) !== null) {
+                const d = parseFloat(m[1]), l = parseFloat(m[2]);
+                if (!list.some(s => s.d === d && s.l === l)) list.push({ d, l });
+            }
+            return list;
+        }
+
+        // ===== State =====
+        const hiddenSizes = document.getElementById('sizes');
+        const diameterIn  = document.getElementById('diameterInput');
+        const lengthsIn   = document.getElementById('lengthsInput');
+        const errorEl     = document.getElementById('sizeError');
+        let sizeList = parseList(hiddenSizes.value);
+
+        // Save list back to the hidden field and redraw
+        function sync() {
+            sizeList.sort((a, b) => a.d - b.d || a.l - b.l);
+            hiddenSizes.value = sizeList.map(s => `Ø ${s.d} x ${s.l} mm`).join(', ');
+            renderChips();
+            renderSummary();
+        }
+
+        // ===== Add sizes =====
+        function addSizes() {
+            const d = parseFloat(diameterIn.value);
+            const lengths = lengthsIn.value.split(/[,\s]+/)
+                .map(v => parseFloat(v))
+                .filter(v => !isNaN(v) && v > 0);
+
+            if (isNaN(d) || d <= 0 || lengths.length === 0) {
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            errorEl.classList.add('hidden');
+
+            lengths.forEach(l => {
+                if (!sizeList.some(s => s.d === d && s.l === l)) sizeList.push({ d, l });
+            });
+
+            lengthsIn.value = '';
+            lengthsIn.focus();   // keep the diameter so you can add more lengths quickly
+            sync();
+        }
+
+        document.getElementById('addSizeBtn').addEventListener('click', addSizes);
+
+        // Enter = add (instead of submitting the form)
+        [diameterIn, lengthsIn].forEach(el => {
+            el.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') { e.preventDefault(); addSizes(); }
+            });
+        });
+
+        // Clear all
+        document.getElementById('clearAllBtn').addEventListener('click', function () {
+            if (confirm('Remove all sizes?')) { sizeList = []; sync(); }
+        });
+
+        // ===== Chips =====
+        function renderChips() {
+            const box = document.getElementById('sizeChips');
+            const countEl = document.getElementById('chipCount');
+            const clearBtn = document.getElementById('clearAllBtn');
+
+            if (sizeList.length === 0) {
+                box.innerHTML = '<p class="text-xs text-slate-400">No sizes yet. Add a diameter and lengths above.</p>';
+                countEl.textContent = '';
+                clearBtn.classList.add('hidden');
+                return;
+            }
+
+            countEl.textContent = `${sizeList.length} sizes`;
+            clearBtn.classList.remove('hidden');
+
+            box.innerHTML = sizeList.map((s, i) => `
+                <span class="inline-flex items-center gap-1.5 pl-3 pr-2 py-1.5 bg-blue-50 border border-blue-100 text-blue-600 rounded-full text-xs font-bold">
+                    Ø ${s.d} × ${s.l}
+                    <button type="button" data-index="${i}" title="Remove"
+                            class="remove-chip w-4 h-4 flex items-center justify-center rounded-full hover:bg-blue-100 hover:text-red-500 transition">×</button>
+                </span>
+            `).join('');
+
+            box.querySelectorAll('.remove-chip').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    sizeList.splice(Number(this.dataset.index), 1);
+                    sync();
+                });
+            });
+        }
+
+        // ===== Summary card =====
+        function renderSummary() {
+            const summary = document.getElementById('sizeSummary');
+
+            if (sizeList.length === 0) {
+                summary.innerHTML = '<span class="text-slate-400">-</span>';
+                return;
+            }
+
+            const diameters = [...new Set(sizeList.map(s => s.d))].sort((a, b) => a - b);
+            const lengths   = [...new Set(sizeList.map(s => s.l))].sort((a, b) => a - b);
+
+            const dMin = diameters[0], dMax = diameters[diameters.length - 1];
+            const lMin = lengths[0],   lMax = lengths[lengths.length - 1];
+            const dText = dMin === dMax ? `Ø ${fmt(dMin)} mm` : `Ø ${fmt(dMin)} – ${fmt(dMax)} mm`;
+            const lText = lMin === lMax ? `L ${lMin} mm` : `L ${lMin} – ${lMax} mm`;
+
+            summary.innerHTML = `
+                <p class="font-extrabold text-slate-800">${dText}</p>
+                <p class="text-xs text-slate-500 font-semibold mt-0.5">${lText}</p>
+                <span class="inline-block mt-2 px-2 py-0.5 bg-white text-slate-600 rounded-md text-xs font-bold">${sizeList.length} sizes</span>
+            `;
+        }
+
+        // ===== First render =====
+        sync();
     </script>
 </body>
 </html>
