@@ -131,9 +131,7 @@
             let shown = 0;
 
             document.querySelectorAll('.brand-card').forEach(card => {
-                const brandName = card.querySelector('.brand-name')
-                    .textContent.toLowerCase();
-
+                const brandName = card.querySelector('.brand-name').textContent.toLowerCase();
                 const matches = brandName.includes(query);
 
                 card.style.display = matches ? 'block' : 'none';
