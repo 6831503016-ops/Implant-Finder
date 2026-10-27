@@ -4,6 +4,7 @@
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
 }
 
 
@@ -24,14 +25,13 @@ body {
    Hero Banner
 ======================================== */
 
-.hero-banner {
+.banner {
     width: 100%;
     min-height: 390px;
     margin: 0;
     padding: 48px 24px;
     box-sizing: border-box;
 
-    /* Background Image: เฉพาะส่วนบน */
     background-image:
         linear-gradient(
             rgba(5, 18, 35, 0.5),
@@ -54,31 +54,22 @@ body {
    Hero Content
 ======================================== */
 
-.hero-content {
+.content {
     width: min(100%, 900px);
 }
 
-
-/* Hero Heading */
-
-.hero-banner h1 {
+.banner h1 {
     color: white;
     font-size: clamp(2rem, 4vw, 3.5rem);
     line-height: 1.12;
     margin: 0 0 14px;
 }
 
-
-/* Highlighted Text */
-
-.hero-banner h1 span {
+.banner h1 span {
     color: #93c5fd;
 }
 
-
-/* Hero Description */
-
-.hero-banner p {
+.banner p {
     color: white;
     margin: 0;
     font-size: clamp(1rem, 1.8vw, 1.35rem);
@@ -86,22 +77,19 @@ body {
 
 
 /* ========================================
-   Hero Search
+   Search Bar
 ======================================== */
 
-.hero-search {
+.search {
     position: relative;
     width: min(100%, 700px);
     margin: 30px auto 0;
 }
 
-
-/* Search Input */
-
-.hero-search input {
+.search input {
     width: 100%;
     height: 56px;
-    padding: 0 22px 0 52px;
+    padding: 0 22px 0 56px;
     box-sizing: border-box;
 
     border: 1px solid rgba(255, 255, 255, 0.65);
@@ -112,7 +100,6 @@ body {
 
     font: inherit;
     font-size: 15px;
-
     outline: none;
 
     backdrop-filter: blur(8px);
@@ -121,46 +108,71 @@ body {
     transition: background 0.2s ease, border-color 0.2s ease;
 }
 
-
-/* Placeholder */
-
-.hero-search input::placeholder {
+.search input::placeholder {
     color: rgba(255, 255, 255, 0.82);
 }
 
-
-/* Input Focus */
-
-.hero-search input:focus {
+.search input:focus {
     background: rgba(255, 255, 255, 0.24);
     border-color: rgba(255, 255, 255, 0.95);
 }
 
 
-/* Search Icon */
-
-.hero-search-icon {
+.search-icon {
     position: absolute;
     top: 50%;
-    left: 20px;
-
+    right: 20px;
     transform: translateY(-50%);
 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 24px;
+    height: 24px;
+
     color: rgba(255, 255, 255, 0.9);
-    pointer-events: none;
+    transition: color 0.3s ease;
+
+    cursor: pointer;
+    z-index: 2;
 }
 
+.search-icon svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+
+    transition: transform 0.3s ease;
+}
+
+.search-icon:hover svg {
+    animation: search-wiggle 0.8s ease-in-out;
+}
+
+@keyframes search-wiggle {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-15deg);
+    }
+    50% {
+        transform: rotate(15deg);
+    }
+    75% {
+        transform: rotate(-10deg);
+    }
+}
 
 /* ========================================
    Brands Section
 ======================================== */
 
-.brands-heading {
+.brands {
     margin-top: 36px;
 }
-
-
-/* Brand Logo Fallback */
 
 .logo-fallback-hidden {
     display: none;
@@ -168,49 +180,30 @@ body {
 
 
 /* ========================================
-   Responsive Design
-======================================== */
-
-@media (max-width: 640px) {
-
-    .page-content {
-        padding: 0 16px 32px;
-    }
-
-    .hero-banner {
-        min-height: 350px;
-        padding: 36px 18px;
-    }
-
-    .hero-search {
-        margin-top: 24px;
-    }
-
-    .hero-search input {
-        height: 52px;
-    }
-
-}
-/* ========================================
    Admin Login Button
 ======================================== */
 
-.admin-login-btn {
-    background-color: #fffd9b;
+.admin-login-bottom {
+    background-color: white;
     color: rgb(58, 88, 126);
+
     padding: 10px 24px;
     border-radius: 9999px;
+
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
+
     transition: background-color 0.2s ease;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.admin-login-btn:hover {
+.admin-login-bottom:hover {
     background-color: rgb(58, 88, 126);
-    color: #fffd9b;
+    color: white;
 }
+
+
 /* ========================================
    Logo Icon
 ======================================== */
@@ -218,46 +211,333 @@ body {
 .logo-icon {
     width: 32px;
     height: 32px;
+
     background-color: #fffd9b;
     border-radius: 8px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     color: rgb(58, 88, 126);
     font-size: 18px;
 }
+
+
 /* ========================================
    Navigation Bar
 ======================================== */
 
 .navbar {
-    background-color: rgb(108, 143, 188);
+    background-color: #80B0EC;
     padding: 16px 32px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.navbar-brand-name {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+
+/* ========================================
+   Contact Button
+======================================== */
+
+.contact-bottom {
+    width: 40px;
+    height: 40px;
+
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+}
+
+.contact-bottom:hover {
+    background-color :rgb(58, 88, 126);
 }
 
 
 /* ========================================
-   Contact Button (Headphone Emoji)
+   Brand Cards
 ======================================== */
 
-.contact-btn {
-    width: 40px;
-    height: 40px;
-    background-color: #fffd9b;
-    border: none;
-    border-radius: 50%;
+.brand-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.brand-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+
+    background: white;
+    text-decoration: none;
+    color: #334155;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.brand-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+}
+
+.brand-logo-container {
+    width: 100%;
+    height: 100px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+
+    margin-bottom: 12px;
 }
 
-.contact-btn:hover {
-    background-color: #e2e8f0;
+.brand-logo {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.brand-logo-fallback {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.brand-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.no-brand-message {
+    text-align: center;
+    margin-top: 24px;
+    color: #64748b;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ========================================
+   Contact Popup
+======================================== */
+
+.contact-popup {
+    position: fixed;
+    z-index: 1000;
+
+    width: min(320px, calc(100vw - 32px));
+    padding: 20px;
+    box-sizing: border-box;
+
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.18);
+}
+
+.contact-popup-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.contact-popup-icon {
+    font-size: 28px;
+}
+
+.contact-popup-title {
+    margin: 0 0 4px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.contact-popup-subtitle {
+    margin: 0;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.admin-email-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.admin-email {
+    overflow-wrap: anywhere;
+    font-size: 14px;
+    color: #334155;
+}
+
+.copy-btn {
+    padding: 7px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #e2e8f0;
+    cursor: pointer;
+}
+
+.send-email-btn {
+    display: block;
+    padding: 10px;
+    border-radius: 10px;
+
+    background: rgb(58, 88, 126);
+    color: white;
+
+    text-align: center;
+    text-decoration: none;
+}
+
+.contact-arrow {
+    position: absolute;
+    top: -7px;
+
+    width: 14px;
+    height: 14px;
+
+    background: white;
+    transform: rotate(45deg);
+}
+
+
+/* ========================================
+   Back to Admin
+======================================== */
+
+.back-to-admin {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    z-index: 1000;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 18px;
+    border-radius: 999px;
+
+    background: white;
+    color: rgb(58, 88, 126);
+    text-decoration: none;
+
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
+
+    opacity: 0;
+    transform: translateY(10px);
+
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.back-to-admin.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.back-to-admin-icon {
+    display: inline-flex;
+    align-items: center;
+}
+
+.back-arrow-icon {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* ========================================
+   Responsive Design
+======================================== */
+
+@media (max-width: 768px) {
+    .brand-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .navbar {
+        padding: 14px 16px;
+    }
+
+    .navbar-brand-name {
+        font-size: 17px;
+    }
+
+    .admin-login-bottom {
+        padding: 9px 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-content {
+        padding: 0 16px 32px;
+    }
+
+    .banner {
+        min-height: 350px;
+        padding: 36px 18px;
+    }
+
+    .search {
+        margin-top: 24px;
+    }
+
+    .search input {
+        height: 52px;
+    }
+}
+
+@media (max-width: 420px) {
+    .brand-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar-brand-name {
+        font-size: 15px;
+    }
 }

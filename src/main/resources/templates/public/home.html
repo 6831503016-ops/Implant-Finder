@@ -4,171 +4,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Implant - Find Your Brand</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <!-- External CSS -->
+    <title>Find Your Implant</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<body class="bg-[#f4f7fc] min-h-screen text-slate-800">
-
+<body>
     <!-- Navigation -->
     <nav class="navbar">
-
-        <!-- Logo -->
-        <a href="/" class="flex items-center gap-3">
-            <span class="text-3xl leading-none">🦷</span>
-            <span class="text-2xl font-extrabold text-[#0b2545] tracking-tight">Implant</span>
+        <a href="/" class="navbar-brand">
+            <span class="navbar-brand-icon">🦷</span>
+            <span class="navbar-brand-name">Implant-Finder</span>
         </a>
 
-        <div class="flex items-center gap-4">
+        <div class="navbar-actions">
+            <a href="/admin/login" class="admin-login-bottom">Admin Login</a>
 
-            <a href="/admin/login" class="admin-login-btn">
-                Admin Login
-            </a>
-
-            <!-- Contact admin button (the popup itself is at the bottom of the page) -->
-            <button type="button" id="contactBtn" onclick="toggleContact()"
-                    aria-label="Contact admin" aria-expanded="false" aria-controls="contactPop"
-                    class="w-11 h-11 shrink-0 rounded-full bg-[#fef9a7] hover:brightness-95 shadow-sm flex items-center justify-center text-xl transition">🎧</button>
-
+            <button type="button" id="contactBtn" class="contact-bottom"
+                    onclick="toggleContact()" aria-label="Contact admin"
+                    aria-expanded="false" aria-controls="contactPop">🎧</button>
         </div>
     </nav>
 
+    <!-- Hero Banner -->
+    <section class="banner">
+        <div class="content">
+            <h1>Find Your <span>Implant Brand</span></h1>
+            <p>Explore your implant in Thailand</p>
 
-    <!-- Hero Banner: Background Image -->
-    <section class="hero-banner">
+           <div class="search">
+                <input
+                type="text"
+                id="searchInput"
+                oninput="filterBrands()"
+                placeholder="Search for a brand..."
+                aria-label="Search for a brand">
 
-        <div class="hero-content">
-
-            <h1 class="font-extrabold">
-                Find Your <span>Implant Brand</span>
-            </h1>
-
-            <p>
-                Explore leading dental implant brands worldwide
-            </p>
-
-            <!-- Search -->
-            <div class="hero-search">
-
-                <span class="hero-search-icon">🔍</span>
-
-                <input type="text"
-                       id="searchInput"
-                       oninput="filterBrands()"
-                       placeholder="Search for a brand..."
-                       aria-label="Search for a brand">
-
-            </div>
-
+            <span class="search-icon">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.34-4.34" />
+        </svg>
+    </span>
+</div>
         </div>
-
     </section>
-
 
     <!-- Brand Section -->
     <main class="page-content">
+        <h2 class="brands">Brands</h2>
 
-        <h2 class="brands-heading text-2xl font-bold text-[#0b2545] mb-6">
-            Brands
-        </h2>
-
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-5"
-             id="brandGrid">
-
+        <div class="brand-grid" id="brandGrid">
             <a th:each="b : ${brands}"
                th:href="@{'/brand/' + ${b.brandId}}"
-               class="brand-card bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:-translate-y-0.5 transition text-center block">
+               class="brand-card">
 
-                <div class="h-16 flex items-center justify-center mb-3">
-
+                <div class="brand-logo-container">
                     <img th:if="${b.logoUrl != null and !#strings.isEmpty(b.logoUrl)}"
                          th:src="${b.logoUrl}"
                          th:alt="${b.brandName}"
-                         class="max-h-14 max-w-full object-contain"
+                         class="brand-logo"
                          onerror="this.style.display='none'; this.nextElementSibling.classList.remove('logo-fallback-hidden')">
 
-                    <span class="brand-logo-fallback text-xl font-black text-blue-900"
+                    <span class="brand-logo-fallback"
                           th:classappend="${b.logoUrl != null and !#strings.isEmpty(b.logoUrl)} ? ' logo-fallback-hidden' : ''"
-                          th:text="${b.brandName}">
-                    </span>
-
+                          th:text="${b.brandName}"></span>
                 </div>
 
-                <p class="brand-name text-sm font-semibold text-slate-500"
-                   th:text="${b.brandName}">
-                </p>
-
+                <p class="brand-name" th:text="${b.brandName}"></p>
             </a>
-
         </div>
 
-        <p id="noBrand" class="hidden text-center text-slate-400 mt-8">
-            No brands found.
-        </p>
-
+        <p id="noBrand" class="no-brand-message hidden">No brands found.</p>
     </main>
 
+    <!-- Contact Admin popup -->
+    <div id="contactPop" class="contact-popup hidden" role="dialog" aria-label="Contact admin">
+        <div id="contactArrow" class="contact-arrow"></div>
 
-    <!-- ===== Contact Admin popup (outside the navbar so it always lines up) ===== -->
-    <div id="contactPop" role="dialog" aria-label="Contact admin"
-         class="hidden fixed w-72 bg-white rounded-2xl shadow-xl border border-slate-100 p-5 z-50 text-left">
-
-        <!-- Arrow: small, rounded tip (position set by JavaScript) -->
-        <div id="contactArrow"
-             class="absolute -top-[7px] w-3.5 h-3.5 bg-white border-l border-t border-slate-100 rounded-tl-[3px] rotate-45"></div>
-
-        <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-lg">🎧</div>
+        <div class="contact-popup-heading">
+            <div class="contact-popup-icon">🎧</div>
             <div>
-                <p class="text-sm font-extrabold text-slate-900">Contact Admin</p>
-                <p class="text-xs text-slate-400 font-medium">We usually reply within 1–2 days</p>
+                <p class="contact-popup-title">Contact Admin</p>
+                <p class="contact-popup-subtitle">We usually reply within 1–2 days</p>
             </div>
         </div>
 
-        <div class="flex items-center justify-between gap-2 bg-slate-50 rounded-xl px-3 py-2.5 mb-3">
-            <span id="adminEmail" class="text-sm font-bold text-slate-700 truncate">admin@implant.com</span>
-            <button type="button" onclick="copyEmail()" id="copyBtn"
-                    class="shrink-0 text-xs font-bold text-blue-600 hover:text-blue-800 transition">Copy</button>
+        <div class="admin-email-row">
+            <span id="adminEmail" class="admin-email">admin@implant.com</span>
+            <button type="button" onclick="copyEmail()" id="copyBtn" class="copy-btn">Copy</button>
         </div>
 
-        <a href="mailto:admin@implant.com"
-           class="block w-full text-center py-2.5 bg-[#2563eb] hover:bg-blue-700 text-white text-sm font-bold rounded-xl transition">
-            Send email
-        </a>
+        <a href="mailto:admin@implant.com" class="send-email-btn">Send email</a>
     </div>
 
-
-    <!-- ===== Back to Admin (shows only when admin clicked "View as user") ===== -->
+    <!-- Back to Admin -->
     <a id="backToAdmin" href="/admin/data-management"
        onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}"
-       class="hidden fixed bottom-6 right-6 z-50 items-center gap-2 pl-3 pr-5 py-3 bg-[#0a192f] text-white rounded-2xl shadow-lg hover:bg-[#13294b] transition text-sm font-bold">
-        <span class="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6" />
+       class="back-to-admin hidden">
+        <span class="back-to-admin-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="back-arrow-icon" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M19 12H5m0 0l6-6m-6 6l6 6" />
             </svg>
         </span>
         Back to Admin
     </a>
 
-
-    <!-- ===== JavaScript ===== -->
-
-    <!-- Brand search -->
+    <!-- JavaScript: Brand search -->
     <script>
         function filterBrands() {
-            const query = document.getElementById('searchInput')
-                .value.toLowerCase().trim();
-
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
             let shown = 0;
 
             document.querySelectorAll('.brand-card').forEach(card => {
@@ -182,54 +137,49 @@
                 }
             });
 
-            document.getElementById('noBrand')
-                .classList.toggle('hidden', shown > 0);
+            document.getElementById('noBrand').classList.toggle('hidden', shown > 0);
         }
     </script>
 
-    <!-- Back to Admin -->
+    <!-- JavaScript: Back to Admin -->
     <script>
         try {
             if (sessionStorage.getItem('adminPreview') === '1') {
                 const btn = document.getElementById('backToAdmin');
                 btn.classList.remove('hidden');
-                btn.classList.add('flex');
+                btn.classList.add('is-visible');
             }
         } catch (e) {}
     </script>
 
-    <!-- Contact Admin popup -->
+    <!-- JavaScript: Contact Admin popup -->
     <script>
-        const ARROW_HALF   = 7;   // half of the 14px arrow
-        const OVERHANG     = 36;  // box sticks out past the button's right edge
-        const CORNER_SAFE  = 24;  // keep the arrow this far from the box's rounded corners
+        const ARROW_HALF = 7;
+        const OVERHANG = 36;
+        const CORNER_SAFE = 24;
 
-        // Place the popup under the headphone button and point the arrow at its center
         function positionContact() {
-            const btn   = document.getElementById('contactBtn');
-            const pop   = document.getElementById('contactPop');
+            const btn = document.getElementById('contactBtn');
+            const pop = document.getElementById('contactPop');
             const arrow = document.getElementById('contactArrow');
 
-            // 1) Box under the button
             const b = btn.getBoundingClientRect();
             let right = window.innerWidth - b.right - OVERHANG;
-            if (right < 8) right = 8; // stay inside the screen on small phones
+            if (right < 8) right = 8;
 
-            pop.style.top   = (b.bottom + 12) + 'px';
+            pop.style.top = (b.bottom + 12) + 'px';
             pop.style.right = right + 'px';
-            pop.style.left  = 'auto';
+            pop.style.left = 'auto';
 
-            // 2) Measure where the box really is, then put the arrow at the button's center
             const p = pop.getBoundingClientRect();
             let arrowLeft = (b.left + b.width / 2) - p.left - ARROW_HALF;
 
-            // Never let the arrow touch the rounded corners
             const min = CORNER_SAFE;
             const max = p.width - CORNER_SAFE - ARROW_HALF * 2;
             arrowLeft = Math.max(min, Math.min(max, arrowLeft));
 
             arrow.style.right = 'auto';
-            arrow.style.left  = arrowLeft + 'px';
+            arrow.style.left = arrowLeft + 'px';
         }
 
         function toggleContact() {
@@ -248,6 +198,7 @@
         function copyEmail() {
             const email = document.getElementById('adminEmail').textContent.trim();
             const btn = document.getElementById('copyBtn');
+
             navigator.clipboard.writeText(email).then(() => {
                 btn.textContent = 'Copied!';
                 setTimeout(() => btn.textContent = 'Copy', 1500);
@@ -256,22 +207,22 @@
             });
         }
 
-        // Close when clicking outside the button and the popup
         document.addEventListener('click', function (e) {
             const btn = document.getElementById('contactBtn');
             const pop = document.getElementById('contactPop');
             if (!btn.contains(e.target) && !pop.contains(e.target)) closeContact();
         });
 
-        // Close with Esc
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') closeContact();
         });
 
-        // Re-position on resize, close on scroll
         window.addEventListener('resize', function () {
-            if (!document.getElementById('contactPop').classList.contains('hidden')) positionContact();
+            if (!document.getElementById('contactPop').classList.contains('hidden')) {
+                positionContact();
+            }
         });
+
         window.addEventListener('scroll', closeContact);
     </script>
 </body>
