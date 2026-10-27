@@ -23,14 +23,10 @@
     <!-- Navigation -->
     <nav class="navbar">
 
+        <!-- Logo -->
         <a href="/" class="flex items-center gap-3">
-           <div class="logo-icon">
-                🦷
-            </div>
-
-            <span class="text-xl font-bold text-[#0b2545] tracking-tight">
-                Implant
-            </span>
+            <span class="text-3xl leading-none">🦷</span>
+            <span class="text-2xl font-extrabold text-[#0b2545] tracking-tight">Implant</span>
         </a>
 
         <div class="flex items-center gap-4">
@@ -39,9 +35,10 @@
                 Admin Login
             </a>
 
-            <button onclick="alert('Admin Contact Email: admin@implant.com')"
-            class="contact-btn">🎧
-            </button>
+            <!-- Contact admin button (the popup itself is at the bottom of the page) -->
+            <button type="button" id="contactBtn" onclick="toggleContact()"
+                    aria-label="Contact admin" aria-expanded="false" aria-controls="contactPop"
+                    class="w-11 h-11 shrink-0 rounded-full bg-[#fef9a7] hover:brightness-95 shadow-sm flex items-center justify-center text-xl transition">🎧</button>
 
         </div>
     </nav>
@@ -122,7 +119,51 @@
     </main>
 
 
-    <!-- JavaScript -->
+    <!-- ===== Contact Admin popup (outside the navbar so it always lines up) ===== -->
+    <div id="contactPop" role="dialog" aria-label="Contact admin"
+         class="hidden fixed w-72 bg-white rounded-2xl shadow-xl border border-slate-100 p-5 z-50 text-left">
+
+        <!-- Arrow: small, rounded tip (position set by JavaScript) -->
+        <div id="contactArrow"
+             class="absolute -top-[7px] w-3.5 h-3.5 bg-white border-l border-t border-slate-100 rounded-tl-[3px] rotate-45"></div>
+
+        <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-lg">🎧</div>
+            <div>
+                <p class="text-sm font-extrabold text-slate-900">Contact Admin</p>
+                <p class="text-xs text-slate-400 font-medium">We usually reply within 1–2 days</p>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between gap-2 bg-slate-50 rounded-xl px-3 py-2.5 mb-3">
+            <span id="adminEmail" class="text-sm font-bold text-slate-700 truncate">admin@implant.com</span>
+            <button type="button" onclick="copyEmail()" id="copyBtn"
+                    class="shrink-0 text-xs font-bold text-blue-600 hover:text-blue-800 transition">Copy</button>
+        </div>
+
+        <a href="mailto:admin@implant.com"
+           class="block w-full text-center py-2.5 bg-[#2563eb] hover:bg-blue-700 text-white text-sm font-bold rounded-xl transition">
+            Send email
+        </a>
+    </div>
+
+
+    <!-- ===== Back to Admin (shows only when admin clicked "View as user") ===== -->
+    <a id="backToAdmin" href="/admin/data-management"
+       onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}"
+       class="hidden fixed bottom-6 right-6 z-50 items-center gap-2 pl-3 pr-5 py-3 bg-[#0a192f] text-white rounded-2xl shadow-lg hover:bg-[#13294b] transition text-sm font-bold">
+        <span class="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6" />
+            </svg>
+        </span>
+        Back to Admin
+    </a>
+
+
+    <!-- ===== JavaScript ===== -->
+
+    <!-- Brand search -->
     <script>
         function filterBrands() {
             const query = document.getElementById('searchInput')
@@ -145,26 +186,93 @@
                 .classList.toggle('hidden', shown > 0);
         }
     </script>
-        <!-- Back to Admin (shows only when admin clicked "View as user") -->
-<a id="backToAdmin" href="/admin/data-management"
-   onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}"
-   class="hidden fixed bottom-6 right-6 z-50 items-center gap-2 pl-3 pr-5 py-3 bg-[#0a192f] text-white rounded-2xl shadow-lg hover:bg-[#13294b] transition text-sm font-bold">
-    <span class="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6" />
-        </svg>
-    </span>
-    Back to Admin
-</a>
 
-<script>
-    try {
-        if (sessionStorage.getItem('adminPreview') === '1') {
-            const btn = document.getElementById('backToAdmin');
-            btn.classList.remove('hidden');
-            btn.classList.add('flex');
+    <!-- Back to Admin -->
+    <script>
+        try {
+            if (sessionStorage.getItem('adminPreview') === '1') {
+                const btn = document.getElementById('backToAdmin');
+                btn.classList.remove('hidden');
+                btn.classList.add('flex');
+            }
+        } catch (e) {}
+    </script>
+
+    <!-- Contact Admin popup -->
+    <script>
+        const ARROW_HALF   = 7;   // half of the 14px arrow
+        const OVERHANG     = 36;  // box sticks out past the button's right edge
+        const CORNER_SAFE  = 24;  // keep the arrow this far from the box's rounded corners
+
+        // Place the popup under the headphone button and point the arrow at its center
+        function positionContact() {
+            const btn   = document.getElementById('contactBtn');
+            const pop   = document.getElementById('contactPop');
+            const arrow = document.getElementById('contactArrow');
+
+            // 1) Box under the button
+            const b = btn.getBoundingClientRect();
+            let right = window.innerWidth - b.right - OVERHANG;
+            if (right < 8) right = 8; // stay inside the screen on small phones
+
+            pop.style.top   = (b.bottom + 12) + 'px';
+            pop.style.right = right + 'px';
+            pop.style.left  = 'auto';
+
+            // 2) Measure where the box really is, then put the arrow at the button's center
+            const p = pop.getBoundingClientRect();
+            let arrowLeft = (b.left + b.width / 2) - p.left - ARROW_HALF;
+
+            // Never let the arrow touch the rounded corners
+            const min = CORNER_SAFE;
+            const max = p.width - CORNER_SAFE - ARROW_HALF * 2;
+            arrowLeft = Math.max(min, Math.min(max, arrowLeft));
+
+            arrow.style.right = 'auto';
+            arrow.style.left  = arrowLeft + 'px';
         }
-    } catch (e) {}
-</script>
+
+        function toggleContact() {
+            const pop = document.getElementById('contactPop');
+            const btn = document.getElementById('contactBtn');
+            const open = pop.classList.toggle('hidden') === false;
+            btn.setAttribute('aria-expanded', open);
+            if (open) positionContact();
+        }
+
+        function closeContact() {
+            document.getElementById('contactPop').classList.add('hidden');
+            document.getElementById('contactBtn').setAttribute('aria-expanded', 'false');
+        }
+
+        function copyEmail() {
+            const email = document.getElementById('adminEmail').textContent.trim();
+            const btn = document.getElementById('copyBtn');
+            navigator.clipboard.writeText(email).then(() => {
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 1500);
+            }).catch(() => {
+                btn.textContent = 'Select & copy';
+            });
+        }
+
+        // Close when clicking outside the button and the popup
+        document.addEventListener('click', function (e) {
+            const btn = document.getElementById('contactBtn');
+            const pop = document.getElementById('contactPop');
+            if (!btn.contains(e.target) && !pop.contains(e.target)) closeContact();
+        });
+
+        // Close with Esc
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeContact();
+        });
+
+        // Re-position on resize, close on scroll
+        window.addEventListener('resize', function () {
+            if (!document.getElementById('contactPop').classList.contains('hidden')) positionContact();
+        });
+        window.addEventListener('scroll', closeContact);
+    </script>
 </body>
 </html>
