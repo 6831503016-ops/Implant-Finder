@@ -8,51 +8,51 @@
     <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
 </head>
 <body class="bg-[#f0f4f9] p-8 min-h-screen flex items-center justify-center">
-    <div class="bg-white rounded-3xl shadow-sm border border-slate-100 w-full max-w-4xl overflow-hidden grid grid-cols-1 md:grid-cols-3">
-        <div class="bg-[#0b2545] p-8 text-white flex flex-col items-center justify-center text-center">
-            <div class="w-32 h-32 rounded-full border-4 border-blue-500 overflow-hidden mb-4 bg-teal-100 flex items-center justify-center text-4xl">
+    <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 w-full max-w-6xl min-h-[620px] overflow-hidden grid grid-cols-1 md:grid-cols-3">
+        <div class="bg-[#0b2545] p-12 text-white flex flex-col items-center justify-center text-center">
+            <div class="w-44 h-44 rounded-full border-[6px] border-blue-500 overflow-hidden mb-6 bg-teal-100 flex items-center justify-center text-7xl">
                 👩‍💼
             </div>
-            <h2 class="text-xl font-black mb-1">Admin User</h2>
-            <p class="text-xs text-blue-300 mb-6">@implantadmin</p>
-            <button class="px-6 py-2 bg-white/10 hover:bg-white/20 text-white rounded-full text-xs font-bold transition border border-white/20">Choose Avatar</button>
+            <h2 class="text-3xl font-black mb-2">Admin User</h2>
+            <p class="text-base text-blue-300 mb-8">@implantadmin</p>
+            <button class="px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full text-sm font-bold transition border border-white/20">Choose Avatar</button>
         </div>
 
-        <div class="md:col-span-2 p-8">
-            <h2 class="text-xl font-extrabold text-slate-900 mb-6">Account</h2>
-            <form th:action="@{/admin/profile}" th:object="${admin}" method="post" class="space-y-4">
+        <div class="md:col-span-2 p-12">
+            <h2 class="text-3xl font-extrabold text-slate-900 mb-8">Account</h2>
+            <form th:action="@{/admin/profile}" th:object="${admin}" method="post" class="space-y-6">
                 <input type="hidden" th:field="*{adminId}">
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Name</label>
-                        <input type="text" th:field="*{fullName}" class="w-full p-3 bg-slate-50 border-none rounded-xl text-xs font-medium">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Name</label>
+                        <input type="text" th:field="*{fullName}" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl text-base font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Username</label>
-                        <input type="text" th:field="*{username}" class="w-full p-3 bg-slate-50 border-none rounded-xl text-xs font-medium">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Username</label>
+                        <input type="text" th:field="*{username}" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl text-base font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">Email</label>
-                    <input type="email" th:field="*{email}" class="w-full p-3 bg-slate-50 border-none rounded-xl text-xs font-medium">
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Email</label>
+                    <input type="email" th:field="*{email}" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl text-base font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
-                <hr class="my-6 border-slate-100">
-                <h3 class="text-sm font-extrabold text-slate-900 mb-4">Password</h3>
-                <div class="grid grid-cols-2 gap-4">
+                <hr class="my-8 border-slate-100">
+                <h3 class="text-xl font-extrabold text-slate-900 mb-6">Password</h3>
+                <div class="grid grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">New password</label>
-                        <input type="password" class="w-full p-3 bg-slate-50 border-none rounded-xl text-xs">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">New password</label>
+                        <input type="password" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Confirm password</label>
-                        <input type="password" class="w-full p-3 bg-slate-50 border-none rounded-xl text-xs">
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Confirm password</label>
+                        <input type="password" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                 </div>
 
-                <div class="flex justify-end gap-3 mt-8">
-                    <a href="/admin/data-management" class="px-5 py-2.5 bg-slate-100 text-slate-600 rounded-xl font-bold text-xs">Cancel</a>
-                    <button type="submit" class="px-6 py-2.5 bg-[#2563eb] text-white rounded-xl font-bold text-xs shadow-sm">Save</button>
+                <div class="flex justify-end gap-4 mt-10">
+                    <a href="/admin/data-management" class="px-8 py-3.5 bg-slate-100 text-slate-600 rounded-2xl font-bold text-sm">Cancel</a>
+                    <button type="submit" class="px-10 py-3.5 bg-[#2563eb] hover:bg-blue-700 text-white rounded-2xl font-bold text-sm shadow-sm transition">Save</button>
                 </div>
             </form>
         </div>
