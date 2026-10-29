@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Avatar</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        input[type="radio"]:checked + label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            box-shadow: 0 0 0 2px #bfdbfe;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-[#f0f4f9] p-6 sm:p-10">
+
+<main class="mx-auto max-w-4xl rounded-[2rem] bg-white p-8 shadow-sm sm:p-12">
+
+    <h1 class="text-3xl font-extrabold text-slate-900">
+        Choose Your Avatar
+    </h1>
+
+    <p class="mt-2 mb-8 text-sm text-slate-500">
+        Select your favorite avatar and confirm your choice.
+    </p>
+
+    <form th:action="@{/admin/avatar}" method="post">
+
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+
+            <div>
+                <input class="peer sr-only" type="radio"
+                       name="avatarLink" id="avatar1"
+                       value="https://api.dicebear.com/7.x/bottts/svg?seed=Admin1"
+                       required>
+                <label for="avatar1"
+                       class="flex cursor-pointer flex-col items-center rounded-2xl border-2 border-transparent bg-slate-50 p-4">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Admin1"
+                         alt="Admin avatar" class="h-20 w-20">
+                    <span class="mt-3 text-sm font-bold">Admin</span>
+                </label>
+            </div>
+
+            <div>
+                <input class="peer sr-only" type="radio"
+                       name="avatarLink" id="avatar2"
+                       value="https://api.dicebear.com/7.x/bottts/svg?seed=Alex">
+                <label for="avatar2"
+                       class="flex cursor-pointer flex-col items-center rounded-2xl border-2 border-transparent bg-slate-50 p-4">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Alex"
+                         alt="Alex avatar" class="h-20 w-20">
+                    <span class="mt-3 text-sm font-bold">Alex</span>
+                </label>
+            </div>
+
+            <div>
+                <input class="peer sr-only" type="radio"
+                       name="avatarLink" id="avatar3"
+                       value="https://api.dicebear.com/7.x/bottts/svg?seed=Mia">
+                <label for="avatar3"
+                       class="flex cursor-pointer flex-col items-center rounded-2xl border-2 border-transparent bg-slate-50 p-4">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Mia"
+                         alt="Mia avatar" class="h-20 w-20">
+                    <span class="mt-3 text-sm font-bold">Mia</span>
+                </label>
+            </div>
+
+            <div>
+                <input class="peer sr-only" type="radio"
+                       name="avatarLink" id="avatar4"
+                       value="https://api.dicebear.com/7.x/bottts/svg?seed=Sam">
+                <label for="avatar4"
+                       class="flex cursor-pointer flex-col items-center rounded-2xl border-2 border-transparent bg-slate-50 p-4">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Sam"
+                         alt="Sam avatar" class="h-20 w-20">
+                    <span class="mt-3 text-sm font-bold">Sam</span>
+                </label>
+            </div>
+
+            <div>
+                <input class="peer sr-only" type="radio"
+                       name="avatarLink" id="avatar5"
+                       value="https://api.dicebear.com/7.x/bottts/svg?seed=Taylor">
+                <label for="avatar5"
+                       class="flex cursor-pointer flex-col items-center rounded-2xl border-2 border-transparent bg-slate-50 p-4">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Taylor"
+                         alt="Taylor avatar" class="h-20 w-20">
+                    <span class="mt-3 text-sm font-bold">Taylor</span>
+                </label>
+            </div>
+
+            <div>
+                <input class="peer sr-only" type="radio"
+                       name="avatarLink" id="avatar6"
+                       value="https://api.dicebear.com/7.x/bottts/svg?seed=Jordan">
+                <label for="avatar6"
+                       class="flex cursor-pointer flex-col items-center rounded-2xl border-2 border-transparent bg-slate-50 p-4">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Jordan"
+                         alt="Jordan avatar" class="h-20 w-20">
+                    <span class="mt-3 text-sm font-bold">Jordan</span>
+                </label>
+            </div>
+
+        </div>
+
+        <div class="mt-10 flex justify-end gap-3 border-t border-slate-100 pt-6">
+            <a href="/admin/profile"
+               class="rounded-xl bg-slate-100 px-6 py-3 font-bold text-slate-600">
+                Cancel
+            </a>
+
+            <button type="submit"
+                    class="rounded-xl bg-[#2563eb] px-7 py-3 font-bold text-white hover:bg-blue-700">
+                Confirm Avatar
+            </button>
+        </div>
+
+    </form>
+</main>
+
+</body>
+</html>
