@@ -1,73 +1,124 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
 </head>
-<body class="bg-[#f0f4f9] p-8 min-h-screen flex items-center justify-center">
-    <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 w-full max-w-6xl min-h-[620px] overflow-hidden grid grid-cols-1 md:grid-cols-3">
-        <div class="bg-[#0b2545] p-12 text-white flex flex-col items-center justify-center text-center">
 
-            <!-- Avatar -->
-            <div class="w-44 h-44 rounded-full border-[6px] border-blue-500 overflow-hidden mb-6 bg-white flex items-center justify-center">
-                <img th:src="${#strings.isEmpty(admin.avatarLink) ? 'https://api.dicebear.com/7.x/bottts/svg?seed=Admin1' : admin.avatarLink}"
-                     alt="Admin Avatar"
-                     class="w-full h-full object-cover">
+<body class="bg-white min-h-screen flex flex-col">
+
+<!-- ===== Top bar (breadcrumb) ===== -->
+<header class="w-full bg-[#002054] text-white px-8 py-4 flex items-center gap-3">
+    <a href="/admin/data-management" class="flex items-center gap-2 font-extrabold text-lg">
+        <span class="text-2xl">🦷</span>
+        Implant
+    </a>
+
+    <svg class="w-4 h-4 text-white/80 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+    </svg>
+
+    <!-- หน้าปัจจุบัน -->
+    <span class="text-sm font-semibold">Profile</span>
+</header>
+
+<!-- เต็มหน้าจอ: กินพื้นที่ที่เหลือใต้ top bar -->
+<div class="w-full flex-1 grid grid-cols-1 md:grid-cols-[minmax(280px,30%)_1fr]">
+
+    <!-- ฝั่งซ้าย -->
+    <div class="bg-gradient-to-b from-[#08235c] to-[#1a52d6] p-10 text-white flex flex-col items-center justify-center text-center">
+
+        <!-- Avatar -->
+        <div class="w-48 h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden mb-6 bg-white flex items-center justify-center">
+            <img th:src="${#strings.isEmpty(admin.avatarLink) ? 'https://api.dicebear.com/7.x/bottts/svg?seed=Admin1' : admin.avatarLink}"
+                 alt="Admin Avatar"
+                 class="w-full h-full object-cover">
+        </div>
+
+        <h2 class="text-3xl font-extrabold mb-2">Admin User</h2>
+        <p class="text-sm font-semibold text-slate-300 mb-8">@implantadmin</p>
+
+        <a href="/admin/avatar"
+           class="px-7 py-2.5 border-2 border-white/80 hover:bg-white/10 text-white rounded-full text-sm font-bold transition">
+            Choose Avatar
+        </a>
+    </div>
+
+    <!-- ฝั่งขวา -->
+    <div class="flex flex-col">
+        <form th:action="@{/admin/profile}" th:object="${admin}" method="post" class="flex flex-col flex-1">
+            <input type="hidden" th:field="*{adminId}">
+            <input type="hidden" th:field="*{avatarLink}">
+
+            <div class="flex-1 px-8 sm:px-12 lg:px-14 py-10 space-y-6">
+
+                <h2 class="text-3xl font-extrabold text-[#0b2260]">Account</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-[#0b2260] mb-2">Name</label>
+                        <input type="text" th:field="*{fullName}"
+                               class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-base shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#0b2260] mb-2">Username</label>
+                        <input type="text" th:field="*{username}"
+                               class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-base shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-[#0b2260] mb-2">Email</label>
+                        <input type="email" th:field="*{email}"
+                               class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-base shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+                    </div>
+                </div>
+
+                <hr class="border-slate-200">
+
+                <h3 class="text-2xl font-extrabold text-[#0b2260]">Password</h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-[#0b2260] mb-2">New password</label>
+                        <input type="password" name="newPassword"
+                               class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-base shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#0b2260] mb-2">Confirm password</label>
+                        <input type="password" name="confirmPassword"
+                               class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-base shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-[#0b2260] mb-2">Current password</label>
+                        <input type="password" name="currentPassword"
+                               class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-base shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+                    </div>
+                </div>
             </div>
 
-            <h2 class="text-3xl font-black mb-2">Admin User</h2>
-            <p class="text-base text-blue-300 mb-8">@implantadmin</p>
-
-            <a href="/admin/avatar"
-               class="px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full text-sm font-bold transition border border-white/20">
-                Choose Avatar
-            </a>
-        </div>
-
-        <div class="md:col-span-2 p-12">
-            <h2 class="text-3xl font-extrabold text-slate-900 mb-8">Account</h2>
-            <form th:action="@{/admin/profile}" th:object="${admin}" method="post" class="space-y-6">
-                <input type="hidden" th:field="*{adminId}">
-                <input type="hidden" th:field="*{avatarLink}">
-
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-2">Name</label>
-                        <input type="text" th:field="*{fullName}" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl text-base font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-2">Username</label>
-                        <input type="text" th:field="*{username}" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl text-base font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-2">Email</label>
-                    <input type="email" th:field="*{email}" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl text-base font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-
-                <hr class="my-8 border-slate-100">
-                <h3 class="text-xl font-extrabold text-slate-900 mb-6">Password</h3>
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-2">New password</label>
-                        <input type="password" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-2">Confirm password</label>
-                        <input type="password" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                </div>
-
-                <div class="flex justify-end gap-4 mt-10">
-                    <a href="/admin/data-management" class="px-8 py-3.5 bg-slate-100 text-slate-600 rounded-2xl font-bold text-sm">Cancel</a>
-                    <button type="submit" class="px-10 py-3.5 bg-[#2563eb] hover:bg-blue-700 text-white rounded-2xl font-bold text-sm shadow-sm transition">Save</button>
-                </div>
-            </form>
-        </div>
+            <!-- ปุ่มด้านล่าง ติดขอบล่างของหน้าจอ -->
+            <div class="border-t border-slate-200 px-8 sm:px-12 lg:px-14 py-5 flex justify-end gap-4">
+                <a href="/admin/data-management"
+                   class="px-8 py-2.5 bg-white border border-slate-200 text-[#0b2260] rounded-xl font-bold text-sm shadow-sm hover:bg-slate-50 transition">
+                    Cancel
+                </a>
+                <button type="submit"
+                        class="px-10 py-2.5 bg-[#2563eb] hover:bg-blue-700 text-white rounded-xl font-bold text-sm shadow-sm transition">
+                    Save
+                </button>
+            </div>
+        </form>
     </div>
+</div>
+
 </body>
 </html>
