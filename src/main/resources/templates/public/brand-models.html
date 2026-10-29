@@ -151,23 +151,25 @@
     </main>
 
     <script>
-        function filterModels() {
-            const query = document.getElementById('searchModels').value.toLowerCase().trim();
-            let shown = 0;
+       
+function filterModels() {
+    const query = document.getElementById('searchModels').value.toLowerCase().trim();
+    let shown = 0;
 
-            document.querySelectorAll('.model-card').forEach(card => {
-                const modelName = card.querySelector('.model-title').textContent.toLowerCase();
-                const matches = modelName.includes(query);
+    document.querySelectorAll('.model-card').forEach(card => {
+        const modelName = card.querySelector('.model-title').textContent.toLowerCase().trim();
+        const matches = modelName.startsWith(query);
 
-                card.style.display = matches ? 'block' : 'none';
+        card.style.display = matches ? 'block' : 'none';
 
-                if (matches) {
-                    shown++;
-                }
-            });
-
-            document.getElementById('noModel').classList.toggle('hidden', shown > 0);
+        if (matches) {
+            shown++;
         }
+    });
+
+    document.getElementById('noModel').classList.toggle('hidden', shown > 0);
+}
+
     </script>
     <!-- Back to Admin (shows only when admin clicked "View as user") -->
 <a id="backToAdmin" href="/admin/data-management"

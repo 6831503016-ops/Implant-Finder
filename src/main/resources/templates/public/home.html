@@ -122,23 +122,27 @@
 
     <!-- JavaScript: Brand search -->
     <script>
-        function filterBrands() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            let shown = 0;
+       
+function filterBrands() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    let shown = 0;
 
-            document.querySelectorAll('.brand-card').forEach(card => {
-                const brandName = card.querySelector('.brand-name').textContent.toLowerCase();
-                const matches = brandName.includes(query);
+    document.querySelectorAll('.brand-card').forEach(card => {
+        const brandName = card.querySelector('.brand-name').textContent.toLowerCase().trim();
 
-                card.style.display = matches ? 'block' : 'none';
+        // Match only brand names that start with the search term
+        const matches = brandName.startsWith(query);
 
-                if (matches) {
-                    shown++;
-                }
-            });
+        card.style.display = matches ? 'block' : 'none';
 
-            document.getElementById('noBrand').classList.toggle('hidden', shown > 0);
+        if (matches) {
+            shown++;
         }
+    });
+
+    document.getElementById('noBrand').classList.toggle('hidden', shown > 0);
+}
+
     </script>
 
     <!-- JavaScript: Back to Admin -->
