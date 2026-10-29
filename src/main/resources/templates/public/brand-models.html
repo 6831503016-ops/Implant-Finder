@@ -75,15 +75,31 @@
 </head>
 
 <body class="bg-[#f4f7fc] min-h-screen">
-        <nav class="px-8 py-4 bg-[#002054] shadow-sm">
-        <a href="/" class="text-lg font-bold flex items-center gap-2 text-slate-900">
-            <span>🦷</span> Implant
+
+    <!-- ===== Top bar (breadcrumb) ===== -->
+    <header class="w-full bg-[#002054] text-white px-8 py-4 flex items-center gap-3 flex-wrap">
+        <a href="/" class="flex items-center gap-2 font-extrabold text-lg">
+            <span class="text-2xl">🦷</span>
+            Implant
         </a>
-    </nav>
+
+        <svg class="w-4 h-4 text-white/80 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        </svg>
+
+        <a href="/" class="text-sm font-semibold hover:underline">Home page</a>
+
+        <svg class="w-4 h-4 text-white/80 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        </svg>
+
+        <!-- หน้าปัจจุบัน -->
+        <span class="text-sm font-semibold">Brand models</span>
+    </header>
 
     <main class="page-content">
-        
-              <!-- Back button -->
+
+        <!-- Back button -->
         <a href="/" title="Back"
            class="w-11 h-11 shrink-0 bg-white rounded-xl shadow-md inline-flex items-center justify-center text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition mb-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
@@ -151,46 +167,45 @@
     </main>
 
     <script>
-       
-function filterModels() {
-    const query = document.getElementById('searchModels').value.toLowerCase().trim();
-    let shown = 0;
+        function filterModels() {
+            const query = document.getElementById('searchModels').value.toLowerCase().trim();
+            let shown = 0;
 
-    document.querySelectorAll('.model-card').forEach(card => {
-        const modelName = card.querySelector('.model-title').textContent.toLowerCase().trim();
-        const matches = modelName.startsWith(query);
+            document.querySelectorAll('.model-card').forEach(card => {
+                const modelName = card.querySelector('.model-title').textContent.toLowerCase().trim();
+                const matches = modelName.startsWith(query);
 
-        card.style.display = matches ? 'block' : 'none';
+                card.style.display = matches ? 'block' : 'none';
 
-        if (matches) {
-            shown++;
+                if (matches) {
+                    shown++;
+                }
+            });
+
+            document.getElementById('noModel').classList.toggle('hidden', shown > 0);
         }
-    });
-
-    document.getElementById('noModel').classList.toggle('hidden', shown > 0);
-}
-
     </script>
-    <!-- Back to Admin (shows only when admin clicked "View as user") -->
-<a id="backToAdmin" href="/admin/data-management"
-   onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}"
-   class="hidden fixed bottom-6 right-6 z-50 items-center gap-2 pl-3 pr-5 py-3 bg-[#0a192f] text-white rounded-2xl shadow-lg hover:bg-[#13294b] transition text-sm font-bold">
-    <span class="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6" />
-        </svg>
-    </span>
-    Back to Admin
-</a>
 
-<script>
-    try {
-        if (sessionStorage.getItem('adminPreview') === '1') {
-            const btn = document.getElementById('backToAdmin');
-            btn.classList.remove('hidden');
-            btn.classList.add('flex');
-        }
-    } catch (e) {}
-</script>
+    <!-- Back to Admin (shows only when admin clicked "View as user") -->
+    <a id="backToAdmin" href="/admin/data-management"
+       onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}"
+       class="hidden fixed bottom-6 right-6 z-50 items-center gap-2 pl-3 pr-5 py-3 bg-[#0a192f] text-white rounded-2xl shadow-lg hover:bg-[#13294b] transition text-sm font-bold">
+        <span class="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6" />
+            </svg>
+        </span>
+        Back to Admin
+    </a>
+
+    <script>
+        try {
+            if (sessionStorage.getItem('adminPreview') === '1') {
+                const btn = document.getElementById('backToAdmin');
+                btn.classList.remove('hidden');
+                btn.classList.add('flex');
+            }
+        } catch (e) {}
+    </script>
 </body>
 </html>
