@@ -51,7 +51,7 @@ body {
 
 
 /* ========================================
-   Hero Content
+Content
 ======================================== */
 
 .content {
@@ -199,8 +199,8 @@ body {
 }
 
 .admin-login-bottom:hover {
-    background-color: rgb(58, 88, 126);
-    color: white;
+    background-color: #FCF1D0;
+    color: rgb(58, 88, 126);
 }
 
 
@@ -229,7 +229,7 @@ body {
 ======================================== */
 
 .navbar {
-    background-color: #002054;
+    background-color: #0D1C42;
     padding: 16px 32px;
 
     display: flex;
@@ -283,7 +283,7 @@ body {
 }
 
 .contact-bottom:hover {
-    background-color :rgb(58, 88, 126);
+    background-color :#FCF1D0;
 }
 
 
