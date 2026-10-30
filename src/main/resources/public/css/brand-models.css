@@ -1,0 +1,560 @@
+/* ========================================
+   1. Global Styles
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #0f172a;
+    background-color: #f4f7fc;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* ========================================
+   2. Top Bar / Breadcrumb
+======================================== */
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    padding: 16px 32px;
+    color: #ffffff;
+    background-color: #002054;
+}
+
+.top-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.top-brand-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.breadcrumb-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.breadcrumb-link {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.breadcrumb-link:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-current {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   3. Main Content
+======================================== */
+
+.page-content {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 32px 40px 48px;
+}
+
+
+/* ========================================
+   4. Back Button
+======================================== */
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+    color: #334155;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.back-button:hover {
+    color: #2563eb;
+    background-color: #f8fafc;
+    transform: translateX(-2px);
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
+}
+
+
+/* ========================================
+   5. Brand Banner
+======================================== */
+
+.brand-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    margin-bottom: 32px;
+    padding: 32px;
+    background: linear-gradient(
+        to right,
+        #eef4ff,
+        #e0ebff
+    );
+    border-radius: 24px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+
+/* ========================================
+   6. Brand Information
+======================================== */
+
+.brand-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-width: 0;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 128px;
+    max-width: 240px;
+    padding-right: 24px;
+    border-right: 2px solid #cbd5e1;
+}
+
+.brand-logo img {
+    display: block;
+    max-width: 160px;
+    max-height: 64px;
+    object-fit: contain;
+}
+
+.brand-name-fallback {
+    color: #1e3a8a;
+    font-size: 30px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.brand-info {
+    min-width: 0;
+}
+
+.brand-label {
+    margin: 0 0 8px;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.page-title {
+    margin: 0;
+    color: #0b2545;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+
+/* ========================================
+   7. Search Models
+======================================== */
+
+.search-container {
+    position: relative;
+    width: 320px;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.search-icon svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.search-container input {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px 12px 44px;
+    color: #0f172a;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    font-size: 14px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.search-container input::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+
+.search-container input:focus {
+    border-color: 2px solid #3b82f6;
+    box-shadow: none;
+    outline: none;
+}
+
+
+/* ========================================
+   8. Empty Messages
+======================================== */
+
+.empty-message,
+.no-model-message {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.empty-message {
+    padding: 64px 0;
+}
+
+.no-model-message {
+    margin-top: 32px;
+}
+
+/* Support the hidden attribute */
+[hidden] {
+    display: none !important;
+}
+
+
+/* ========================================
+   9. Model Grid
+======================================== */
+
+.model-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(190px, 1fr)
+    );
+    gap: 24px;
+    width: 100%;
+}
+
+
+/* ========================================
+   10. Model Card
+======================================== */
+
+.model-card {
+    display: block;
+    min-width: 0;
+    padding: 16px;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.model-card:hover {
+    border-color: #dbeafe;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.10);
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   11. Model Image
+======================================== */
+
+.model-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 144px;
+    margin-bottom: 12px;
+    padding: 16px;
+    overflow: hidden;
+    background-color: #000000;
+    border-radius: 12px;
+}
+
+.model-image img {
+    display: block;
+    max-width: 100%;
+    max-height: 112px;
+    object-fit: contain;
+}
+
+
+/* ========================================
+   12. Model Name
+======================================== */
+
+.model-title {
+    margin: 0;
+    color: #0b2545;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+
+/* ========================================
+   13. Responsive: Tablet
+======================================== */
+
+@media (max-width: 900px) {
+
+    .page-content {
+        padding: 28px 24px 40px;
+    }
+
+    .brand-banner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 28px;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .model-grid {
+        grid-template-columns: repeat(
+            auto-fill,
+            minmax(170px, 1fr)
+        );
+        gap: 18px;
+    }
+
+}
+
+
+/* ========================================
+   14. Responsive: Mobile
+======================================== */
+
+@media (max-width: 640px) {
+
+    /* Top Bar */
+
+    .top-bar {
+        gap: 8px;
+        padding: 16px;
+    }
+
+    .top-brand {
+        font-size: 16px;
+    }
+
+    .top-brand-icon {
+        font-size: 22px;
+    }
+
+    .breadcrumb-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .breadcrumb-link,
+    .breadcrumb-current {
+        font-size: 12px;
+    }
+
+
+    /* Main Content */
+
+    .page-content {
+        padding: 24px 16px 32px;
+    }
+
+
+    /* Brand Banner */
+
+    .brand-banner {
+        align-items: stretch;
+        padding: 24px;
+        gap: 20px;
+        border-radius: 20px;
+    }
+
+    .brand-banner-content {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .brand-logo {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        padding: 0 0 16px;
+        border-right: 0;
+        border-bottom: 2px solid #cbd5e1;
+    }
+
+    .brand-logo img {
+        max-width: 160px;
+        max-height: 56px;
+    }
+
+    .brand-name-fallback {
+        font-size: 26px;
+    }
+
+    .brand-info {
+        width: 100%;
+    }
+
+    .page-title {
+        font-size: 26px;
+    }
+
+
+    /* Search */
+
+    .search-container {
+        width: 100%;
+    }
+
+
+    /* Model Grid */
+
+    .model-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .model-card {
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .model-image {
+        height: 130px;
+        padding: 10px;
+    }
+
+    .model-image img {
+        max-height: 108px;
+    }
+
+    .model-title {
+        font-size: 13px;
+    }
+
+}
+
+
+/* ========================================
+   15. Responsive: Small Mobile
+======================================== */
+
+@media (max-width: 360px) {
+
+    .top-bar {
+        padding: 12px;
+    }
+
+    .top-brand {
+        font-size: 14px;
+    }
+
+    .breadcrumb-link,
+    .breadcrumb-current {
+        font-size: 11px;
+    }
+
+    .page-content {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .brand-banner {
+        padding: 18px;
+    }
+
+    .page-title {
+        font-size: 23px;
+    }
+
+    .model-grid {
+        gap: 10px;
+    }
+
+    .model-card {
+        padding: 8px;
+    }
+
+    .model-image {
+        height: 110px;
+    }
+
+    .model-image img {
+        max-height: 90px;
+    }
+
+}
