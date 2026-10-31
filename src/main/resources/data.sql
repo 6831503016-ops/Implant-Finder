@@ -89,7 +89,7 @@ VALUES (
     'Internal Conical Connection (EV)',
     'Sweden',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20%204.5x10%20mm%20%281%29.JPG',
     'Ø 3 x 8 mm, Ø 3 x 9 mm, Ø 3 x 11 mm, Ø 3 x 13 mm, Ø 3 x 15 mm, Ø 3.6 x 6 mm, Ø 3.6 x 8 mm, Ø 3.6 x 9 mm, Ø 3.6 x 11 mm, Ø 3.6 x 13 mm, Ø 3.6 x 15 mm, Ø 3.6 x 17 mm, Ø 4.2 x 6 mm, Ø 4.2 x 8 mm, Ø 4.2 x 9 mm, Ø 4.2 x 11 mm, Ø 4.2 x 13 mm, Ø 4.2 x 15 mm, Ø 4.2 x 17 mm, Ø 4.8 x 6 mm, Ø 4.8 x 8 mm, Ø 4.8 x 9 mm, Ø 4.8 x 11 mm, Ø 4.8 x 13 mm, Ø 4.8 x 15 mm, Ø 4.8 x 17 mm, Ø 5.4 x 6 mm, Ø 5.4 x 8 mm, Ø 5.4 x 9 mm, Ø 5.4 x 11 mm, Ø 5.4 x 13 mm, Ø 5.4 x 15 mm'
 );
 
@@ -107,7 +107,7 @@ VALUES (
     'Internal Conical Connection',
     'Sweden',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20%204x10%20mm%20%281%29.JPG',
     'Ø 3 x 11 mm, Ø 3 x 13 mm, Ø 3 x 15 mm, Ø 3.5 x 8 mm, Ø 3.5 x 9 mm, Ø 3.5 x 11 mm, Ø 3.5 x 13 mm, Ø 3.5 x 15 mm, Ø 3.5 x 17 mm, Ø 4 x 6 mm, Ø 4 x 8 mm, Ø 4 x 9 mm, Ø 4 x 11 mm, Ø 4 x 13 mm, Ø 4 x 15 mm, Ø 4 x 17 mm, Ø 5 x 9 mm, Ø 5 x 11 mm, Ø 5 x 13 mm, Ø 5 x 15 mm, Ø 5 x 17 mm'
 );
 
@@ -125,7 +125,7 @@ VALUES (
     'Internal Conical Connection',
     'Sweden',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%203.5x10%20mm%20%281%29.JPG',
     'Ø 4.5 x 9 mm, Ø 4.5 x 11 mm, Ø 4.5 x 13 mm, Ø 4.5 x 15 mm, Ø 4.5 x 17 mm, Ø 5 x 9 mm, Ø 5 x 11 mm, Ø 5 x 13 mm, Ø 5 x 15 mm, Ø 5 x 17 mm'
 );
 
@@ -145,7 +145,7 @@ VALUES (
     'Not specified',
     'Germany',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%205x10mm%20%281%29.JPG',
     'Ø 3.3 x 7 mm, Ø 3.3 x 9 mm, Ø 3.3 x 11 mm, Ø 3.3 x 13 mm, Ø 3.3 x 15 mm'
 );
 
@@ -163,7 +163,7 @@ VALUES (
     'Not specified',
     'Germany',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20fix%203.5x10mm%20%281%29.JPG',
     'Ø 3.7 x 7 mm, Ø 3.7 x 9 mm, Ø 3.7 x 11 mm, Ø 3.7 x 13 mm, Ø 3.7 x 15 mm'
 );
 
@@ -181,7 +181,7 @@ VALUES (
     'Not specified',
     'Germany',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20fix%204.5x10mm%20%281%29.JPG',
     'Ø 4.2 x 7 mm, Ø 4.2 x 9 mm, Ø 4.2 x 11 mm, Ø 4.2 x 13 mm, Ø 4.2 x 15 mm'
 );
 
@@ -199,7 +199,7 @@ VALUES (
     'Not specified',
     'Germany',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053409Z-1-001/super%20line%203.4mm%20x12.0mm.JPG',
     'Ø 4.8 x 7 mm, Ø 4.8 x 9 mm, Ø 4.8 x 11 mm, Ø 4.8 x 13 mm, Ø 4.8 x 15 mm'
 );
 
@@ -217,7 +217,7 @@ VALUES (
     'Not specified',
     'Germany',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053409Z-1-001/superline%203.8mmx12.0mm.JPG',
     'Ø 5.5 x 7 mm, Ø 5.5 x 9 mm, Ø 5.5 x 11 mm, Ø 5.5 x 13 mm, Ø 5.5 x 15 mm'
 );
 
@@ -237,7 +237,7 @@ VALUES (
     'Not specified',
     'South Korea',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053409Z-1-001/superline%204.3mmx12.0mm%20%282%29.JPG',
     'Ø 3.3 x 7 mm, Ø 4 x 7 mm, Ø 4.5 x 7 mm, Ø 5 x 7 mm, Ø 5.5 x 7 mm, Ø 7.5 x 7 mm, Ø 7.5 x 8.5 mm, Ø 7.5 x 10 mm, Ø 7.5 x 11.5 mm, Ø 7.5 x 13 mm, Ø 8 x 7 mm, Ø 8 x 8.5 mm, Ø 8 x 10 mm, Ø 8 x 11.5 mm, Ø 8 x 13 mm'
 );
 
@@ -255,7 +255,7 @@ VALUES (
     'External',
     'South Korea',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053409Z-1-001/superline4.8mmx12.0mm.JPG',
     'Ø 3.5 x 7 mm, Ø 3.5 x 8 mm, Ø 3.5 x 9 mm, Ø 3.5 x 10 mm, Ø 3.5 x 11 mm, Ø 3.5 x 12 mm, Ø 3.5 x 13 mm, Ø 3.5 x 14 mm, Ø 3.5 x 15 mm, Ø 4 x 7 mm, Ø 4 x 8 mm, Ø 4 x 9 mm, Ø 4 x 10 mm, Ø 4 x 11 mm, Ø 4 x 12 mm, Ø 4 x 13 mm, Ø 4 x 14 mm, Ø 4 x 15 mm, Ø 4.5 x 7 mm, Ø 4.5 x 8 mm, Ø 4.5 x 9 mm, Ø 4.5 x 10 mm, Ø 4.5 x 11 mm, Ø 4.5 x 12 mm, Ø 4.5 x 13 mm, Ø 4.5 x 14 mm, Ø 4.5 x 15 mm, Ø 5 x 7 mm, Ø 5 x 9 mm, Ø 5 x 10 mm, Ø 5 x 11 mm, Ø 5 x 12 mm, Ø 5 x 13 mm, Ø 5 x 14 mm, Ø 5 x 15 mm, Ø 6 x 7 mm, Ø 6 x 8 mm, Ø 6 x 9 mm, Ø 6 x 10 mm, Ø 6 x 11 mm, Ø 6 x 12 mm, Ø 6 x 13 mm, Ø 6 x 14 mm, Ø 6 x 15 mm'
 );
 
@@ -275,7 +275,7 @@ VALUES (
     'Conical connection',
     'Israel',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.1x10%20mm.JPG',
     'Ø 3.3 x 10 mm, Ø 3.3 x 11.5 mm, Ø 3.3 x 13 mm, Ø 3.3 x 16 mm, Ø 3.75 x 8 mm, Ø 3.75 x 10 mm, Ø 3.75 x 11.5 mm, Ø 3.75 x 13 mm, Ø 3.75 x 16 mm, Ø 4.2 x 8 mm, Ø 4.2 x 10 mm, Ø 4.2 x 11.5 mm, Ø 4.2 x 13 mm, Ø 4.2 x 16 mm'
 );
 
@@ -293,7 +293,7 @@ VALUES (
     'Conical connection',
     'Israel',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.4x10%20mm%20%28deep%29.JPG',
     'Ø 3.3 x 10 mm, Ø 3.3 x 11.5 mm, Ø 3.3 x 13 mm, Ø 3.3 x 16 mm, Ø 3.9 x 8 mm, Ø 3.9 x 10 mm, Ø 3.9 x 11.5 mm, Ø 3.9 x 13 mm, Ø 3.9 x 16 mm, Ø 4.3 x 8 mm, Ø 4.3 x 10 mm, Ø 4.3 x 11.5 mm, Ø 4.3 x 13 mm, Ø 4.3 x 16 mm, Ø 5 x 8 mm, Ø 5 x 10 mm, Ø 5 x 11.5 mm, Ø 5 x 13 mm, Ø 5 x 16 mm'
 );
 
@@ -311,7 +311,7 @@ VALUES (
     'Internal Hexagon connection',
     'Israel',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.4x10%20mm.JPG',
     'Ø 3.75 x 8 mm, Ø 3.75 x 10 mm, Ø 3.75 x 11.5 mm, Ø 3.75 x 13 mm, Ø 3.75 x 16 mm, Ø 4.2 x 6 mm, Ø 4.2 x 8 mm, Ø 4.2 x 10 mm, Ø 4.2 x 13 mm, Ø 4.2 x 16 mm'
 );
 
@@ -331,7 +331,7 @@ VALUES (
     'Not specified',
     'Brazil',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.8x10.0%20mm.JPG',
     'Ø 3.5 x 7 mm, Ø 3.5 x 8 mm, Ø 3.5 x 9 mm, Ø 3.5 x 11 mm, Ø 3.5 x 13 mm, Ø 3.5 x 15 mm, Ø 3.5 x 17 mm, Ø 3.75 x 7 mm, Ø 3.75 x 8 mm, Ø 3.75 x 9 mm, Ø 3.75 x 11 mm, Ø 3.75 x 13 mm, Ø 3.75 x 15 mm, Ø 3.75 x 17 mm, Ø 4 x 7 mm, Ø 4 x 8 mm, Ø 4 x 9 mm, Ø 4 x 11 mm, Ø 4 x 13 mm, Ø 4 x 15 mm, Ø 4 x 17 mm, Ø 5 x 7 mm, Ø 5 x 8 mm, Ø 5 x 9 mm, Ø 5 x 11 mm, Ø 5 x 13 mm'
 );
 
@@ -349,7 +349,7 @@ VALUES (
     'Not specified',
     'Brazil',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053453Z-1-001/Bluediamond%205.3x10%20mm.JPG',
     'Ø 3.5 x 7 mm, Ø 3.5 x 8 mm, Ø 3.5 x 9 mm, Ø 3.5 x 11 mm, Ø 3.5 x 13 mm, Ø 3.5 x 15 mm, Ø 3.5 x 17 mm, Ø 3.75 x 7 mm, Ø 3.75 x 8 mm, Ø 3.75 x 9 mm, Ø 3.75 x 11 mm, Ø 3.75 x 13 mm, Ø 3.75 x 15 mm, Ø 3.75 x 17 mm, Ø 4 x 7 mm, Ø 4 x 8 mm, Ø 4 x 9 mm, Ø 4 x 11 mm, Ø 4 x 13 mm, Ø 4 x 15 mm, Ø 4 x 17 mm, Ø 5 x 7 mm, Ø 5 x 8 mm, Ø 5 x 9 mm, Ø 5 x 11 mm, Ø 5 x 13 mm'
 );
 
@@ -367,7 +367,7 @@ VALUES (
     'Not specified',
     'Brazil',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20%204.5x10%20mm%20%281%29.JPG',
     'Ø 3.5 x 8 mm, Ø 3.5 x 10 mm, Ø 3.5 x 11.5 mm, Ø 3.5 x 13 mm, Ø 3.5 x 16 mm, Ø 3.5 x 18 mm, Ø 4.3 x 8 mm, Ø 4.3 x 10 mm, Ø 4.3 x 11.5 mm, Ø 4.3 x 13 mm, Ø 4.3 x 16 mm, Ø 4.3 x 18 mm, Ø 5 x 8 mm, Ø 5 x 10 mm, Ø 5 x 11.5 mm, Ø 5 x 13 mm, Ø 5 x 16 mm, Ø 5 x 18 mm'
 );
 
@@ -385,7 +385,7 @@ VALUES (
     'Not specified',
     'Brazil',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20%204x10%20mm%20%281%29.JPG',
     'Ø 3.5 x 8 mm, Ø 3.5 x 10 mm, Ø 3.5 x 11.5 mm, Ø 3.5 x 13 mm, Ø 3.5 x 16 mm, Ø 3.5 x 18 mm, Ø 4.3 x 8 mm, Ø 4.3 x 10 mm, Ø 4.3 x 11.5 mm, Ø 4.3 x 13 mm, Ø 4.3 x 16 mm, Ø 4.3 x 18 mm, Ø 5 x 8 mm, Ø 5 x 10 mm, Ø 5 x 11.5 mm, Ø 5 x 13 mm, Ø 5 x 16 mm, Ø 5 x 18 mm'
 );
 
@@ -403,7 +403,7 @@ VALUES (
     'Not specified',
     'Brazil',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%203.5x10%20mm%20%281%29.JPG',
     'Ø 3.5 x 8 mm, Ø 3.5 x 10 mm, Ø 3.5 x 11.5 mm, Ø 3.5 x 13 mm, Ø 3.5 x 16 mm, Ø 3.5 x 18 mm, Ø 3.75 x 8 mm, Ø 3.75 x 10 mm, Ø 3.75 x 11.5 mm, Ø 3.75 x 13 mm, Ø 3.75 x 16 mm, Ø 3.75 x 18 mm, Ø 4 x 8 mm, Ø 4 x 10 mm, Ø 4 x 11.5 mm, Ø 4 x 13 mm, Ø 4 x 16 mm, Ø 4 x 18 mm, Ø 4.3 x 8 mm, Ø 4.3 x 10 mm, Ø 4.3 x 11.5 mm, Ø 4.3 x 13 mm, Ø 4.3 x 16 mm, Ø 4.3 x 18 mm, Ø 5 x 8 mm, Ø 5 x 10 mm, Ø 5 x 11.5 mm, Ø 5 x 13 mm, Ø 5 x 16 mm, Ø 5 x 18 mm, Ø 6 x 8 mm, Ø 6 x 10 mm, Ø 6 x 11.5 mm, Ø 6 x 13 mm, Ø 7 x 8 mm, Ø 7 x 10 mm, Ø 7 x 11.5 mm, Ø 7 x 13 mm'
 );
 
@@ -421,7 +421,7 @@ VALUES (
     'Not specified',
     'Brazil',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%205x10mm%20%281%29.JPG',
     'Ø 3.5 x 8 mm, Ø 3.5 x 10 mm, Ø 3.5 x 11.5 mm, Ø 3.5 x 13 mm, Ø 3.5 x 16 mm, Ø 3.5 x 18 mm, Ø 3.75 x 8 mm, Ø 3.75 x 10 mm, Ø 3.75 x 11.5 mm, Ø 3.75 x 13 mm, Ø 3.75 x 16 mm, Ø 3.75 x 18 mm, Ø 4 x 8 mm, Ø 4 x 10 mm, Ø 4 x 11.5 mm, Ø 4 x 13 mm, Ø 4 x 16 mm, Ø 4 x 18 mm, Ø 4.3 x 8 mm, Ø 4.3 x 10 mm, Ø 4.3 x 11.5 mm, Ø 4.3 x 13 mm, Ø 4.3 x 16 mm, Ø 4.3 x 18 mm, Ø 5 x 8 mm, Ø 5 x 10 mm, Ø 5 x 11.5 mm, Ø 5 x 13 mm, Ø 5 x 16 mm, Ø 5 x 18 mm, Ø 6 x 8 mm, Ø 6 x 10 mm, Ø 6 x 11.5 mm, Ø 6 x 13 mm, Ø 7 x 8 mm, Ø 7 x 10 mm, Ø 7 x 11.5 mm, Ø 7 x 13 mm'
 );
 
@@ -439,7 +439,7 @@ VALUES (
     'Not specified',
     'Brazil',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20fix%203.5x10mm%20%281%29.JPG',
     'Ø 3.75 x 20 mm, Ø 3.75 x 22.5 mm, Ø 3.75 x 25 mm, Ø 4 x 20 mm, Ø 4 x 22.5 mm, Ø 4 x 25 mm'
 );
 
@@ -459,7 +459,7 @@ VALUES (
     'Not specified',
     'South Korea',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20fix%204.5x10mm%20%281%29.JPG',
     'Ø 3.2 x 8.5 mm, Ø 3.2 x 10 mm, Ø 3.2 x 11.5 mm, Ø 3.2 x 13 mm'
 );
 
@@ -477,7 +477,7 @@ VALUES (
     'Not specified',
     'South Korea',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053409Z-1-001/super%20line%203.4mm%20x12.0mm.JPG',
     'Ø 3.5 x 8.5 mm, Ø 3.5 x 10 mm, Ø 3.5 x 11.5 mm, Ø 3.5 x 13 mm, Ø 4 x 7.3 mm, Ø 4 x 8.5 mm, Ø 4 x 10 mm, Ø 4 x 11.5 mm, Ø 4 x 13 mm, Ø 4.5 x 7.3 mm, Ø 4.5 x 8.5 mm, Ø 4.5 x 10 mm, Ø 4.5 x 11.5 mm, Ø 4.5 x 13 mm, Ø 5 x 7.3 mm, Ø 5 x 8.5 mm, Ø 5 x 10 mm, Ø 5 x 11.5 mm, Ø 5 x 13 mm'
 );
 
@@ -495,7 +495,7 @@ VALUES (
     'Not specified',
     'South Korea',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053409Z-1-001/superline%203.8mmx12.0mm.JPG',
     'Ø 5.5 x 7.3 mm, Ø 5.5 x 8.5 mm, Ø 5.5 x 10 mm, Ø 5.5 x 11.5 mm, Ø 5.5 x 13 mm, Ø 6 x 7.3 mm, Ø 6 x 8.5 mm, Ø 6 x 10 mm, Ø 6 x 11.5 mm, Ø 6 x 13 mm, Ø 7 x 7.3 mm, Ø 7 x 8.5 mm, Ø 7 x 10 mm, Ø 7 x 11.5 mm, Ø 7 x 13 mm'
 );
 
@@ -513,7 +513,7 @@ VALUES (
     'Not specified',
     'South Korea',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053409Z-1-001/superline%204.3mmx12.0mm%20%282%29.JPG',
     'Ø 2 x 8.5 mm, Ø 2 x 10 mm, Ø 2 x 11.5 mm, Ø 2 x 13 mm, Ø 2 x 15 mm, Ø 2.5 x 8 mm, Ø 2.5 x 10 mm, Ø 2.5 x 11 mm, Ø 2.5 x 13 mm, Ø 2.5 x 15 mm, Ø 3 x 8 mm, Ø 3 x 10 mm, Ø 3 x 11 mm, Ø 3 x 13 mm, Ø 3 x 15 mm, Ø 3.5 x 8 mm, Ø 3.5 x 10 mm, Ø 3.5 x 11 mm, Ø 3.5 x 13 mm, Ø 3.5 x 15 mm'
 );
 
@@ -533,7 +533,7 @@ VALUES (
     'Six Smooth Curve Connection',
     'Thailand',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053409Z-1-001/superline4.8mmx12.0mm.JPG',
     'Ø 3.4 x 10 mm, Ø 3.4 x 12 mm, Ø 3.4 x 14 mm, Ø 3.8 x 8 mm, Ø 3.8 x 10 mm, Ø 3.8 x 12 mm, Ø 3.8 x 14 mm, Ø 4.2 x 8 mm, Ø 4.2 x 10 mm, Ø 4.2 x 12 mm, Ø 4.2 x 14 mm, Ø 5 x 8 mm, Ø 5 x 10 mm, Ø 5 x 12 mm, Ø 5 x 14 mm'
 );
 
@@ -551,7 +551,7 @@ VALUES (
     'Hexagonal Connection',
     'Thailand',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.1x10%20mm.JPG',
     'Ø 3.4 x 10 mm, Ø 3.4 x 12 mm, Ø 3.4 x 14 mm, Ø 3.8 x 8 mm, Ø 3.8 x 10 mm, Ø 3.8 x 12 mm, Ø 3.8 x 14 mm, Ø 4.2 x 8 mm, Ø 4.2 x 10 mm, Ø 4.2 x 12 mm, Ø 4.2 x 14 mm, Ø 5 x 8 mm, Ø 5 x 10 mm, Ø 5 x 12 mm, Ø 5 x 14 mm'
 );
 
@@ -571,7 +571,7 @@ VALUES (
     'Not specified',
     'Switzerland',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.4x10%20mm%20%28deep%29.JPG',
     'Ø 2.4 x 10 mm, Ø 2.4 x 12 mm, Ø 2.4 x 14 mm'
 );
 
@@ -589,6 +589,6 @@ VALUES (
     'Not specified',
     'Switzerland',
     'Visible',
-    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop',
+    '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.4x10%20mm.JPG',
     'Ø 3.3 x 8 mm (Tissue level, AH 4), Ø 3.3 x 8 mm (Tissue level, AH 5.5), Ø 3.3 x 10 mm (Tissue level, AH 4), Ø 3.3 x 10 mm (Tissue level, AH 5.5), Ø 3.3 x 12 mm (Tissue level, AH 4), Ø 3.3 x 12 mm (Tissue level, AH 5.5), Ø 3.3 x 14 mm (Tissue level, AH 4), Ø 3.3 x 14 mm (Tissue level, AH 5.5), Ø 4.1 x 8 mm (Bone level), Ø 4.1 x 8 mm (Tissue level, AH 4), Ø 4.1 x 8 mm (Tissue level, AH 5.5), Ø 4.1 x 10 mm (Bone level), Ø 4.1 x 10 mm (Tissue level, AH 4), Ø 4.1 x 10 mm (Tissue level, AH 5.5), Ø 4.1 x 12 mm (Bone level), Ø 4.1 x 12 mm (Tissue level, AH 4), Ø 4.1 x 12 mm (Tissue level, AH 5.5), Ø 4.1 x 14 mm (Bone level), Ø 4.1 x 14 mm (Tissue level, AH 4), Ø 4.1 x 14 mm (Tissue level, AH 5.5)'
 );
