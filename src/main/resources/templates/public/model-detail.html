@@ -194,7 +194,7 @@
                         <div class="implant-info-row shaded-row">
                             <span class="info-label">Material</span>
                             <span class="info-value"
-                                  th:text="${implant.material}">
+                                 ${implant.material != null ? implant.material.materialName : '-'}
                             </span>
                         </div>
 
@@ -222,7 +222,7 @@
                         <div class="implant-info-row shaded-row">
                             <span class="info-label">Country</span>
                             <span class="info-value"
-                                  th:text="${implant.country}">
+                                  th:text="${implant.brand.country}">
                             </span>
                         </div>
 

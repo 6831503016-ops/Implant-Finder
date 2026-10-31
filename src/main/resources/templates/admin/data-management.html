@@ -208,7 +208,8 @@
 
                             <!-- Material -->
                             <td class="material-cell"
-                                th:text="${m.material}">
+                              name="materialName"
+                             ${m.material != null ? m.material.materialName : '-'}
                             </td>
 
                             <!-- Available Sizes -->

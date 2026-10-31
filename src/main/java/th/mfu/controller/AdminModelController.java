@@ -9,7 +9,11 @@ import th.mfu.domain.ImplantModel;
 import th.mfu.repository.BrandRepository;
 import th.mfu.repository.ImplantModelRepository;
 import th.mfu.service.ImplantService;
-
+import jakarta.servlet.http.HttpSession;
+import th.mfu.domain.Admin;
+import th.mfu.repository.AdminRepository;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import static th.mfu.service.ImplantService.blankToNull;
 @Controller
 @RequestMapping("/admin")
 public class AdminModelController {
@@ -19,6 +23,9 @@ public class AdminModelController {
 
     @Autowired
     private ImplantModelRepository modelRepo;
+
+    @Autowired 
+    private AdminRepository adminRepo;
 
     @Autowired
     private BrandRepository brandRepo;
@@ -40,43 +47,43 @@ public class AdminModelController {
 @PostMapping("/add-model")
 public String saveModel(
         @ModelAttribute ImplantModel implant,
-        @RequestParam("brandName") String brandName) {
+        @RequestParam("brandName") String brandName,
+        @RequestParam(value = "materialName", required = false) String materialName,
+        @RequestParam(value = "sizes", required = false) String sizes,
+        HttpSession session,
+        RedirectAttributes ra) {
 
-    if (brandName == null || brandName.isBlank()) {
+    if (brandName == null || brandName.isBlank()
+            || implant.getModelName() == null || implant.getModelName().isBlank()) {
         return "redirect:/admin/add-model";
     }
 
-    String name = brandName.trim();
+    Brand brand = implantService.findOrCreateBrand(brandName);
+    String modelName = implant.getModelName().trim();
 
-    // Find an existing brand, ignoring capitalization
-    Brand brand = brandRepo.findAll().stream()
-            .filter(b -> b.getBrandName() != null
-                    && b.getBrandName().trim().equalsIgnoreCase(name))
-            .findFirst()
-            .orElse(null);
-
-    // Create the brand if it does not already exist
-    if (brand == null) {
-        brand = new Brand();
-        brand.setBrandName(name);
-        brand = brandRepo.save(brand);
+    // duplicate check (FR-06)
+    if (modelRepo.findByBrandBrandIdAndModelNameIgnoreCase(brand.getBrandId(), modelName).isPresent()) {
+        ra.addFlashAttribute("error", "This implant already exists");
+        return "redirect:/admin/add-model";
     }
 
+    implant.setModelName(modelName);
     implant.setBrand(brand);
+    implant.setMaterial(implantService.findOrCreateMaterial(materialName));
+    implant.setType(blankToNull(implant.getType()));
 
-    if (implant.getImageUrl() == null
-            || implant.getImageUrl().isBlank()) {
-        implant.setImageUrl(
-            "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop"
-        );
+    Admin sessionAdmin = (Admin) session.getAttribute("admin");
+    if (sessionAdmin != null) {
+        implant.setCreatedBy(adminRepo.findById(sessionAdmin.getAdminId()).orElse(null));
     }
 
-    if (implant.getStatus() == null) {
-        implant.setStatus("Visible");
+    if (implant.getImageUrl() == null || implant.getImageUrl().isBlank()) {
+        implant.setImageUrl("https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop");
     }
+    implant.setStatus("Visible");
 
+    implantService.syncSizes(implant, sizes);
     modelRepo.save(implant);
-
     return "redirect:/admin/data-management";
 }
 
@@ -90,14 +97,17 @@ public String saveModel(
         return "admin/edit-model";
     }
 
-    // =====  บันทึกการแก้ไข =====
+       // =====  บันทึกการแก้ไข =====
     @PostMapping("/edit-model/{id}")
-    public String updateModel(@PathVariable Long id, @ModelAttribute ImplantModel form) {
+    public String updateModel(@PathVariable Long id, @ModelAttribute ImplantModel form,
+            @RequestParam(value = "materialName", required = false) String materialName,
+            @RequestParam(value = "sizes", required = false) String sizes) {
+
         ImplantModel implant = modelRepo.findById(id).orElseThrow();
 
         implant.setModelName(form.getModelName());
-        implant.setMaterial(form.getMaterial());
-        implant.setSizes(form.getSizes());
+        implant.setMaterial(implantService.findOrCreateMaterial(materialName));
+        if (sizes != null) implantService.syncSizes(implant, sizes);
 
         // เปลี่ยนแบรนด์ (ดึงจากฐานข้อมูลตาม id ที่เลือก)
         if (form.getBrand() != null && form.getBrand().getBrandId() != null) {
