@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Model Detail</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Model Detail</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
           rel="stylesheet">
@@ -13,282 +13,458 @@
     <link rel="stylesheet" th:href="@{/css/model-detail.css}">
 </head>
 
-<body class="bg-[#f4f7fc] min-h-screen">
+<body class="page-body">
 
-    <!-- Top bar (breadcrumb) -->
-    <header class="w-full bg-[#002054] text-white px-8 py-4 flex items-center gap-3 flex-wrap">
-        <a href="/" class="flex items-center gap-2 font-extrabold text-lg">
-            <span class="text-2xl">🦷</span>
+    <!-- Breadcrumb Header -->
+    <header class="breadcrumb-header">
+
+        <!-- Home -->
+        <a th:href="@{/}" class="brand-home-link">
+            <span class="icon">🦷</span>
             Implant
         </a>
 
-        <svg class="w-4 h-4 text-white/80 shrink-0" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        <!-- Arrow -->
+        <svg class="breadcrumb-arrow"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke="currentColor"
+             stroke-width="2.5">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 5l7 7-7 7"/>
         </svg>
 
-        <a href="/" class="text-sm font-semibold hover:underline">Home page</a>
-
-        <svg class="w-4 h-4 text-white/80 shrink-0" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-        </svg>
-
+        <!-- Brand -->
         <a th:href="@{'/brand/' + ${implant.brand.brandId}}"
-           class="text-sm font-semibold hover:underline">
-            Brand models
+           class="breadcrumb-link"
+           th:text="${implant.brand.brandName}">
+            Brand
         </a>
 
-        <svg class="w-4 h-4 text-white/80 shrink-0" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        <!-- Arrow -->
+        <svg class="breadcrumb-arrow"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke="currentColor"
+             stroke-width="2.5">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 5l7 7-7 7"/>
         </svg>
 
-        <span class="text-sm font-semibold" th:text="${implant.modelName}">Model</span>
+        <!-- Model -->
+        <a th:href="@{'/model/' + ${implant.modelId}}"
+           class="breadcrumb-link"
+           th:text="${implant.modelName}">
+            Model
+        </a>
+
+        <!-- Selected Size -->
+        <span id="breadcrumbSizeWrapper"
+              class="breadcrumb-size-wrapper"
+              hidden>
+
+            <svg class="breadcrumb-arrow"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="2.5">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 5l7 7-7 7"/>
+            </svg>
+
+            <span id="breadcrumbSize"
+                  class="breadcrumb-current">
+            </span>
+
+        </span>
+
     </header>
 
+
+    <!-- Main Content -->
     <main class="model-detail-container">
-        <section id="sizePicker">
+
+        <!-- Size Picker -->
+        <section id="sizePicker" class="size-picker-section">
+
             <a th:href="@{'/brand/' + ${implant.brand.brandId}}"
                title="Back to brand models"
                aria-label="Back to brand models"
-               class="w-11 h-11 shrink-0 bg-white rounded-xl shadow-md inline-flex items-center justify-center text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition mb-6">
+               class="back-button">
+
                 <svg xmlns="http://www.w3.org/2000/svg"
-                     class="w-5 h-5"
+                     class="small-icon"
                      fill="none"
                      viewBox="0 0 24 24"
                      stroke="currentColor"
                      stroke-width="1.8">
-                    <path stroke-linecap="round" stroke-linejoin="round"
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
                           d="M19 12H5m0 0l6-6m-6 6l6 6"/>
                 </svg>
+
             </a>
 
-            <h1 class="size-picker-title" th:text="${implant.modelName}">Model</h1>
-            <p class="size-picker-description">Choose an implant size to view its details.</p>
+            <h1 class="size-picker-title"
+                th:text="${implant.modelName}">
+                Model
+            </h1>
+
+            <p class="size-picker-description">
+                Choose an implant size to view its details.
+            </p>
+
             <div id="sizeCards" class="size-card-grid"></div>
+
             <p id="noSizes" class="no-sizes" hidden>
                 Size information not available
             </p>
+
         </section>
 
-        <section id="detailView" hidden>
+
+        <!-- Implant Detail -->
+        <section id="detailView"
+                 class="detail-view-section"
+                 hidden>
+
             <a th:href="@{'/model/' + ${implant.modelId}}"
                title="Back to sizes"
                aria-label="Back to sizes"
-               class="w-11 h-11 shrink-0 bg-white rounded-xl shadow-md inline-flex items-center justify-center text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition mb-6">
+               class="back-button">
+
                 <svg xmlns="http://www.w3.org/2000/svg"
-                     class="w-5 h-5"
+                     class="small-icon"
                      fill="none"
                      viewBox="0 0 24 24"
                      stroke="currentColor"
                      stroke-width="1.8">
-                    <path stroke-linecap="round" stroke-linejoin="round"
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
                           d="M19 12H5m0 0l6-6m-6 6l6 6"/>
                 </svg>
+
             </a>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                <div class="bg-black rounded-3xl p-8 flex items-center justify-center shadow-md h-96 overflow-hidden">
+
+            <div class="implant-detail-grid">
+
+                <!-- Implant Image -->
+                <div class="implant-image">
+
                     <img th:src="${implant.imageUrl}"
-                         class="max-h-80 object-contain"
+                         class="implant-main-image"
                          alt="Implant Detail">
+
                 </div>
 
-                <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
-                    <span class="font-bold text-blue-900 uppercase tracking-wide"
-                          th:text="${implant.brand.brandName}"></span>
 
-                    <h1 class="text-3xl font-extrabold text-[#0b2545] mt-1 mb-6"
-                        th:text="${implant.modelName}"></h1>
+                <!-- Implant Information -->
+                <div class="implant-info">
 
-                    <div class="mb-8 text-sm rounded-lg overflow-hidden">
-                        <div class="flex justify-between p-2.5 bg-blue-50/60">
-                            <span class="font-bold text-slate-800">Brand</span>
-                            <span class="text-slate-600 text-right"
-                                  th:text="${implant.brand.brandName}"></span>
+                    <span class="implant-brand-label"
+                          th:text="${implant.brand.brandName}">
+                    </span>
+
+                    <h1 class="implant-model-heading"
+                        th:text="${implant.modelName}">
+                    </h1>
+
+
+                    <!-- Information Table -->
+                    <div class="implant-info-table">
+
+                        <div class="implant-info-row shaded-row">
+                            <span class="info-label">Brand</span>
+                            <span class="info-value"
+                                  th:text="${implant.brand.brandName}">
+                            </span>
                         </div>
-                        <div class="flex justify-between p-2.5">
-                            <span class="font-bold text-slate-800">Model</span>
-                            <span class="text-slate-600 text-right"
-                                  th:text="${implant.modelName}"></span>
+
+                        <div class="implant-info-row">
+                            <span class="info-label">Model</span>
+                            <span class="info-value"
+                                  th:text="${implant.modelName}">
+                            </span>
                         </div>
-                        <div class="flex justify-between p-2.5 bg-blue-50/60">
-                            <span class="font-bold text-slate-800">Material</span>
-                            <span class="text-slate-600 text-right"
-                                  th:text="${implant.material}"></span>
+
+                        <div class="implant-info-row shaded-row">
+                            <span class="info-label">Material</span>
+                            <span class="info-value"
+                                  th:text="${implant.material}">
+                            </span>
                         </div>
-                        <div class="flex justify-between p-2.5">
-                            <span class="font-bold text-slate-800">Type</span>
-                            <span class="text-slate-600 text-right"
-                                  th:text="${implant.type}"></span>
+
+                        <div class="implant-info-row">
+                            <span class="info-label">Type</span>
+                            <span class="info-value"
+                                  th:text="${implant.type}">
+                            </span>
                         </div>
-                        <div class="flex justify-between p-2.5 bg-blue-50/60">
-                            <span class="font-bold text-slate-800">Surface</span>
-                            <span class="text-slate-600 text-right"
-                                  th:text="${implant.surfaceTreatment}"></span>
+
+                        <div class="implant-info-row shaded-row">
+                            <span class="info-label">Surface</span>
+                            <span class="info-value"
+                                  th:text="${implant.surfaceTreatment}">
+                            </span>
                         </div>
-                        <div class="flex justify-between p-2.5">
-                            <span class="font-bold text-slate-800">Connection</span>
-                            <span class="text-slate-600 text-right"
-                                  th:text="${implant.connectionType}"></span>
+
+                        <div class="implant-info-row">
+                            <span class="info-label">Connection</span>
+                            <span class="info-value"
+                                  th:text="${implant.connectionType}">
+                            </span>
                         </div>
-                        <div class="flex justify-between p-2.5 bg-blue-50/60">
-                            <span class="font-bold text-slate-800">Country</span>
-                            <span class="text-slate-600 text-right"
-                                  th:text="${implant.country}"></span>
+
+                        <div class="implant-info-row shaded-row">
+                            <span class="info-label">Country</span>
+                            <span class="info-value"
+                                  th:text="${implant.country}">
+                            </span>
                         </div>
+
                     </div>
 
+
+                    <!-- Selected Size -->
                     <div class="selected-size-card">
+
                         <p class="selected-size-label">Size</p>
+
                         <p id="selected" class="selected-size"></p>
+
                         <p id="variants" class="size-variants"></p>
+
                     </div>
+
                     <p id="detailNoSizes" class="no-sizes" hidden>
                         Size information not available
                     </p>
+
                 </div>
+
             </div>
+
         </section>
+
     </main>
+
 
     <!-- Back to Admin -->
     <a id="backToAdmin"
        href="/admin/data-management"
        onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}"
-       class="hidden fixed bottom-6 right-6 z-50 items-center gap-2 pl-3 pr-5 py-3 bg-[#0a192f] text-white rounded-2xl shadow-lg hover:bg-[#13294b] transition text-sm font-bold">
+       class="admin-back-button">
 
-        <span class="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center">
+        <span class="admin-back-icon-wrap">
+
             <svg xmlns="http://www.w3.org/2000/svg"
-                 class="w-4 h-4"
+                 class="small-icon"
                  fill="none"
                  viewBox="0 0 24 24"
                  stroke="currentColor"
                  stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
                       d="M19 12H5m0 0l6-6m-6 6l6 6"/>
             </svg>
+
         </span>
 
         Back to Admin
+
     </a>
 
+
+    <!-- Size Selection Script -->
     <script th:inline="javascript">
+
         const raw = /*[[${implant.sizes}]]*/ '';
         const modelName = /*[[${implant.modelName}]]*/ '';
         const imageUrl = /*[[${implant.imageUrl}]]*/ '';
 
-        // Parses "Ø 3.5 x 8 mm" and optional "(note)" entries
+        // Parse implant sizes from the database.
         const re = /Ø\s*([\d.]+)\s*x\s*([\d.]+)\s*mm(?:\s*\(([^)]*)\))?/g;
 
         const sizes = new Map();
         let m;
 
         while (raw && (m = re.exec(raw)) !== null) {
-            const d = parseFloat(m[1]);
-            const l = parseFloat(m[2]);
 
-            if (!sizes.has(d)) {
-                sizes.set(d, new Map());
+            const diameter = parseFloat(m[1]);
+            const length = parseFloat(m[2]);
+
+            if (!sizes.has(diameter)) {
+                sizes.set(diameter, new Map());
             }
 
-            const lens = sizes.get(d);
+            const lengths = sizes.get(diameter);
 
-            if (!lens.has(l)) {
-                lens.set(l, []);
+            if (!lengths.has(length)) {
+                lengths.set(length, []);
             }
 
             if (m[3]) {
-                lens.get(l).push(m[3]);
+                lengths.get(length).push(m[3]);
             }
         }
+
 
         const sizeCards = document.getElementById('sizeCards');
         const sizePicker = document.getElementById('sizePicker');
         const detailView = document.getElementById('detailView');
+
         const sizeParams = new URLSearchParams(window.location.search);
+
         const selectedDiameter = Number(sizeParams.get('diameter'));
         const selectedLength = Number(sizeParams.get('length'));
+
         const hasSizes = sizes.size > 0;
 
-        [...sizes.keys()].sort((a, b) => a - b).forEach(diameter => {
-            [...sizes.get(diameter).keys()].sort((a, b) => a - b).forEach(length => {
-                const card = document.createElement('a');
-                const image = document.createElement('img');
-                const imageBox = document.createElement('div');
-                const title = document.createElement('h2');
-                const size = document.createElement('p');
-                const notes = sizes.get(diameter).get(length);
 
-                card.className = 'size-card';
-                card.href = window.location.pathname
-                    + '?diameter=' + encodeURIComponent(diameter)
-                    + '&length=' + encodeURIComponent(length);
+        // Create a card for each available implant size.
+        [...sizes.keys()]
+            .sort((a, b) => a - b)
+            .forEach(diameter => {
 
-                image.src = imageUrl;
-                image.alt = modelName;
-                image.loading = 'lazy';
-                image.onerror = () => {
-                    image.style.display = 'none';
-                    imageBox.querySelector('.size-image-fallback').hidden = false;
-                };
-                imageBox.className = 'size-card-image';
-                imageBox.append(image);
+                [...sizes.get(diameter).keys()]
+                    .sort((a, b) => a - b)
+                    .forEach(length => {
 
-                const fallback = document.createElement('span');
-                fallback.className = 'size-image-fallback';
-                fallback.textContent = '🦷';
-                fallback.hidden = true;
-                imageBox.append(fallback);
+                        const card = document.createElement('a');
+                        const image = document.createElement('img');
+                        const imageBox = document.createElement('div');
+                        const title = document.createElement('h2');
+                        const size = document.createElement('p');
 
-                title.className = 'size-card-title';
-                title.textContent = modelName;
-                size.className = 'size-card-dimensions';
-                size.textContent = 'Ø ' + diameter + ' x ' + length + ' mm';
+                        const notes = sizes.get(diameter).get(length);
 
-                card.append(imageBox, title, size);
-                if (notes.length) {
-                    const variant = document.createElement('p');
-                    variant.className = 'size-card-variant';
-                    variant.textContent = notes.join(' · ');
-                    card.append(variant);
-                }
-                sizeCards.append(card);
+                        card.className = 'size-card';
+
+                        card.href = window.location.pathname
+                            + '?diameter=' + encodeURIComponent(diameter)
+                            + '&length=' + encodeURIComponent(length);
+
+                        // Implant image
+                        image.src = imageUrl;
+                        image.alt = modelName;
+                        image.loading = 'lazy';
+
+                        image.onerror = () => {
+                            image.style.display = 'none';
+
+                            imageBox.querySelector(
+                                '.size-image-fallback'
+                            ).hidden = false;
+                        };
+
+                        imageBox.className = 'size-card-image';
+                        imageBox.append(image);
+
+                        // Fallback icon
+                        const fallback = document.createElement('span');
+
+                        fallback.className = 'size-image-fallback';
+                        fallback.textContent = '🦷';
+                        fallback.hidden = true;
+
+                        imageBox.append(fallback);
+
+                        // Model name
+                        title.className = 'size-card-title';
+                        title.textContent = modelName;
+
+                        // Implant dimensions
+                        size.className = 'size-card-dimensions';
+                        size.textContent =
+                            'Ø ' + diameter + ' x ' + length + ' mm';
+
+                        card.append(imageBox, title, size);
+
+                        // Additional size information
+                        if (notes.length) {
+
+                            const variant = document.createElement('p');
+
+                            variant.className = 'size-card-variant';
+                            variant.textContent = notes.join(' · ');
+
+                            card.append(variant);
+                        }
+
+                        sizeCards.append(card);
+
+                    });
+
             });
-        });
 
+
+        // Check whether the selected size exists.
         const validSelection = hasSizes
             && sizes.has(selectedDiameter)
             && sizes.get(selectedDiameter).has(selectedLength);
 
+
         if (validSelection) {
+
             sizePicker.hidden = true;
             detailView.hidden = false;
-            document.getElementById('selected').textContent =
+
+            const selectedSizeText =
                 'Ø ' + selectedDiameter + ' x ' + selectedLength + ' mm';
+
+            document.getElementById('selected').textContent =
+                selectedSizeText;
+
             const notes = sizes.get(selectedDiameter).get(selectedLength);
+
             document.getElementById('variants').textContent =
-                notes.length ? 'Variants: ' + notes.join(' · ') : '';
+                notes.length
+                    ? 'Variants: ' + notes.join(' · ')
+                    : '';
+
+            // Update breadcrumb with selected size
+            document.getElementById('breadcrumbSize').textContent =
+                selectedSizeText;
+
+            document.getElementById('breadcrumbSizeWrapper').hidden = false;
+
         } else if (hasSizes) {
+
             document.getElementById('noSizes').hidden = true;
+
         } else {
+
             sizePicker.hidden = false;
             sizeCards.hidden = true;
+
             document.getElementById('noSizes').hidden = false;
+
             detailView.hidden = false;
+
             document.getElementById('detailNoSizes').hidden = false;
         }
+
     </script>
 
+
+    <!-- Admin Preview Script -->
     <script>
+
         try {
+
             if (sessionStorage.getItem('adminPreview') === '1') {
-                const btn = document.getElementById('backToAdmin');
-                btn.classList.remove('hidden');
-                btn.classList.add('flex');
+
+                const button = document.getElementById('backToAdmin');
+
+                button.classList.add('is-visible');
             }
+
         } catch (e) {}
+
     </script>
 
 </body>
