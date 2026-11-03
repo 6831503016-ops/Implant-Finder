@@ -9,8 +9,8 @@
 body {
     margin: 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    color: #0D1C42;
-    background-color: #f0f4f9;
+    color: #0A1F44;
+    background-color: #EEF4FF;
 }
 
 button,
@@ -39,8 +39,9 @@ select {
     flex-shrink: 0;
     width: 256px;
     padding: 24px;
-    color: #ffffff;
-    background-color: #0a192f;
+    color: #0A1F44;
+    background-color: #FFFFFF;
+    border-right: 1px solid #D6E2F7;
 }
 
 .sidebar-content {
@@ -76,7 +77,7 @@ select {
     align-items: center;
     gap: 12px;
     padding: 12px 16px;
-    color: #94a3b8;
+    color: #64748B;
     border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
@@ -87,13 +88,13 @@ select {
 }
 
 .sidebar-link:hover {
-    color: #ffffff;
-    background-color: #1e293b;
+    color: #1D63EE;
+    background-color: #E8F0FD;
 }
 
 .sidebar-link.active {
-    color: #ffffff;
-    background-color: #2563eb;
+    color: #FFFFFF;
+    background-color: #1D63EE;
     font-weight: 700;
 }
 
@@ -127,9 +128,9 @@ select {
     height: 72px;
     min-height: 72px;
     padding: 0 32px;
-    color: #ffffff;
-    background-color: #002054;
-    border-bottom: 2px solid #ffffff;
+    color: #0A1F44;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #D6E2F7;
 }
 
 .navbar-brand {
@@ -137,7 +138,7 @@ select {
     align-items: center;
     flex-shrink: 0;
     gap: 8px;
-    color: #ffffff;
+    color: #0A1F44;
     font-size: 18px;
     font-weight: 800;
     text-decoration: none;
@@ -145,7 +146,7 @@ select {
 }
 
 .navbar-brand:hover {
-    color: #dbeafe;
+    color: #1D63EE;
 }
 
 .navbar-brand-icon {
@@ -160,12 +161,12 @@ select {
     flex-shrink: 0;
     width: 16px;
     height: 16px;
-    color: rgba(255, 255, 255, 0.8);
+    color: #64748B;
 }
 
 .breadcrumb-link {
     flex-shrink: 0;
-    color: #ffffff;
+    color: #0A1F44;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
@@ -178,7 +179,7 @@ select {
 .breadcrumb-current {
     min-width: 0;
     overflow: hidden;
-    color: #ffffff;
+    color: #0A1F44;
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
@@ -224,7 +225,7 @@ select {
     flex-shrink: 0;
     width: 44px;
     height: 44px;
-    color: #334155;
+    color: #64748B;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
@@ -235,7 +236,7 @@ select {
 }
 
 .back-button:hover {
-    color: #2563eb;
+    color: #1D63EE;
     background-color: #f8fafc;
 }
 
@@ -246,7 +247,7 @@ select {
 
 .page-title {
     margin: 0;
-    color: #1e293b;
+    color: #0A1F44;
     font-size: 24px;
     font-weight: 800;
 }
@@ -272,7 +273,7 @@ select {
 }
 
 .cancel-button {
-    color: #334155;
+    color: #64748B;
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
@@ -284,13 +285,13 @@ select {
 
 .save-button {
     color: #ffffff;
-    background-color: #2563eb;
+    background-color: #1D63EE;
     border: none;
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
 }
 
 .save-button:hover {
-    background-color: #1d4ed8;
+    background-color: #1650C8;
 }
 
 
@@ -338,7 +339,7 @@ select {
     min-height: 320px;
     padding: 24px;
     overflow: hidden;
-    background-color: #000000;
+    background-color: #EEF4FF;
     border-radius: 12px;
 }
 
@@ -397,7 +398,7 @@ select {
 .form-label {
     display: block;
     margin-bottom: 8px;
-    color: #94a3b8;
+    color: #0A1F44;
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
@@ -412,9 +413,9 @@ select {
     width: 100%;
     min-width: 0;
     padding: 12px 16px;
-    color: #334155;
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
+    color: #64748B;
+    background-color: #F7FAFF;
+    border: 1px solid #D6E2F7;
     border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
@@ -425,8 +426,8 @@ select {
 }
 
 .form-input:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    border-color: #1D63EE;
+    box-shadow: 0 0 0 2px rgba(29, 99, 238, 0.2);
 }
 
 .form-input::placeholder {
@@ -447,7 +448,7 @@ select {
 
 .section-title {
     margin: 0 0 16px;
-    color: #1e293b;
+    color: #0A1F44;
     font-size: 14px;
     font-weight: 800;
 }
@@ -460,7 +461,7 @@ select {
 }
 
 .size-input-grid .form-label {
-    color: #475569;
+    color: #64748B;
     font-weight: 700;
     text-transform: none;
 }
@@ -468,7 +469,7 @@ select {
 .add-size-button {
     padding: 12px 20px;
     color: #ffffff;
-    background-color: #2563eb;
+    background-color: #1D63EE;
     border: none;
     border-radius: 12px;
     font-size: 14px;
@@ -480,7 +481,7 @@ select {
 }
 
 .add-size-button:hover {
-    background-color: #1d4ed8;
+    background-color: #1650C8;
 }
 
 
@@ -556,9 +557,9 @@ select {
     align-items: center;
     gap: 6px;
     padding: 6px 8px 6px 12px;
-    color: #2563eb;
-    background-color: #eff6ff;
-    border: 1px solid #dbeafe;
+    color: #1D63EE;
+    background-color: #E8F0FD;
+    border: 1px solid #BDD2FB;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 700;
@@ -571,7 +572,7 @@ select {
     width: 16px;
     height: 16px;
     padding: 0;
-    color: #2563eb;
+    color: #1D63EE;
     background: none;
     border: none;
     border-radius: 50%;
@@ -585,7 +586,7 @@ select {
 
 .remove-chip:hover {
     color: #ef4444;
-    background-color: #dbeafe;
+    background-color: #E8F0FD;
 }
 
 
@@ -626,14 +627,14 @@ select {
 
 .record-value {
     margin: 0;
-    color: #1e293b;
+    color: #0A1F44;
     font-size: 14px;
     font-weight: 700;
     overflow-wrap: anywhere;
 }
 
 .status-visible {
-    color: #eab308;
+    color: #1D63EE;
 }
 
 .status-hidden {
@@ -646,7 +647,7 @@ select {
 ======================================== */
 
 .size-summary {
-    color: #1e293b;
+    color: #0A1F44;
     font-size: 14px;
 }
 
@@ -666,7 +667,7 @@ select {
     display: inline-block;
     margin-top: 8px;
     padding: 2px 8px;
-    color: #475569;
+    color: #64748B;
     background-color: #ffffff;
     border-radius: 6px;
     font-size: 12px;

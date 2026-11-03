@@ -1,3 +1,17 @@
+
+:root {
+    --dark-navy: #0A1F44;
+    --primary-blue: #1D63EE;
+    --hover-blue: #1650C8;
+    --page-background: #EEF4FF;
+    --light-blue: #E8F0FD;
+    --white: #FFFFFF;
+    --main-text: #0A1F44;
+    --secondary-text: #64748B;
+    --muted-text: #94A3B8;
+    --border: #D6E2F7;
+}
+
 /* ========================================
    Global Styles
 ======================================== */
@@ -11,7 +25,7 @@ body {
     min-height: 100vh;
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: #ffffff;
-    color: #0f172a;
+    color: #0A1F44;
 }
 
 button,
@@ -45,7 +59,7 @@ a {
     align-items: center;
     justify-content: center;
 
-    color: #334155;
+    color: #0A1F44;
     background-color: #ffffff;
 
     border-radius: 16px;
@@ -59,8 +73,8 @@ a {
 }
 
 .back-button:hover {
-    background-color: #f8fafc;
-    color: #2563eb;
+    background-color: #EEF4FF;
+    color: #1D63EE;
     transform: translateX(-2px);
 
     box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
@@ -96,9 +110,10 @@ a {
     min-height: 100vh;
     padding: 48px;
 
-    color: #ffffff;
+    color: #0A1F44;
 
-    background-color:  #0f172a;
+    background-color:  #E8F0FD;
+    border-right: 1px solid #D6E2F7;
 }
 
 /* Left Logo */
@@ -145,11 +160,11 @@ a {
 
     object-fit: cover;
 
-    border: 6px solid rgba(59, 130, 246, 0.30);
+    border: 6px solid rgba(29, 99, 238, 0.30);
     border-radius: 50%;
 
     box-shadow:
-        0 0 0 8px rgba(59, 130, 246, 0.10),
+        0 0 0 8px rgba(29, 99, 238, 0.10),
         0 25px 50px rgba(30, 58, 138, 0.35);
 }
 
@@ -162,7 +177,7 @@ a {
 
     margin: 0;
 
-    color: #94a3b8;
+    color: #94A3B8;
     font-size: 14px;
     font-weight: 400;
 
@@ -217,7 +232,7 @@ a {
 }
 
 .brand-name {
-    color: #0f172a;
+    color: #0A1F44;
 
     font-size: 30px;
     font-weight: 800;
@@ -228,7 +243,7 @@ a {
 .login-header h1 {
     margin: 0;
 
-    color: #0f172a;
+    color: #0A1F44;
 
     font-size: 48px;
     font-weight: 800;
@@ -271,7 +286,7 @@ a {
 
     padding-left: 20px;
 
-    color: #94a3b8;
+    color: #94A3B8;
 
     pointer-events: none;
 }
@@ -284,10 +299,10 @@ a {
 
     padding: 16px 20px 16px 56px;
 
-    color: #0f172a;
-    background-color: #f8fafc;
+    color: #0A1F44;
+    background-color: #F7FAFF;
 
-    border: 1px solid #e2e8f0;
+    border: 1px solid #D6E2F7;
     border-radius: 16px;
 
     outline: none;
@@ -301,16 +316,16 @@ a {
 }
 
 .input-group input::placeholder {
-    color: #94a3b8;
+    color: #94A3B8;
     opacity: 1;
 }
 
 .input-group input:focus {
     background-color: #ffffff;
 
-    border-color: #3b82f6;
+    border-color: #1D63EE;
 
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    box-shadow: 0 0 0 4px rgba(29, 99, 238, 0.15);
 }
 
 
@@ -346,7 +361,7 @@ a {
 
     padding: 0 20px;
 
-    color: #94a3b8;
+    color: #94A3B8;
     background: transparent;
 
     border: none;
@@ -356,11 +371,11 @@ a {
 }
 
 .toggle-password:hover {
-    color: #2563eb;
+    color: #1D63EE;
 }
 
 .toggle-password:focus-visible {
-    outline: 2px solid #3b82f6;
+    outline: 2px solid #1D63EE;
     outline-offset: -4px;
 }
 
@@ -379,8 +394,8 @@ a {
 
     background: linear-gradient(
         to right,
-        #2563eb,
-        #3b82f6
+        #1D63EE,
+        #1D63EE
     );
 
     border: none;
@@ -389,7 +404,7 @@ a {
     font-size: 18px;
     font-weight: 800;
 
-    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.30);
+    box-shadow: 0 10px 20px rgba(29, 99, 238, 0.30);
 
     transition:
         background 0.2s ease,
@@ -400,11 +415,11 @@ a {
 .login-button:hover {
     background: linear-gradient(
         to right,
-        #1d4ed8,
-        #2563eb
+        #1650C8,
+        #1650C8
     );
 
-    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.40);
+    box-shadow: 0 12px 24px rgba(29, 99, 238, 0.40);
 
     transform: translateY(-2px);
 }
@@ -414,7 +429,7 @@ a {
 }
 
 .login-button:focus-visible {
-    outline: 3px solid rgba(59, 130, 246, 0.5);
+    outline: 3px solid rgba(29, 99, 238, 0.5);
     outline-offset: 3px;
 }
 
@@ -480,7 +495,7 @@ a {
         border-width: 4px;
 
         box-shadow:
-            0 0 0 5px rgba(59, 130, 246, 0.10),
+            0 0 0 5px rgba(29, 99, 238, 0.10),
             0 15px 30px rgba(30, 58, 138, 0.30);
     }
 
