@@ -15,13 +15,13 @@
 
 <body class="page-body">
 
-    <!-- Breadcrumb Header -->
-    <header class="breadcrumb-header">
+    <!-- Navbar / Breadcrumb Header -->
+    <header class="navbar">
 
         <!-- Home -->
-        <a th:href="@{/}" class="brand-home-link">
-            <span class="icon">🦷</span>
-            Implant
+        <a th:href="@{/}" class="navbar-brand">
+            <span class="navbar-brand-icon">🦷</span>
+            <span>Implant</span>
         </a>
 
         <!-- Arrow -->
@@ -37,7 +37,7 @@
 
         <!-- Brand -->
         <a th:href="@{'/brand/' + ${implant.brand.brandId}}"
-           class="breadcrumb-link"
+           class="breadcrumb-current"
            th:text="${implant.brand.brandName}">
             Brand
         </a>
@@ -55,15 +55,15 @@
 
         <!-- Model -->
         <a th:href="@{'/model/' + ${implant.modelId}}"
-           class="breadcrumb-link"
+           class="breadcrumb-current"
            th:text="${implant.modelName}">
             Model
         </a>
 
         <!-- Selected Size -->
-        <span id="breadcrumbSizeWrapper"
-              class="breadcrumb-size-wrapper"
-              hidden>
+        <a id="breadcrumbSizeWrapper"
+           class="breadcrumb-size-link"
+           hidden>
 
             <svg class="breadcrumb-arrow"
                  fill="none"
@@ -79,7 +79,7 @@
                   class="breadcrumb-current">
             </span>
 
-        </span>
+        </a>
 
     </header>
 
@@ -194,7 +194,7 @@
                         <div class="implant-info-row shaded-row">
                             <span class="info-label">Material</span>
                             <span class="info-value"
-                                 ${implant.material != null ? implant.material.materialName : '-'}
+                                  th:text="${implant.material != null ? implant.material.materialName : '-'}">
                             </span>
                         </div>
 
@@ -426,11 +426,24 @@
                     ? 'Variants: ' + notes.join(' · ')
                     : '';
 
-            // Update breadcrumb with selected size
-            document.getElementById('breadcrumbSize').textContent =
-                selectedSizeText;
 
-            document.getElementById('breadcrumbSizeWrapper').hidden = false;
+            // Update breadcrumb with selected size.
+            const breadcrumbSizeWrapper =
+                document.getElementById('breadcrumbSizeWrapper');
+
+            const breadcrumbSize =
+                document.getElementById('breadcrumbSize');
+
+            breadcrumbSize.textContent = selectedSizeText;
+
+
+            // Make selected size breadcrumb clickable.
+            breadcrumbSizeWrapper.href =
+                window.location.pathname
+                + '?diameter=' + encodeURIComponent(selectedDiameter)
+                + '&length=' + encodeURIComponent(selectedLength);
+
+            breadcrumbSizeWrapper.hidden = false;
 
         } else if (hasSizes) {
 

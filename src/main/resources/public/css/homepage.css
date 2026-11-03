@@ -230,7 +230,9 @@ Content
 
 .navbar {
     background-color: #0D1C42;
-    padding: 16px 32px;
+    height: 72px;
+    padding: 0 32px;
+    box-sizing: border-box;
 
     display: flex;
     justify-content: space-between;

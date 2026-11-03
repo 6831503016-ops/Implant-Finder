@@ -1,0 +1,254 @@
+/* ========================================
+   1. Global Styles
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #0D1C42;
+    background-color: #f0f4f9;
+}
+
+
+/* ========================================
+   2. Main Container
+======================================== */
+
+.avatar-container {
+    width: 100%;
+    max-width: 896px;
+    margin: 0 auto;
+    padding: 48px;
+    background-color: #ffffff;
+    border-radius: 32px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+
+/* ========================================
+   3. Page Heading
+======================================== */
+
+.page-title {
+    margin: 0;
+    color: #0f172a;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.page-description {
+    margin: 8px 0 32px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* ========================================
+   4. Avatar Grid
+======================================== */
+
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.avatar-option {
+    min-width: 0;
+}
+
+
+/* ========================================
+   5. Avatar Selection
+======================================== */
+
+.avatar-option input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.avatar-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    cursor: pointer;
+    background-color: #f8fafc;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.avatar-card:hover {
+    background-color: #f1f5f9;
+}
+
+.avatar-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.avatar-name {
+    margin-top: 12px;
+    color: #0f172a;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* Selected Avatar */
+
+.avatar-option input[type="radio"]:checked + .avatar-card {
+    border-color: #2563eb;
+    background-color: #eff6ff;
+    box-shadow: 0 0 0 2px #bfdbfe;
+}
+
+
+/* Keyboard Focus */
+
+.avatar-option input[type="radio"]:focus-visible + .avatar-card {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+}
+
+
+/* ========================================
+   6. Form Actions
+======================================== */
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.cancel-button,
+.confirm-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+
+/* Cancel Button */
+
+.cancel-button {
+    color: #475569;
+    background-color: #f1f5f9;
+}
+
+.cancel-button:hover {
+    background-color: #e2e8f0;
+}
+
+
+/* Confirm Button */
+
+.confirm-button {
+    padding-right: 28px;
+    padding-left: 28px;
+    color: #ffffff;
+    background-color: #2563eb;
+}
+
+.confirm-button:hover {
+    background-color: #1d4ed8;
+}
+
+
+/* ========================================
+   7. Responsive: Tablet
+======================================== */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 32px 20px;
+    }
+
+    .avatar-container {
+        padding: 36px;
+    }
+
+    .avatar-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ========================================
+   8. Responsive: Mobile
+======================================== */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 20px 12px;
+    }
+
+    .avatar-container {
+        padding: 24px 18px;
+        border-radius: 24px;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .page-description {
+        font-size: 12px;
+    }
+
+    .avatar-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .avatar-card {
+        padding: 12px;
+    }
+
+    .avatar-image {
+        width: 72px;
+        height: 72px;
+    }
+
+    .form-actions {
+        gap: 8px;
+    }
+
+    .cancel-button,
+    .confirm-button {
+        flex: 1;
+        padding: 11px 12px;
+        font-size: 12px;
+    }
+
+}

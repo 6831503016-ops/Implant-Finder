@@ -89,11 +89,11 @@
     <!-- Main Area -->
     <div class="main-area">
 
-        <!-- Top Bar -->
-        <header class="top-bar">
+        <!-- Navbar -->
+        <header class="navbar">
 
-            <a href="/" class="top-bar-brand">
-                <span class="top-bar-brand-icon">🦷</span>
+            <a href="/" class="navbar-brand">
+                <span class="navbar-brand-icon">🦷</span>
                 <span>Implant</span>
             </a>
 
@@ -208,8 +208,7 @@
 
                             <!-- Material -->
                             <td class="material-cell"
-                              name="materialName"
-                             ${m.material != null ? m.material.materialName : '-'}
+                                th:text="${m.material != null ? m.material.materialName : '-'}">
                             </td>
 
                             <!-- Available Sizes -->
