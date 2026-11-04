@@ -49,13 +49,13 @@ body {
 
     background-image:
         linear-gradient(
-            rgba(238, 244, 255, 0.85),
-            rgba(238, 244, 255, 0.85)
+            rgba(238, 244, 255, 0.45),
+            rgba(238, 244, 255, 0.65)
         ),
         url("https://images.ctfassets.net/ep6a2e51ydt1/74hoGpswU2gOvHgmXBAmKu/6a9912544c61f8dec7416743fc0da398/ChatGPT_Image_Oct_11__2025__01_32_30_AM.png?w=1200&h=630&fm=webp&q=85");
 
     background-position: center 45%;
-    background-size: cover;
+    background-size: cover; /*ขยายภาพให้เต็มพทใ*/
     background-repeat: no-repeat;
 
     display: flex;
@@ -85,7 +85,7 @@ Content
 }
 
 .banner p {
-    color: #64748B;
+    color: #ffffff;
     margin: 0;
     font-size: clamp(1rem, 1.8vw, 1.35rem);
 }

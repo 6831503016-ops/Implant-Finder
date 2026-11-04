@@ -115,7 +115,7 @@ a {
     height: 16px;
     flex-shrink: 0;
 
-    transform: translateY(3px);
+    transform: translateY(6px);
     color: #64748B;
 }
 
@@ -135,6 +135,7 @@ a {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    transform: translateY(6px);
 }
 
 .breadcrumb-current:hover {
@@ -357,8 +358,6 @@ a {
     padding: 12px;
 
     overflow: hidden;
-
-    background-color: #EEF4FF;
     border-radius: 12px;
 }
 

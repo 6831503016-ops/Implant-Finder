@@ -122,8 +122,8 @@ button {
     background-color: #E8F0FD;
 }
 
-.navigation-link-active {
-    color: #1D63EE;
+.navigation-link-active {       /*เวลาตอนเลือกเมนูจะแสดงสีแบบไหน*/
+    color: #ffffff;
     background-color: #1D63EE;
     font-weight: 700;
 }
@@ -201,6 +201,7 @@ button {
     height: 16px;
     margin: 0 4px;
     color: #64748B;
+    transform: translateY(3px);
 }
 
 .breadcrumb-current {
@@ -211,6 +212,7 @@ button {
     font-weight: 600;
     white-space: nowrap;
     text-overflow: ellipsis;
+    transform: translateY(3px);
 }
 
 
