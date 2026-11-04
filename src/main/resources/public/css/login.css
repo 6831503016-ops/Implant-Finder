@@ -93,6 +93,11 @@ a {
     min-height: 100vh;
 }
 
+.navbar-brand-logo {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+}
 
 /* ========================================
    Left Section

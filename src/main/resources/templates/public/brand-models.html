@@ -23,9 +23,26 @@
     <!-- Navigation Bar -->
     <header class="navbar">
 
-        <a href="/" class="navbar-brand">
-            <span class="navbar-brand-icon">🦷</span>
-            <span>Implant-Finder</span>
+       <a href="/" class="navbar-brand">   <!-- model-detail uses th:href="@{/}" -->
+    <img th:src="@{/images/logo.png}" alt="Implant Finder" class="navbar-brand-logo">
+</a>
+        <!-- Breadcrumb: Home -->
+        <svg class="breadcrumb-arrow"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke="currentColor"
+             stroke-width="2.5">
+
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 5l7 7-7 7"/>
+
+        </svg>
+
+        <a  th:href="@{'/brand/' + ${brand.brandId}}"
+            class="breadcrumb-current"
+            th:text="${brand.brandName}">
+            Brand
         </a>
 
     </header>
