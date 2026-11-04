@@ -411,7 +411,72 @@ button {
     border-radius: 16px;
     box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
 }
- 
+
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.results-summary {
+    color: #64748B;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pagination,
+.pagination-pages {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pagination-ellipsis {
+    padding: 0 2px;
+    color: #64748B;
+    font-weight: 700;
+}
+
+.pagination-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    color: #0A1F44;
+    background-color: #FFFFFF;
+    border: 1px solid #D6E2F7;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-color: #EEF4FF;
+    border-color: #BDD2FB;
+}
+
+.pagination-button-active {
+    color: #FFFFFF;
+    background-color: #1D63EE;
+    border-color: #1D63EE;
+}
+
+.pagination-button-active:hover:not(:disabled) {
+    background-color: #1650C8;
+    border-color: #1650C8;
+}
+
+.pagination-button:disabled {
+    color: #94A3B8;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 .implant-table {
     width: 100%;
     border-collapse: collapse;
@@ -466,7 +531,7 @@ button {
 }
  
 .table-body td {
-    padding: 16px;
+    padding: 20px 16px;
     vertical-align: middle;
 }
  

@@ -294,30 +294,113 @@
 
             </div>
 
+            <div class="pagination-container">
+                <span id="resultsSummary" class="results-summary" aria-live="polite"></span>
+                <nav class="pagination" aria-label="Table pages">
+                    <button type="button" id="previousPage" class="pagination-button">Previous</button>
+                    <div id="pageNumbers" class="pagination-pages"></div>
+                    <button type="button" id="nextPage" class="pagination-button">Next</button>
+                </nav>
+            </div>
+
         </main>
     </div>
 
 
     <!-- Search Models -->
     <script>
+        const pageSize = 10;
+        const modelRows = Array.from(document.querySelectorAll('.model-row'));
+        const pageNumbers = document.getElementById('pageNumbers');
+        const resultsSummary = document.getElementById('resultsSummary');
+        const previousPage = document.getElementById('previousPage');
+        const nextPage = document.getElementById('nextPage');
+        let currentPage = 1;
+        let filteredRows = modelRows;
+
+        function renderPage() {
+            const pageCount = Math.ceil(filteredRows.length / pageSize);
+            currentPage = Math.min(currentPage, Math.max(pageCount, 1));
+
+            modelRows.forEach(row => {
+                row.style.display = 'none';
+            });
+
+            const startIndex = (currentPage - 1) * pageSize;
+            filteredRows.slice(startIndex, startIndex + pageSize).forEach(row => {
+                row.style.display = '';
+            });
+
+            resultsSummary.textContent = filteredRows.length === 0
+                ? 'Showing 0 of 0 rows'
+                : `Showing ${startIndex + 1}-${Math.min(startIndex + pageSize, filteredRows.length)} of ${filteredRows.length} rows`;
+
+            pageNumbers.replaceChildren();
+            const visiblePages = pageCount <= 6
+                ? Array.from({ length: pageCount }, (_, index) => index + 1)
+                : [1, 2, 3, 4, ...(currentPage > 4 && currentPage < pageCount ? [currentPage] : []), pageCount];
+
+            visiblePages.forEach((page, index) => {
+                if (index > 0 && page - visiblePages[index - 1] > 1) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = 'pagination-ellipsis';
+                    ellipsis.textContent = '...';
+                    ellipsis.setAttribute('aria-hidden', 'true');
+                    pageNumbers.appendChild(ellipsis);
+                }
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'pagination-button';
+                button.textContent = page;
+                button.setAttribute('aria-label', `Page ${page}`);
+                if (page === currentPage) {
+                    button.classList.add('pagination-button-active');
+                    button.setAttribute('aria-current', 'page');
+                }
+                button.addEventListener('click', () => {
+                    currentPage = page;
+                    renderPage();
+                });
+                pageNumbers.appendChild(button);
+            });
+
+            previousPage.disabled = currentPage <= 1;
+            nextPage.disabled = currentPage >= pageCount;
+        }
+
         function filterModels() {
             const query = document.getElementById('searchInput')
                 .value.toLowerCase().trim();
 
-            document.querySelectorAll('.model-row').forEach(row => {
+            filteredRows = modelRows.filter(row => {
                 const brandName = row.cells[1].textContent
                     .toLowerCase().trim();
 
                 const modelName = row.cells[2].textContent
                     .toLowerCase().trim();
 
-                const matches =
-                    brandName.startsWith(query) ||
-                    modelName.startsWith(query);
-
-                row.style.display = matches ? '' : 'none';
+                return brandName.startsWith(query) || modelName.startsWith(query);
             });
+            currentPage = 1;
+            renderPage();
         }
+
+        previousPage.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage -= 1;
+                renderPage();
+            }
+        });
+
+        nextPage.addEventListener('click', () => {
+            if (currentPage < Math.ceil(filteredRows.length / pageSize)) {
+                currentPage += 1;
+                renderPage();
+            }
+        });
+
+        renderPage();
     </script>
 
 
