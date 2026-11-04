@@ -101,7 +101,8 @@ public String saveModel(
     @PostMapping("/edit-model/{id}")
     public String updateModel(@PathVariable Long id, @ModelAttribute ImplantModel form,
             @RequestParam(value = "materialName", required = false) String materialName,
-            @RequestParam(value = "sizes", required = false) String sizes) {
+            @RequestParam(value = "sizeValues", required = false) String sizes,
+            @RequestParam(value = "country", required = false) String country) {
 
         ImplantModel implant = modelRepo.findById(id).orElseThrow();
 
@@ -112,6 +113,11 @@ public String saveModel(
         // เปลี่ยนแบรนด์ (ดึงจากฐานข้อมูลตาม id ที่เลือก)
         if (form.getBrand() != null && form.getBrand().getBrandId() != null) {
             implant.setBrand(brandRepo.findById(form.getBrand().getBrandId()).orElseThrow());
+        }
+        if (country != null) {
+            Brand brand = implant.getBrand();
+            brand.setCountry(blankToNull(country));
+            brandRepo.save(brand);
         }
 
         // เปลี่ยนรูปเฉพาะตอนที่กรอกลิงก์ใหม่ ถ้าเว้นว่างไว้จะใช้รูปเดิม

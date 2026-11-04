@@ -232,7 +232,8 @@
                         <!-- COUNTRY -->
                         <div class="form-group">
                             <label for="country" class="form-label">Country</label>
-                            <input type="text" id="country" th:field="*{country}"
+                            <input type="text" id="country" name="country"
+                                   th:value="${implant.brand != null ? implant.brand.country : ''}"
                                    class="form-input" placeholder="Enter country">
                         </div>
 
@@ -255,7 +256,8 @@
                             Add implant diameters and their corresponding lengths.
                         </p>
 
-                        <input type="hidden" id="sizes" th:field="*{sizes}">
+                        <input type="hidden" id="sizes" name="sizeValues"
+                               th:value="${implant.sizes}">
 
                         <div class="size-input-grid">
 
