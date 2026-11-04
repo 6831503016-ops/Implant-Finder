@@ -63,18 +63,18 @@
         <div class="login-content">
 
             <!-- Heading -->
-            <div class="login-header">
+          <!-- Heading -->
+<div class="login-header">
 
-                <div class="brand">
-                    <span class="brand-icon">🦷</span>
-                    <span class="brand-name">Implant</span>
+    <div class="brand">
+        <img th:src="@{/images/logo.png}"
+             alt="Implant Finder"
+             class="navbar-brand-logo">
+    </div>
 
-                </div>
+    <h1>Admin Login</h1>
 
-                <h1>Admin Login</h1>
-
-            </div>
-
+</div>
             <!-- Login Form -->
             <form th:action="@{/admin/login}"
                   method="post"
