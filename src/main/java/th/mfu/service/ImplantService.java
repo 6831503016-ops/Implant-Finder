@@ -3,7 +3,9 @@ package th.mfu.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import th.mfu.domain.ImplantModel;
+import th.mfu.domain.ImplantSize;
 import th.mfu.repository.ImplantModelRepository;
+import th.mfu.repository.ImplantSizeRepository;
 import java.util.List;
 import th.mfu.domain.*;
 import th.mfu.repository.BrandRepository;
@@ -19,6 +21,8 @@ public class ImplantService {
 
     @Autowired
     private ImplantModelRepository modelRepo;
+    @Autowired
+    private ImplantSizeRepository sizeRepo;
         @Autowired private BrandRepository brandRepo;
     @Autowired private MaterialRepository materialRepo;
 
@@ -36,6 +40,13 @@ public class ImplantService {
             modelRepo.save(model);
         }
     }
+
+    public void toggleSizeStatus(Long id) {
+        ImplantSize size = sizeRepo.findById(id).orElseThrow();
+        size.setStatus("Visible".equals(size.getStatus()) ? "Hidden" : "Visible");
+        sizeRepo.save(size);
+    }
+
         public static String blankToNull(String s) {
         return (s == null || s.isBlank()) ? null : s.trim();
     }

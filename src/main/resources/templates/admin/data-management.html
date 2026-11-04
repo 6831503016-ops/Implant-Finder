@@ -187,113 +187,108 @@
                     </thead>
 
                     <tbody class="table-body">
-
-                        <tr th:each="m : ${models}"
-                            class="model-row">
-
-                            <!-- Model Image -->
-                            <td class="image-cell">
-
-                                <div class="model-thumbnail">
-                                    <img th:src="${m.imageUrl}"
-                                         class="thumbnail-image"
-                                         alt="Implant model thumbnail">
-                                </div>
-
-                            </td>
-
-                            <!-- Brand -->
-                            <td class="brand-cell"
-                                th:text="${m.brand != null ? m.brand.brandName : '-'}">
-                            </td>
-
-                            <!-- Model -->
-                            <td class="model-name-cell"
-                                th:text="${m.modelName}">
-                            </td>
-
-                            <!-- Material -->
-                            <td class="material-cell"
-                                th:text="${m.material != null ? m.material.materialName : '-'}">
-                            </td>
-
-                            <!-- Available Sizes -->
-                            <td class="size-cell"
-                                th:attr="data-sizes=${m.sizes}">
-                            </td>
-
-                            <!-- Actions -->
-                            <td class="actions-cell">
-
-                                <div class="action-buttons">
-
-                                    <!-- Edit -->
-                                    <a th:href="@{'/admin/edit-model/' + ${m.modelId}}"
-                                       class="icon-button edit-button"
-                                       title="Edit"
-                                       aria-label="Edit model">
-
-                                        <svg viewBox="0 0 24 24"
-                                             fill="none"
-                                             stroke="currentColor"
-                                             stroke-width="2"
-                                             stroke-linecap="round"
-                                             stroke-linejoin="round"
-                                             aria-hidden="true">
-                                            <path d="M15.232 5.232l3.536 3.536M9 13l6.768-6.768a2.5 2.5 0 113.536 3.536L12.536 16.536 8 18l1-5z"/>
-                                        </svg>
-
-                                    </a>
-
-
-                                    <!-- Toggle Status -->
-                                    <form th:action="@{'/admin/toggle-status/' + ${m.modelId}}"
-                                          method="post"
-                                          class="status-form">
-
-                                        <button type="submit"
-                                                class="status-toggle"
-                                                th:title="${m.status == 'Visible' ? 'Visible (click to hide)' : 'Hidden (click to show)'}"
-                                                th:classappend="${m.status == 'Visible' ? ' status-visible' : ' status-hidden'}"
-                                                th:attr="aria-label=${m.status == 'Visible' ? 'Hide model' : 'Show model'}">
-
-                                            <span class="status-toggle-knob"></span>
-
-                                        </button>
-
-                                    </form>
-
-
-                                    <!-- Delete -->
-                                    <form th:action="@{'/admin/delete/' + ${m.modelId}}"
-                                          method="post"
-                                          class="delete-form">
-
-                                        <button type="submit"
-                                                class="icon-button delete-button"
-                                                onclick="return confirm('Delete model?')"
-                                                title="Delete model"
-                                                aria-label="Delete model">
-
-                                            <svg viewBox="0 0 24 24"
-                                                 fill="none"
-                                                 stroke="currentColor"
-                                                 stroke-width="1.8"
-                                                 stroke-linecap="round"
-                                                 stroke-linejoin="round"
-                                                 aria-hidden="true">
-                                                <path d="M6 7h12M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/>
+                        <th:block th:each="m : ${models}">
+                            <tr th:each="size : ${m.sizeList}" class="model-row">
+                                <td class="image-cell">
+                                    <div class="model-thumbnail">
+                                        <img th:src="${m.imageUrl}"
+                                             class="thumbnail-image"
+                                             alt="Implant model thumbnail">
+                                    </div>
+                                </td>
+                                <td class="brand-cell"
+                                    th:text="${m.brand != null ? m.brand.brandName : '-'}"></td>
+                                <td class="model-name-cell" th:text="${m.modelName}"></td>
+                                <td class="material-cell"
+                                    th:text="${m.material != null ? m.material.materialName : '-'}"></td>
+                                <td class="size-cell" th:text="${size.displaySize}"></td>
+                                <td class="actions-cell">
+                                    <div class="action-buttons">
+                                        <a th:href="@{'/admin/edit-model/' + ${m.modelId}}"
+                                           class="icon-button edit-button"
+                                           title="Edit"
+                                           aria-label="Edit model">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round"
+                                                 stroke-linejoin="round" aria-hidden="true">
+                                                <path d="M15.232 5.232l3.536 3.536M9 13l6.768-6.768a2.5 2.5 0 113.536 3.536L12.536 16.536 8 18l1-5z"/>
                                             </svg>
-
-                                        </button>
-
-                                    </form>
-
-                                </div>
-                            </td>
-
-                        </tr>
-
+                                        </a>
+                                        <form th:action="@{'/admin/toggle-size-status/' + ${size.sizeId}}"
+                                              method="post" class="status-form">
+                                            <button type="submit" class="status-toggle"
+                                                    th:title="${size.status == 'Visible' ? 'Visible (click to hide)' : 'Hidden (click to show)'}"
+                                                    th:classappend="${size.status == 'Visible' ? ' status-visible' : ' status-hidden'}"
+                                                    th:attr="aria-label=${size.status == 'Visible' ? 'Hide size' : 'Show size'}">
+                                                <span class="status-toggle-knob"></span>
+                                            </button>
+                                        </form>
+                                        <form th:action="@{'/admin/delete/' + ${m.modelId}}"
+                                              method="post" class="delete-form">
+                                            <button type="submit" class="icon-button delete-button"
+                                                    onclick="return confirm('Delete model?')"
+                                                    title="Delete model" aria-label="Delete model">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="1.8" stroke-linecap="round"
+                                                     stroke-linejoin="round" aria-hidden="true">
+                                                    <path d="M6 7h12M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(m.sizeList)}" class="model-row">
+                                <td class="image-cell">
+                                    <div class="model-thumbnail">
+                                        <img th:src="${m.imageUrl}"
+                                             class="thumbnail-image"
+                                             alt="Implant model thumbnail">
+                                    </div>
+                                </td>
+                                <td class="brand-cell"
+                                    th:text="${m.brand != null ? m.brand.brandName : '-'}"></td>
+                                <td class="model-name-cell" th:text="${m.modelName}"></td>
+                                <td class="material-cell"
+                                    th:text="${m.material != null ? m.material.materialName : '-'}"></td>
+                                <td class="size-cell">-</td>
+                                <td class="actions-cell">
+                                    <div class="action-buttons">
+                                        <a th:href="@{'/admin/edit-model/' + ${m.modelId}}"
+                                           class="icon-button edit-button"
+                                           title="Edit"
+                                           aria-label="Edit model">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round"
+                                                 stroke-linejoin="round" aria-hidden="true">
+                                                <path d="M15.232 5.232l3.536 3.536M9 13l6.768-6.768a2.5 2.5 0 113.536 3.536L12.536 16.536 8 18l1-5z"/>
+                                            </svg>
+                                        </a>
+                                        <form th:action="@{'/admin/toggle-status/' + ${m.modelId}}"
+                                              method="post" class="status-form">
+                                            <button type="submit" class="status-toggle"
+                                                    th:title="${m.status == 'Visible' ? 'Visible (click to hide)' : 'Hidden (click to show)'}"
+                                                    th:classappend="${m.status == 'Visible' ? ' status-visible' : ' status-hidden'}"
+                                                    th:attr="aria-label=${m.status == 'Visible' ? 'Hide model' : 'Show model'}">
+                                                <span class="status-toggle-knob"></span>
+                                            </button>
+                                        </form>
+                                        <form th:action="@{'/admin/delete/' + ${m.modelId}}"
+                                              method="post" class="delete-form">
+                                            <button type="submit" class="icon-button delete-button"
+                                                    onclick="return confirm('Delete model?')"
+                                                    title="Delete model" aria-label="Delete model">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="1.8" stroke-linecap="round"
+                                                     stroke-linejoin="round" aria-hidden="true">
+                                                    <path d="M6 7h12M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
                     </tbody>
                 </table>
 
@@ -325,177 +320,6 @@
         }
     </script>
 
-
-    <!-- Implant Size Summary and Expandable List -->
-    <script>
-        // Parse sizes such as "3.6 x 11 mm, 4.0 x 10 mm"
-        function parseSizes(raw) {
-            const groups = {};
-            const re = /([\d.]+)\s*[x×]\s*([\d.]+)/gi;
-
-            let m;
-            let count = 0;
-
-            while ((m = re.exec(raw || '')) !== null) {
-                const diameter = parseFloat(m[1]);
-                const length = parseFloat(m[2]);
-
-                groups[diameter] = groups[diameter] || new Set();
-                groups[diameter].add(length);
-
-                count++;
-            }
-
-            const diameters = Object.keys(groups)
-                .map(Number)
-                .sort((a, b) => a - b);
-
-            const lengths = [
-                ...new Set(
-                    diameters.flatMap(diameter => [
-                        ...groups[diameter]
-                    ])
-                )
-            ].sort((a, b) => a - b);
-
-            return {
-                groups,
-                diameters,
-                lengths,
-                count
-            };
-        }
-
-
-        // Format diameter values
-        function formatSize(number) {
-            return Number.isInteger(number)
-                ? number.toFixed(1)
-                : String(number);
-        }
-
-
-        // Display the size information in each table row
-        document.querySelectorAll('.size-cell').forEach(function (cell) {
-
-            const raw = cell.dataset.sizes || '';
-            const sizes = parseSizes(raw);
-
-            // Show original text if the format cannot be parsed
-            if (sizes.count === 0) {
-                cell.textContent = raw;
-                return;
-            }
-
-            const diameterMin = sizes.diameters[0];
-            const diameterMax =
-                sizes.diameters[sizes.diameters.length - 1];
-
-            const lengthMin = sizes.lengths[0];
-            const lengthMax = sizes.lengths[sizes.lengths.length - 1];
-
-
-            // Diameter summary
-            const diameterText =
-                diameterMin === diameterMax
-                    ? `Ø ${formatSize(diameterMin)} mm`
-                    : `Ø ${formatSize(diameterMin)} – ${formatSize(diameterMax)} mm`;
-
-        
-            // Length summary
-            const lengthText =
-                lengthMin === lengthMax
-                    ? `L ${lengthMin} mm`
-                    : `L ${lengthMin} – ${lengthMax} mm`;
-
-
-            // Create one row for each diameter
-            const rows = sizes.diameters.map(diameter => {
-
-                const lengths = [...sizes.groups[diameter]]
-                    .sort((a, b) => a - b)
-                    .map(length => `
-                        <span class="length-chip">
-                            ${length}
-                        </span>
-                    `)
-                    .join('');
-
-                return `
-                    <div class="diameter-row">
-
-                        <span class="diameter-chip">
-                            Ø ${formatSize(diameter)}
-                        </span>
-
-                        <div class="length-chip-list">
-                            ${lengths}
-                        </div>
-
-                    </div>
-                `;
-            }).join('');
-
-
-            // Build the size summary and expandable section
-            cell.innerHTML = `
-                <div class="size-summary">
-
-                    <span class="size-summary-diameter">
-                        ${diameterText}
-                    </span>
-
-                    <span class="size-summary-length">
-                        ${lengthText}
-                    </span>
-
-                    <span class="size-count">
-                        ${sizes.count} sizes
-                    </span>
-
-                    <button type="button"
-                            class="toggle-size-button"
-                            aria-expanded="false">
-                        View all ▾
-                    </button>
-
-                </div>
-
-                <div class="size-detail size-detail-hidden">
-
-                    ${rows}
-
-                    <p class="size-detail-note">
-                        Numbers = length (mm)
-                    </p>
-
-                </div>
-            `;
-
-
-            // Expand or collapse the size list
-            const button = cell.querySelector('.toggle-size-button');
-            const detail = cell.querySelector('.size-detail');
-
-            button.addEventListener('click', function () {
-
-                const isCurrentlyHidden =
-                    detail.classList.contains('size-detail-hidden');
-
-                detail.classList.toggle('size-detail-hidden');
-
-                button.textContent = isCurrentlyHidden
-                    ? 'Hide ▴'
-                    : 'View all ▾';
-
-                button.setAttribute(
-                    'aria-expanded',
-                    String(isCurrentlyHidden)
-                );
-            });
-
-        });
-    </script>
 
 </body>
 </html>
