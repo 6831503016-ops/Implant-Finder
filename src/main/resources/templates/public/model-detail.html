@@ -15,70 +15,12 @@
 
 <body class="page-body">
 
-    <!-- Navbar / Breadcrumb Header -->
+    <!-- Navbar -->
     <header class="navbar">
 
-        <!-- Home -->
         <a th:href="@{/}" class="navbar-brand">
             <span class="navbar-brand-icon">🦷</span>
             <span>Implant-Finder</span>
-        </a>
-
-        <!-- Arrow -->
-        <svg class="breadcrumb-arrow"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke="currentColor"
-             stroke-width="2.5">
-            <path stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"/>
-        </svg>
-
-        <!-- Brand -->
-        <a th:href="@{'/brand/' + ${implant.brand.brandId}}"
-           class="breadcrumb-current"
-           th:text="${implant.brand.brandName}">
-            Brand
-        </a>
-
-        <!-- Arrow -->
-        <svg class="breadcrumb-arrow"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke="currentColor"
-             stroke-width="2.5">
-            <path stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"/>
-        </svg>
-
-        <!-- Model -->
-        <a th:href="@{'/model/' + ${implant.modelId}}"
-           class="breadcrumb-current"
-           th:text="${implant.modelName}">
-            Model
-        </a>
-
-        <!-- Selected Size -->
-        <a id="breadcrumbSizeWrapper"
-           class="breadcrumb-size-link"
-           hidden>
-
-            <svg class="breadcrumb-arrow"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke="currentColor"
-                 stroke-width="2.5">
-                <path stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9 5l7 7-7 7"/>
-            </svg>
-
-            <span id="breadcrumbSize"
-                  class="breadcrumb-current">
-            </span>
-
         </a>
 
     </header>
@@ -87,14 +29,12 @@
     <!-- Main Content -->
     <main class="model-detail-container">
 
-        <!-- Size Picker -->
-        <section id="sizePicker" class="size-picker-section">
-
-            <a th:href="@{'/brand/' + ${implant.brand.brandId}}"
+        <nav class="page-navigation" aria-label="Breadcrumb">
+            <a id="pageBackButton"
+               th:href="@{'/brand/' + ${implant.brand.brandId}}"
                title="Back to brand models"
                aria-label="Back to brand models"
                class="back-button">
-
                 <svg xmlns="http://www.w3.org/2000/svg"
                      class="small-icon"
                      fill="none"
@@ -105,8 +45,55 @@
                           stroke-linejoin="round"
                           d="M19 12H5m0 0l6-6m-6 6l6 6"/>
                 </svg>
-
             </a>
+
+            <div class="page-breadcrumbs">
+                <a th:href="@{'/brand/' + ${implant.brand.brandId}}"
+                   class="breadcrumb-current"
+                   th:text="${implant.brand.brandName}">
+                    Brand
+                </a>
+
+                <svg class="breadcrumb-arrow"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor"
+                     stroke-width="2.5"
+                     aria-hidden="true">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M9 5l7 7-7 7"/>
+                </svg>
+
+                <a th:href="@{'/model/' + ${implant.modelId}}"
+                   class="breadcrumb-current"
+                   th:text="${implant.modelName}">
+                    Model
+                </a>
+
+                <a id="breadcrumbSizeWrapper"
+                   class="breadcrumb-size-link"
+                   hidden>
+                    <svg class="breadcrumb-arrow"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor"
+                         stroke-width="2.5"
+                         aria-hidden="true">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M9 5l7 7-7 7"/>
+                    </svg>
+
+                    <span id="breadcrumbSize"
+                          class="breadcrumb-current">
+                    </span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Size Picker -->
+        <section id="sizePicker" class="size-picker-section">
 
             <h1 class="size-picker-title"
                 th:text="${implant.modelName}">
@@ -130,25 +117,6 @@
         <section id="detailView"
                  class="detail-view-section"
                  hidden>
-
-            <a th:href="@{'/model/' + ${implant.modelId}}"
-               title="Back to sizes"
-               aria-label="Back to sizes"
-               class="back-button">
-
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     class="small-icon"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     stroke="currentColor"
-                     stroke-width="1.8">
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M19 12H5m0 0l6-6m-6 6l6 6"/>
-                </svg>
-
-            </a>
-
 
             <div class="implant-detail-grid">
 
@@ -412,6 +380,13 @@
 
             sizePicker.hidden = true;
             detailView.hidden = false;
+
+            const pageBackButton =
+                document.getElementById('pageBackButton');
+
+            pageBackButton.href = window.location.pathname;
+            pageBackButton.title = 'Back to sizes';
+            pageBackButton.setAttribute('aria-label', 'Back to sizes');
 
             const selectedSizeText =
                 'Ø ' + selectedDiameter + ' x ' + selectedLength + ' mm';

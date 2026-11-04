@@ -113,12 +113,12 @@ body {
     flex-shrink: 0;
     width: 16px;
     height: 16px;
-    color: rgba(255, 255, 255, 0.8);
+    color: #64748B;
 }
 
 .breadcrumb-link {
     flex-shrink: 0;
-    color: #ffffff;
+    color: #0A1F44;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
@@ -131,11 +131,25 @@ body {
 .breadcrumb-current {
     min-width: 0;
     overflow: hidden;
-    color: #ffffff;
+    color: #0A1F44;
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.page-navigation {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.page-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
 }
 
 
