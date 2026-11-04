@@ -27,6 +27,9 @@ public class ImplantSize {
     @Column(length = 255)
     private String variantNote;
 
+    @Column(nullable = false, columnDefinition = "varchar(20) default 'Visible'")
+    private String status = "Visible";
+
     public Long getSizeId() { return sizeId; }
     public void setSizeId(Long sizeId) { this.sizeId = sizeId; }
     public ImplantModel getModel() { return model; }
@@ -39,4 +42,14 @@ public class ImplantSize {
     public void setProductCode(String p) { this.productCode = p; }
     public String getVariantNote() { return variantNote; }
     public void setVariantNote(String n) { this.variantNote = n; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public String getDisplaySize() {
+        String display = "Ø " + diameterMm.stripTrailingZeros().toPlainString()
+                + " x " + lengthMm.stripTrailingZeros().toPlainString() + " mm";
+        return variantNote == null || variantNote.isBlank()
+                ? display
+                : display + " (" + variantNote.trim() + ")";
+    }
 }

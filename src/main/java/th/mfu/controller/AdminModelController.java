@@ -130,6 +130,12 @@ public String saveModel(
         return "redirect:/admin/data-management";
     }
 
+    @PostMapping("/toggle-size-status/{id}")
+    public String toggleSizeStatus(@PathVariable Long id) {
+        implantService.toggleSizeStatus(id);
+        return "redirect:/admin/data-management";
+    }
+
     @PostMapping("/delete/{id}")
     public String deleteModel(@PathVariable Long id) {
         modelRepo.deleteById(id);
