@@ -1,255 +1,135 @@
-/* ========================================
-   1. Global Styles
-======================================== */
+/* =========================================================
+   avatar.css — Choose Your Avatar (Canva หน้า 10)
+   ต้องโหลด base.css ก่อนไฟล์นี้
+========================================================= */
 
-* {
-    box-sizing: border-box;
+.avatar-page {
+    padding: 90px 24px 40px;
+    background: var(--bg-gradient);
 }
 
-body {
-    min-height: 100vh;
-    margin: 0;
-    padding: 40px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: #0A1F44;
-    background-color: #EEF4FF;
-}
-
-
-/* ========================================
-   2. Main Container
-======================================== */
-
-.avatar-container {
-    width: 100%;
-    max-width: 896px;
+/* การ์ดขาว 1205 x 720 */
+.avatar-card {
+    width: min(100%, 1205px);
+    min-height: 720px;
     margin: 0 auto;
-    padding: 48px;
-    background-color: #ffffff;
-    border-radius: 32px;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    padding: 68px 109px 37px 107px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 28px;
+    background: var(--white);
 }
 
-
-/* ========================================
-   3. Page Heading
-======================================== */
-
-.page-title {
+.avatar-title {
     margin: 0;
-    color: #0A1F44;
-    font-size: 30px;
-    font-weight: 800;
+    font-size: 32.67px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--navy);
 }
 
-.page-description {
-    margin: 8px 0 32px;
-    color: #64748b;
+.avatar-description {
+    margin: 16px 0 0 3px;
     font-size: 14px;
+    line-height: 1.4;
+    color: var(--gray);
 }
 
-
-/* ========================================
-   4. Avatar Grid
-======================================== */
+.avatar-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 
 .avatar-grid {
+    margin: 13px 0 0 3px;
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(5, 147px);
+    justify-content: space-between;
+    row-gap: 105px;
 }
 
 .avatar-option {
-    min-width: 0;
-}
-
-
-/* ========================================
-   5. Avatar Selection
-======================================== */
-
-.avatar-option input[type="radio"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-}
-
-.avatar-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px;
+    position: relative;
+    width: 147px;
+    height: 147px;
     cursor: pointer;
-    background-color: #F7FAFF;
-    border: 2px solid transparent;
-    border-radius: 16px;
-    transition:
-        border-color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease;
 }
 
-.avatar-card:hover {
-    background-color: #f1f5f9;
+.avatar-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .avatar-image {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
+    width: 147px;
+    height: 147px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #EFE9DF;
+    outline: 4px solid transparent;
+    outline-offset: 4px;
+    transition: transform .2s ease, outline-color .2s ease;
 }
 
-.avatar-name {
-    margin-top: 12px;
-    color: #0A1F44;
-    font-size: 14px;
-    font-weight: 700;
-}
+.avatar-option:hover .avatar-image { transform: scale(1.04); }
 
+.avatar-option input:checked + .avatar-image { outline-color: var(--blue); }
 
-/* Selected Avatar */
+.avatar-option input:focus-visible + .avatar-image { outline-color: var(--muted); }
 
-.avatar-option input[type="radio"]:checked + .avatar-card {
-    border-color: #1D63EE;
-    background-color: #E8F0FD;
-    box-shadow: 0 0 0 2px #BDD2FB;
-}
-
-
-/* Keyboard Focus */
-
-.avatar-option input[type="radio"]:focus-visible + .avatar-card {
-    outline: 2px solid #1D63EE;
-    outline-offset: 3px;
-}
-
-
-/* ========================================
-   6. Form Actions
-======================================== */
-
-.form-actions {
+/* ปุ่ม */
+.avatar-actions {
+    margin-top: auto;
+    padding-top: 40px;
     display: flex;
-    align-items: center;
     justify-content: flex-end;
-    gap: 12px;
-    margin-top: 40px;
-    padding-top: 24px;
-    border-top: 1px solid #f1f5f9;
+    gap: 20px;
 }
 
-.cancel-button,
-.confirm-button {
+.avatar-cancel,
+.avatar-confirm {
+    height: 42px;
+    padding: 0 22px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 28px;
-    border: none;
     border-radius: 12px;
-    font-family: inherit;
     font-size: 14px;
     font-weight: 700;
-    text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s ease;
 }
 
-
-/* Cancel Button */
-
-.cancel-button {
-    color: #0A1F44;
-    background-color: #FFFFFF;
-    border: 1px solid #D6E2F7;
+.avatar-cancel {
+    min-width: 92px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--navy);
 }
 
-.cancel-button:hover {
-    background-color: #EEF4FF;
+.avatar-cancel:hover { background: #F7FAFF; }
+
+.avatar-confirm {
+    min-width: 150px;
+    border: 0;
+    background: var(--blue);
+    color: var(--white);
 }
 
+.avatar-confirm:hover { background: var(--hover-blue); }
 
-/* Confirm Button */
-
-.confirm-button {
-    padding-right: 28px;
-    padding-left: 28px;
-    color: #ffffff;
-    background-color: #1D63EE;
-}
-
-.confirm-button:hover {
-    background-color: #1650C8;
-}
-
-
-/* ========================================
-   7. Responsive: Tablet
-======================================== */
-
-@media (max-width: 768px) {
-
-    body {
-        padding: 32px 20px;
-    }
-
-    .avatar-container {
-        padding: 36px;
-    }
-
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+    .avatar-card { padding: 40px 32px; }
     .avatar-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fill, 147px);
+        justify-content: center;
+        gap: 32px;
     }
-
 }
 
-
-/* ========================================
-   8. Responsive: Mobile
-======================================== */
-
-@media (max-width: 480px) {
-
-    body {
-        padding: 20px 12px;
-    }
-
-    .avatar-container {
-        padding: 24px 18px;
-        border-radius: 24px;
-    }
-
-    .page-title {
-        font-size: 24px;
-    }
-
-    .page-description {
-        font-size: 12px;
-    }
-
-    .avatar-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-    }
-
-    .avatar-card {
-        padding: 12px;
-    }
-
-    .avatar-image {
-        width: 72px;
-        height: 72px;
-    }
-
-    .form-actions {
-        gap: 8px;
-    }
-
-    .cancel-button,
-    .confirm-button {
-        flex: 1;
-        padding: 11px 12px;
-        font-size: 12px;
-    }
-
+@media (max-width: 640px) {
+    .avatar-page { padding: 16px; }
+    .avatar-title { font-size: 26px; }
 }

@@ -1,459 +1,330 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Model Detail</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
-          rel="stylesheet">
-
+    <title th:text="${implant.modelName + ' | Implant Finder'}">Model Detail</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/model-detail.css}">
 </head>
+<body class="detail-page">
 
-<body class="page-body">
-
-    <!-- Navbar -->
-    <header class="navbar">
-
-        <!-- Home -->
-       <a href="/" class="navbar-brand">   <!-- model-detail uses th:href="@{/}" -->
-    <img th:src="@{/images/logo.png}" alt="Implant Finder" class="navbar-brand-logo">
-</a>
-
+    <!-- ===== Navbar ===== -->
+    <header class="topbar">
+        <a th:href="@{/}" class="site-logo" aria-label="Implant Finder home">
+            <img th:src="@{/images/logo.png}" alt="Implant Finder">
+        </a>
+        <a href="mailto:admin@implant.com" class="contact-btn" aria-label="Contact admin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 14v-2a8 8 0 0 1 16 0v2"/>
+                <rect x="3" y="13" width="4" height="6" rx="1.5"/>
+                <rect x="17" y="13" width="4" height="6" rx="1.5"/>
+                <path d="M19 19c0 1.5-1.8 2.5-4 2.5h-2"/>
+            </svg>
+        </a>
     </header>
 
+    <main class="detail-main">
 
-    <!-- Main Content -->
-    <main class="model-detail-container">
-
-        <nav class="page-navigation" aria-label="Breadcrumb">
-            <a id="pageBackButton"
-               th:href="@{'/brand/' + ${implant.brand.brandId}}"
-               title="Back to brand models"
-               aria-label="Back to brand models"
-               class="back-button">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     class="small-icon"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     stroke="currentColor"
-                     stroke-width="1.8">
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M19 12H5m0 0l6-6m-6 6l6 6"/>
+        <!-- ===== Back + Breadcrumb ===== -->
+        <nav class="page-nav" aria-label="Breadcrumb">
+            <a id="pageBackButton" th:href="@{'/brand/' + ${implant.brand.brandId}}"
+               class="back-btn" title="Back to brand models" aria-label="Back to brand models">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/>
                 </svg>
             </a>
+            <div class="crumbs">
+                <a th:href="@{/}">Home</a>
+                <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
 
-            <div class="page-breadcrumbs">
-                <a th:href="@{'/brand/' + ${implant.brand.brandId}}"
-                   class="breadcrumb-current"
-                   th:text="${implant.brand.brandName}">
-                    Brand
-                </a>
+                <!-- ปกติ: Home > แบรนด์ > รุ่น > ขนาด -->
+                <th:block th:unless="${fromModel != null and fromLink != null}">
+                    <a th:href="@{'/brand/' + ${implant.brand?.brandId}}" th:text="${implant.brand?.brandName}">Brand</a>
+                    <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
+                </th:block>
 
-                <svg class="breadcrumb-arrow"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     stroke="currentColor"
-                     stroke-width="2.5"
-                     aria-hidden="true">
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M9 5l7 7-7 7"/>
-                </svg>
+                <!-- มาจากรุ่นแนะนำ: Home > แบรนด์ก่อนหน้า > รุ่นก่อนหน้า (ขนาด) > แบรนด์+รุ่นที่ดูอยู่ > ขนาด -->
+                <th:block th:if="${fromModel != null and fromLink != null}">
+                    <a th:href="@{'/brand/' + ${fromModel.brand?.brandId}}" th:text="${fromModel.brand?.brandName}">Prev brand</a>
+                    <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
+                    <a th:href="@{${fromLink}}"
+                       th:text="${fromSize != null ? fromModel.modelName + ' ' + fromSize : fromModel.modelName}">Prev model</a>
+                    <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
+                </th:block>
 
-                <a th:href="@{'/model/' + ${implant.modelId}}"
-                   class="breadcrumb-current"
-                   th:text="${implant.modelName}">
-                    Model
-                </a>
-
-                <a id="breadcrumbSizeWrapper"
-                   class="breadcrumb-size-link"
-                   hidden>
-                    <svg class="breadcrumb-arrow"
-                         fill="none"
-                         viewBox="0 0 24 24"
-                         stroke="currentColor"
-                         stroke-width="2.5"
-                         aria-hidden="true">
-                        <path stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M9 5l7 7-7 7"/>
-                    </svg>
-
-                    <span id="breadcrumbSize"
-                          class="breadcrumb-current">
-                    </span>
-                </a>
+                <a id="crumbModel" class="is-current" th:href="@{'/model/' + ${implant.modelId}}"
+                   th:text="${fromModel != null and fromLink != null ? implant.brand?.brandName + ' ' + implant.modelName : implant.modelName}">Model</a>
+                <span id="breadcrumbSizeWrapper" class="crumb-size" hidden>
+                    <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
+                    <span id="breadcrumbSize"></span>
+                </span>
             </div>
         </nav>
 
-        <!-- Size Picker -->
-        <section id="sizePicker" class="size-picker-section">
-
-            <h1 class="size-picker-title"
-                th:text="${implant.modelName}">
-                Model
-            </h1>
-
-            <p class="size-picker-description">
-                Choose an implant size to view its details.
-            </p>
-
-            <div id="sizeCards" class="size-card-grid"></div>
-
-            <p id="noSizes" class="no-sizes" hidden>
-                Size information not available
-            </p>
-
-        </section>
-
-
-        <!-- Implant Detail -->
-        <section id="detailView"
-                 class="detail-view-section"
-                 hidden>
-
-            <div class="implant-detail-grid">
-
-                <!-- Implant Image -->
-                <div class="implant-image">
-
-                    <img th:src="${implant.imageUrl}"
-                         class="implant-main-image"
-                         alt="Implant Detail">
-
+        <!-- ===== เลือกขนาด (สไตล์เดียวกับหน้า Models) ===== -->
+        <section id="sizePicker" class="size-picker">
+            <!-- แบนเนอร์: โลโก้ | ชื่อรุ่น | จำนวนขนาด -->
+            <div class="picker-banner">
+                <div class="picker-logo">
+                    <img th:if="${implant.brand.logoUrl != null and !#strings.isEmpty(implant.brand.logoUrl)}"
+                         th:src="${implant.brand.logoUrl}" th:alt="${implant.brand.brandName + ' logo'}"
+                         onerror="this.style.display='none'; this.nextElementSibling.hidden = false">
+                    <span class="picker-logo-text" th:text="${implant.brand.brandName}"
+                          th:hidden="${implant.brand.logoUrl != null and !#strings.isEmpty(implant.brand.logoUrl)}">Brand</span>
                 </div>
 
+                <span class="picker-divider" aria-hidden="true"></span>
 
-                <!-- Implant Information -->
-                <div class="implant-info">
-
-                    <span class="implant-brand-label"
-                          th:text="${implant.brand.brandName}">
-                    </span>
-
-                    <h1 class="implant-model-heading"
-                        th:text="${implant.modelName}">
-                    </h1>
-
-
-                    <!-- Information Table -->
-                    <div class="implant-info-table">
-
-                        <div class="implant-info-row shaded-row">
-                            <span class="info-label">Brand</span>
-                            <span class="info-value"
-                                  th:text="${implant.brand.brandName}">
-                            </span>
-                        </div>
-
-                        <div class="implant-info-row">
-                            <span class="info-label">Model</span>
-                            <span class="info-value"
-                                  th:text="${implant.modelName}">
-                            </span>
-                        </div>
-
-                        <div class="implant-info-row shaded-row">
-                            <span class="info-label">Material</span>
-                            <span class="info-value"
-                                  th:text="${implant.material != null ? implant.material.materialName : '-'}">
-                            </span>
-                        </div>
-
-                        <div class="implant-info-row">
-                            <span class="info-label">Type</span>
-                            <span class="info-value"
-                                  th:text="${implant.type}">
-                            </span>
-                        </div>
-
-                        <div class="implant-info-row shaded-row">
-                            <span class="info-label">Surface</span>
-                            <span class="info-value"
-                                  th:text="${implant.surfaceTreatment}">
-                            </span>
-                        </div>
-
-                        <div class="implant-info-row">
-                            <span class="info-label">Connection</span>
-                            <span class="info-value"
-                                  th:text="${implant.connectionType}">
-                            </span>
-                        </div>
-
-                        <div class="implant-info-row shaded-row">
-                            <span class="info-label">Country</span>
-                            <span class="info-value"
-                                  th:text="${implant.brand.country}">
-                            </span>
-                        </div>
-
-                    </div>
-
-
-                    <!-- Selected Size -->
-                    <div class="selected-size-card">
-
-                        <p class="selected-size-label">Size</p>
-
-                        <p id="selected" class="selected-size"></p>
-
-                        <p id="variants" class="size-variants"></p>
-
-                    </div>
-
-                    <p id="detailNoSizes" class="no-sizes" hidden>
-                        Size information not available
+                <div class="picker-text">
+                    <p class="picker-eyebrow">
+                        <span th:text="${implant.brand.brandName}">Brand</span>
+                        <span th:if="${implant.brand.country != null and !#strings.isEmpty(implant.brand.country)}"
+                              th:text="${' · ' + implant.brand.country}"></span>
                     </p>
-
+                    <h1 class="picker-title" th:text="${implant.modelName}">Model</h1>
+                    <p class="picker-description">Choose an implant size to view its details.</p>
                 </div>
 
+                <span id="sizeCount" class="picker-count" hidden></span>
             </div>
 
+            <div id="sizeCards" class="size-grid"></div>
+            <p id="noSizes" class="no-sizes" hidden>Size information not available</p>
         </section>
 
+        <!-- ===== รายละเอียด: ซ้ายรูป + Recommend / ขวาตารางข้อมูล ===== -->
+        <section id="detailView" class="detail-layout" hidden>
+
+            <!-- การ์ดซ้าย -->
+            <div class="detail-card detail-media">
+                <div class="detail-image" data-tilt="9">
+                    <img th:src="${implant.imageUrl}" th:alt="${implant.modelName}"
+                         onerror="this.style.display='none'; this.nextElementSibling.hidden = false">
+                    <span hidden>🦷</span>
+                </div>
+
+                <!-- Recommend: รุ่นคล้ายกันจากแบรนด์อื่น -->
+                <div class="recommend" th:if="${similar != null and !#lists.isEmpty(similar)}">
+                    <p class="recommend-title">Recommend</p>
+                    <div class="recommend-list">
+                        <a th:each="s : ${similar}" th:href="@{${s.link}}" class="recommend-item"
+                           th:title="${s.model.brand.brandName + ' · ' + s.model.modelName}">
+                            <span class="recommend-thumb">
+                                <img th:src="${s.model.imageUrl}" th:alt="${s.model.modelName}" loading="lazy"
+                                     onerror="this.style.display='none'; this.nextElementSibling.hidden = false">
+                                <span hidden>🦷</span>
+                            </span>
+                            <span class="recommend-brand" th:text="${s.model.brand.brandName}">Brand</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- การ์ดขวา -->
+            <div class="detail-card detail-info">
+                <h1 class="detail-brand" th:text="${implant.brand.brandName}">Brand</h1>
+
+                <div class="info-table">
+                    <div class="info-row">
+                        <span class="info-label">Model</span>
+                        <span class="info-value" th:text="${implant.modelName}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Material</span>
+                        <span class="info-value"
+                              th:text="${implant.material != null ? implant.material.materialName : '-'}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Type</span>
+                        <span class="info-value" th:text="${implant.type != null ? implant.type : '-'}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Surface</span>
+                        <span class="info-value"
+                              th:text="${implant.surfaceTreatment != null ? implant.surfaceTreatment : '-'}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Connection</span>
+                        <span class="info-value"
+                              th:text="${implant.connectionType != null ? implant.connectionType : '-'}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Country</span>
+                        <span class="info-value"
+                              th:text="${implant.brand.country != null ? implant.brand.country : '-'}"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Size</span>
+                        <span class="info-value">
+                            <span id="selected">-</span>
+                            <span id="variants" class="info-variants"></span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- References (แสดงเมื่อมีลิงก์) -->
+                <div class="references"
+                     th:if="${implant.referenceUrl != null and !#strings.isEmpty(implant.referenceUrl)}">
+                    <p class="references-title">References</p>
+                    <a class="references-box" th:href="${implant.referenceUrl}" th:text="${implant.referenceUrl}"
+                       target="_blank" rel="noopener noreferrer">https://</a>
+                </div>
+            </div>
+        </section>
     </main>
 
-
-    <!-- Back to Admin -->
-    <a id="backToAdmin"
-       href="/admin/data-management"
+    <!-- ===== Back to Admin ===== -->
+    <a id="backToAdmin" th:href="@{/admin/data-management}"
        onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}"
-       class="admin-back-button">
-
-        <span class="admin-back-icon-wrap">
-
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 class="small-icon"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke="currentColor"
-                 stroke-width="2">
-                <path stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M19 12H5m0 0l6-6m-6 6l6 6"/>
-            </svg>
-
-        </span>
-
+       class="back-to-admin">
+        <svg class="back-to-admin-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/>
+        </svg>
         Back to Admin
-
     </a>
 
-
-    <!-- Size Selection Script -->
     <script th:inline="javascript">
-
         const raw = /*[[${visibleSizes}]]*/ '';
         const modelName = /*[[${implant.modelName}]]*/ '';
         const imageUrl = /*[[${implant.imageUrl}]]*/ '';
 
-        // Parse implant sizes from the database.
+        // แปลงข้อความขนาด "Ø 3 x 8 mm (note), ..." → Map<diameter, Map<length, notes[]>>
         const re = /Ø\s*([\d.]+)\s*x\s*([\d.]+)\s*mm(?:\s*\(([^)]*)\))?/g;
-
         const sizes = new Map();
         let m;
 
         while (raw && (m = re.exec(raw)) !== null) {
-
-            const diameter = parseFloat(m[1]);
-            const length = parseFloat(m[2]);
-
-            if (!sizes.has(diameter)) {
-                sizes.set(diameter, new Map());
-            }
-
-            const lengths = sizes.get(diameter);
-
-            if (!lengths.has(length)) {
-                lengths.set(length, []);
-            }
-
-            if (m[3]) {
-                lengths.get(length).push(m[3]);
-            }
+            const d = parseFloat(m[1]);
+            const l = parseFloat(m[2]);
+            if (!sizes.has(d)) sizes.set(d, new Map());
+            if (!sizes.get(d).has(l)) sizes.get(d).set(l, []);
+            if (m[3]) sizes.get(d).get(l).push(m[3]);
         }
 
+        // รายการขนาดทั้งหมดเรียงจากเล็กไปใหญ่
+        const allSizes = [];
+        [...sizes.keys()].sort((a, b) => a - b).forEach(d => {
+            [...sizes.get(d).keys()].sort((a, b) => a - b).forEach(l => {
+                allSizes.push({ d, l, notes: sizes.get(d).get(l) });
+            });
+        });
 
+        const sizeUrl = s => window.location.pathname
+            + '?diameter=' + encodeURIComponent(s.d) + '&length=' + encodeURIComponent(s.l);
+
+        // การ์ดเลือกขนาด
         const sizeCards = document.getElementById('sizeCards');
+
+        allSizes.forEach(s => {
+            const card = document.createElement('a');
+            const box = document.createElement('div');
+            const img = document.createElement('img');
+            const fallback = document.createElement('span');
+            const body = document.createElement('div');
+            const size = document.createElement('p');
+            const title = document.createElement('p');
+
+            card.className = 'size-card';
+            card.href = sizeUrl(s);
+
+            box.className = 'size-card-image';
+            img.src = imageUrl;
+            img.alt = modelName;
+            img.loading = 'lazy';
+            fallback.textContent = '🦷';
+            fallback.hidden = true;
+            img.onerror = () => { img.style.display = 'none'; fallback.hidden = false; };
+            box.append(img, fallback);
+
+            body.className = 'size-card-body';
+            size.className = 'size-card-size';
+            size.textContent = 'Ø ' + s.d + ' x ' + s.l + ' mm';
+            title.className = 'size-card-title';
+            title.textContent = modelName;
+            body.append(size, title);
+
+            // ป้าย "View details →" เหมือนการ์ดหน้า Models
+            const cta = document.createElement('span');
+            cta.className = 'size-card-cta';
+            cta.innerHTML = 'View details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+                + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';
+
+            if (s.notes.length) {
+                const variant = document.createElement('p');
+                variant.className = 'size-card-variant';
+                variant.textContent = s.notes.join(' · ');
+                body.append(variant);
+            }
+
+            body.append(cta);
+            card.append(box, body);
+            sizeCards.append(card);
+        });
+
+        // ตรวจขนาดที่เลือกจาก URL
+        const params = new URLSearchParams(window.location.search);
+        const selD = Number(params.get('diameter'));
+        const selL = Number(params.get('length'));
+        const hasSizes = allSizes.length > 0;
+        const validSelection = hasSizes && sizes.has(selD) && sizes.get(selD).has(selL);
+
         const sizePicker = document.getElementById('sizePicker');
         const detailView = document.getElementById('detailView');
 
-        const sizeParams = new URLSearchParams(window.location.search);
-
-        const selectedDiameter = Number(sizeParams.get('diameter'));
-        const selectedLength = Number(sizeParams.get('length'));
-
-        const hasSizes = sizes.size > 0;
-
-
-        // Create a card for each available implant size.
-        [...sizes.keys()]
-            .sort((a, b) => a - b)
-            .forEach(diameter => {
-
-                [...sizes.get(diameter).keys()]
-                    .sort((a, b) => a - b)
-                    .forEach(length => {
-
-                        const card = document.createElement('a');
-                        const image = document.createElement('img');
-                        const imageBox = document.createElement('div');
-                        const title = document.createElement('h2');
-                        const size = document.createElement('p');
-
-                        const notes = sizes.get(diameter).get(length);
-
-                        card.className = 'size-card';
-
-                        card.href = window.location.pathname
-                            + '?diameter=' + encodeURIComponent(diameter)
-                            + '&length=' + encodeURIComponent(length);
-
-                        // Implant image
-                        image.src = imageUrl;
-                        image.alt = modelName;
-                        image.loading = 'lazy';
-
-                        image.onerror = () => {
-                            image.style.display = 'none';
-
-                            imageBox.querySelector(
-                                '.size-image-fallback'
-                            ).hidden = false;
-                        };
-
-                        imageBox.className = 'size-card-image';
-                        imageBox.append(image);
-
-                        // Fallback icon
-                        const fallback = document.createElement('span');
-
-                        fallback.className = 'size-image-fallback';
-                        fallback.textContent = '🦷';
-                        fallback.hidden = true;
-
-                        imageBox.append(fallback);
-
-                        // Model name
-                        title.className = 'size-card-title';
-                        title.textContent = modelName;
-
-                        // Implant dimensions
-                        size.className = 'size-card-dimensions';
-                        size.textContent =
-                            'Ø ' + diameter + ' x ' + length + ' mm';
-
-                        card.append(imageBox, title, size);
-
-                        // Additional size information
-                        if (notes.length) {
-
-                            const variant = document.createElement('p');
-
-                            variant.className = 'size-card-variant';
-                            variant.textContent = notes.join(' · ');
-
-                            card.append(variant);
-                        }
-
-                        sizeCards.append(card);
-
-                    });
-
-            });
-
-
-        // Check whether the selected size exists.
-        const validSelection = hasSizes
-            && sizes.has(selectedDiameter)
-            && sizes.get(selectedDiameter).has(selectedLength);
-
-
         if (validSelection) {
-
             sizePicker.hidden = true;
             detailView.hidden = false;
 
-            const pageBackButton =
-                document.getElementById('pageBackButton');
+            const back = document.getElementById('pageBackButton');
+            back.href = window.location.pathname;
+            back.title = 'Back to sizes';
+            back.setAttribute('aria-label', 'Back to sizes');
 
-            pageBackButton.href = window.location.pathname;
-            pageBackButton.title = 'Back to sizes';
-            pageBackButton.setAttribute('aria-label', 'Back to sizes');
+            const text = selD + ' x ' + selL + ' mm';
+            document.getElementById('selected').textContent = text;
 
-            const selectedSizeText =
-                'Ø ' + selectedDiameter + ' x ' + selectedLength + ' mm';
+            const notes = sizes.get(selD).get(selL);
+            document.getElementById('variants').textContent = notes.length ? '(' + notes.join(' · ') + ')' : '';
 
-            document.getElementById('selected').textContent =
-                selectedSizeText;
-
-            const notes = sizes.get(selectedDiameter).get(selectedLength);
-
-            document.getElementById('variants').textContent =
-                notes.length
-                    ? 'Variants: ' + notes.join(' · ')
-                    : '';
-
-
-            // Update breadcrumb with selected size.
-            const breadcrumbSizeWrapper =
-                document.getElementById('breadcrumbSizeWrapper');
-
-            const breadcrumbSize =
-                document.getElementById('breadcrumbSize');
-
-            breadcrumbSize.textContent = selectedSizeText;
-
-
-            // Make selected size breadcrumb clickable.
-            breadcrumbSizeWrapper.href =
-                window.location.pathname
-                + '?diameter=' + encodeURIComponent(selectedDiameter)
-                + '&length=' + encodeURIComponent(selectedLength);
-
-            breadcrumbSizeWrapper.hidden = false;
-
-        } else if (hasSizes) {
-
-            document.getElementById('noSizes').hidden = true;
-
-        } else {
-
-            sizePicker.hidden = false;
-            sizeCards.hidden = true;
-
-            document.getElementById('noSizes').hidden = false;
-
+            document.getElementById('breadcrumbSize').textContent = 'Ø ' + text;
+            document.getElementById('breadcrumbSizeWrapper').hidden = false;
+            document.getElementById('crumbModel').classList.remove('is-current'); // ขนาดกลายเป็นหน้าปัจจุบันแทน
+        } else if (!hasSizes) {
+            // ไม่มีข้อมูลขนาด → แสดงหน้ารายละเอียดเลย (Size = "-")
+            sizePicker.hidden = true;
             detailView.hidden = false;
-
-            document.getElementById('detailNoSizes').hidden = false;
+        } else {
+            const count = document.getElementById('sizeCount');
+            count.textContent = allSizes.length + (allSizes.length === 1 ? ' size' : ' sizes');
+            count.hidden = false;
         }
 
-    </script>
-
-
-    <!-- Admin Preview Script -->
-    <script>
+        // ปุ่มย้อนกลับ: ถ้ามาจากหน้าในเว็บเรา (เช่น กดรุ่นแนะนำมา) ให้ย้อนกลับไปหน้าก่อนหน้าจริง ๆ
+        document.getElementById('pageBackButton').addEventListener('click', e => {
+            try {
+                if (document.referrer && new URL(document.referrer).origin === window.location.origin
+                        && window.history.length > 1) {
+                    e.preventDefault();
+                    window.history.back();
+                }
+            } catch (err) {}
+        });
 
         try {
-
             if (sessionStorage.getItem('adminPreview') === '1') {
-
-                const button = document.getElementById('backToAdmin');
-
-                button.classList.add('is-visible');
+                document.getElementById('backToAdmin').classList.add('is-visible');
             }
-
         } catch (e) {}
-
     </script>
 
+    <!-- รูปรากฟันเอียงแบบ 3D ตามเมาส์ -->
+    <script th:src="@{/js/tilt.js}"></script>
 </body>
 </html>

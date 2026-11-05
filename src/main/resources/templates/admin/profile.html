@@ -3,213 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Admin Profile</title>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/profile.css}">
 </head>
+<body>
+<div class="profile-layout">
 
-<body class="bg-white min-h-screen flex flex-col">
+    <!-- ===== ซ้าย: Avatar ===== -->
+    <aside class="profile-side">
+        <img class="profile-avatar"
+             th:src="${#strings.isEmpty(admin.avatarLink)} ? 'https://api.dicebear.com/7.x/personas/svg?seed=Admin1&backgroundColor=efe9df' : ${admin.avatarLink}"
+             alt="Admin avatar">
 
-    <!-- Navbar -->
-    <header class="navbar">
+        <h2 class="profile-name" th:text="${#strings.isEmpty(admin.fullName)} ? 'Admin User' : ${admin.fullName}">Admin User</h2>
+        <p class="profile-username" th:text="${admin.username}">@implantadmin</p>
 
-        <a href="/admin/data-management" class="navbar-brand">
-            <span class="navbar-brand-icon">🦷</span>
-            <span>Implant-Finder</span>
-        </a>
+        <a th:href="@{/admin/avatar}" class="choose-avatar-btn">Choose Avatar</a>
+    </aside>
 
-        <svg class="breadcrumb-arrow"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke="currentColor"
-             stroke-width="2.5">
-            <path stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5l7 7-7 7"/>
-        </svg>
+    <!-- ===== ขวา: ฟอร์ม ===== -->
+    <div class="profile-main">
+        <div class="profile-band"></div>
 
-        <span class="breadcrumb-current">
-            Profile
-        </span>
+        <form th:action="@{/admin/profile}" th:object="${admin}" method="post" class="profile-form">
+            <input type="hidden" th:field="*{adminId}">
+            <input type="hidden" th:field="*{avatarLink}">
 
-    </header>
+            <div class="profile-body">
 
+                <p th:if="${successMessage}" class="profile-alert profile-alert-ok" th:text="${successMessage}"></p>
+                <p th:if="${errorMessage}" class="profile-alert profile-alert-error" th:text="${errorMessage}"></p>
 
-    <!-- Profile Layout -->
-    <div class="profile-layout">
+                <!-- Account -->
+                <h1 class="profile-section-title">Account</h1>
 
-        <!-- Left Side -->
-        <div class="profile-sidebar">
+                <div class="profile-grid">
+                    <div class="profile-field">
+                        <label for="fullName" class="profile-label">Name</label>
+                        <input type="text" id="fullName" th:field="*{fullName}" class="profile-input">
+                    </div>
+                    <div class="profile-field">
+                        <label for="username" class="profile-label">Username</label>
+                        <input type="text" id="username" th:field="*{username}" class="profile-input">
+                    </div>
+                    <div class="profile-field">
+                        <label for="email" class="profile-label">Email</label>
+                        <input type="email" id="email" th:field="*{email}" class="profile-input">
+                    </div>
+                </div>
 
-            <!-- Avatar -->
-            <div class="profile-avatar">
-                <img th:src="${#strings.isEmpty(admin.avatarLink) ? 'https://api.dicebear.com/7.x/bottts/svg?seed=Admin1' : admin.avatarLink}"
-                     alt="Admin Avatar"
-                     class="profile-avatar-image">
+                <hr class="profile-divider">
+
+                <!-- Password -->
+                <h2 class="profile-section-title">Password</h2>
+
+                <div class="profile-grid profile-grid-password">
+                    <div class="profile-field">
+                        <label for="newPassword" class="profile-label">New password</label>
+                        <input type="password" id="newPassword" name="newPassword" class="profile-input"
+                               autocomplete="new-password">
+                    </div>
+                    <div class="profile-field">
+                        <label for="confirmPassword" class="profile-label">Confirm password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="profile-input"
+                               autocomplete="new-password">
+                    </div>
+                    <div class="profile-field">
+                        <label for="currentPassword" class="profile-label">Current password</label>
+                        <input type="password" id="currentPassword" name="currentPassword" class="profile-input"
+                               autocomplete="current-password">
+                    </div>
+                </div>
             </div>
 
-            <h2 class="profile-name">
-                Admin User
-            </h2>
-
-            <p class="profile-username">
-                @implantadmin
-            </p>
-
-            <a href="/admin/avatar"
-               class="choose-avatar-button">
-                Choose Avatar
-            </a>
-
-        </div>
-
-
-        <!-- Right Side -->
-        <div class="profile-content">
-
-            <form th:action="@{/admin/profile}"
-                  th:object="${admin}"
-                  method="post"
-                  class="profile-form">
-
-                <input type="hidden" th:field="*{adminId}">
-                <input type="hidden" th:field="*{avatarLink}">
-
-
-                <!-- Form Content -->
-                <div class="profile-form-content">
-
-                    <h2 class="section-title">
-                        Account
-                    </h2>
-
-
-                    <!-- Name and Username -->
-                    <div class="form-grid">
-
-                        <div class="form-group">
-                            <label class="form-label">
-                                Name
-                            </label>
-
-                            <input type="text"
-                                   th:field="*{fullName}"
-                                   class="form-input">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="form-label">
-                                Username
-                            </label>
-
-                            <input type="text"
-                                   th:field="*{username}"
-                                   class="form-input">
-                        </div>
-
-                    </div>
-
-
-                    <!-- Email -->
-                    <div class="form-grid">
-
-                        <div class="form-group">
-                            <label class="form-label">
-                                Email
-                            </label>
-
-                            <input type="email"
-                                   th:field="*{email}"
-                                   class="form-input">
-                        </div>
-
-                    </div>
-
-
-                    <hr class="form-divider">
-
-
-                    <!-- Password -->
-                    <h3 class="section-subtitle">
-                        Password
-                    </h3>
-
-
-                    <!-- New Password and Confirm Password -->
-                    <div class="form-grid">
-
-                        <div class="form-group">
-                            <label class="form-label">
-                                New password
-                            </label>
-
-                            <input type="password"
-                                   name="newPassword"
-                                   class="form-input">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="form-label">
-                                Confirm password
-                            </label>
-
-                            <input type="password"
-                                   name="confirmPassword"
-                                   class="form-input">
-                        </div>
-
-                    </div>
-
-
-                    <!-- Current Password -->
-                    <div class="form-grid">
-
-                        <div class="form-group">
-                            <label class="form-label">
-                                Current password
-                            </label>
-
-                            <input type="password"
-                                   name="currentPassword"
-                                   class="form-input">
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Form Actions -->
-                <div class="form-actions">
-
-                    <a href="/admin/data-management"
-                       class="cancel-button">
-                        Cancel
-                    </a>
-
-                    <button type="submit"
-                            class="save-button">
-                        Save
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
+            <!-- ปุ่มล่าง -->
+            <div class="profile-footer">
+                <a th:href="@{/admin/data-management}" class="profile-cancel">Cancel</a>
+                <button type="submit" class="profile-save">Save</button>
+            </div>
+        </form>
     </div>
-
+</div>
 </body>
 </html>

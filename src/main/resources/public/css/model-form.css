@@ -1,0 +1,319 @@
+/* =========================================================
+   model-form.css — Add Implant Model (Canva หน้า 7) + Edit Model (Canva หน้า 8)
+   ต้องโหลด base.css ก่อนไฟล์นี้
+========================================================= */
+
+.mf-wrap {
+    width: 100%;
+}
+
+/* ---------- หัวข้อ + ปุ่ม ---------- */
+.mf-head {
+    margin-top: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.mf-title {
+    margin: 0;
+    font-family: var(--font-head);
+    font-size: 38.67px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--navy);
+}
+
+.mf-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.mf-save-wide { min-width: 164px; }
+
+.mf-error {
+    margin: 8px 0 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #DC2626;
+}
+
+/* ---------- Layout 2 คอลัมน์ ---------- */
+.mf-grid {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 360px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+/* ---------- การ์ดรูป ---------- */
+.mf-image-card {
+    min-height: 567px;
+    padding: 33px 23px 29px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid var(--line);
+    border-radius: 24px;
+    background: var(--white);
+}
+
+.mf-image {
+    width: 100%;
+    max-width: 290px;
+    aspect-ratio: 278 / 425;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: #C8D1D9;
+}
+
+.mf-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #000000;
+}
+
+.mf-image img[hidden],
+.mf-image-placeholder[hidden] { display: none; }
+
+.mf-image-placeholder {
+    font-size: 16.38px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--muted);
+}
+
+.mf-image-label {
+    margin-top: 15px;
+    font-size: 14.67px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--navy);
+}
+
+.mf-url-input {
+    width: 100%;
+    height: 40px;
+    margin-top: 8px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #F7FAFF;
+    font-size: 12px;
+    color: var(--gray);
+    text-align: center;
+    outline: none;
+}
+
+.mf-url-input::placeholder { color: var(--muted); }
+
+.mf-url-input:focus { border-color: var(--blue); }
+
+/* ---------- การ์ดรายละเอียด ---------- */
+.mf-panel {
+    padding: 26px 32px 32px;
+    border: 3px solid var(--line);
+    border-radius: 24px;
+    background: var(--white);
+}
+
+.mf-section-label {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.mf-fields {
+    margin-top: 13px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 25px;
+}
+
+.mf-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.mf-label {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--navy);
+}
+
+.mf-input {
+    width: 100%;
+    height: 40px;
+    padding: 0 15px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #F7FAFF;
+    font-family: var(--font-body);
+    font-size: 11.33px;
+    color: var(--gray);
+    outline: none;
+    transition: border-color .2s ease;
+}
+
+.mf-input::placeholder { color: var(--muted); }
+
+.mf-input:focus { border-color: var(--blue); background: var(--white); }
+
+.mf-select {
+    appearance: none;
+    padding-right: 34px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2394A3B8' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+}
+
+/* ---------- ขนาด ---------- */
+.mf-sizes {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+}
+
+.mf-sizes-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--navy);
+}
+
+.mf-sizes-desc {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--muted);
+}
+
+.mf-size-inputs {
+    margin-top: 13px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: end;
+}
+
+.mf-size-label {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--gray);
+}
+
+.mf-input-lg {
+    height: 40px;
+    padding: 0 17px;
+    font-size: 14px;
+}
+
+.mf-add-size {
+    height: 40px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color .2s ease;
+}
+
+.mf-add-size:hover { background: var(--hover-blue); }
+
+.mf-size-error {
+    margin: 8px 0 0;
+    font-size: 12px;
+    font-weight: 700;
+    color: #DC2626;
+}
+
+.mf-size-toolbar {
+    margin-top: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+}
+
+.mf-size-toolbar[hidden] { display: none; }
+
+.mf-clear {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.mf-clear:hover { color: #DC2626; }
+
+.mf-chips {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.size-chip {
+    height: 26px;
+    padding: 0 8px 0 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    border-radius: 999px;
+    background: var(--light-blue);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue);
+    white-space: nowrap;
+}
+
+.chip-remove {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--blue);
+    cursor: pointer;
+}
+
+.chip-remove:hover { color: #DC2626; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+    .mf-grid { grid-template-columns: 1fr; }
+    .mf-image-card { min-height: 0; }
+}
+
+@media (max-width: 720px) {
+    .mf-head { flex-direction: column; align-items: flex-start; }
+    .mf-fields { grid-template-columns: 1fr; }
+    .mf-size-inputs { grid-template-columns: 1fr; }
+    .mf-image { max-width: 100%; }
+}

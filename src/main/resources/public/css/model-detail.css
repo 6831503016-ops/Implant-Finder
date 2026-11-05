@@ -1,1024 +1,435 @@
- 
-:root {
-    --dark-navy: #0A1F44;
-    --primary-blue: #1D63EE;
-    --hover-blue: #1650C8;
-    --page-background: #EEF4FF;
-    --light-blue: #E8F0FD;
-    --white: #FFFFFF;
-    --main-text: #0A1F44;
-    --secondary-text: #64748B;
-    --muted-text: #94A3B8;
-    --border: #D6E2F7;
+/* =========================================================
+   model-detail.css — เลือกขนาด + รายละเอียดรุ่น (การ์ดซ้าย/ขวา)
+   ต้องโหลด base.css ก่อนไฟล์นี้
+========================================================= */
+
+/* พื้นหลังไล่สีฟ้า → มิ้นต์ เหมือนหน้าแรก */
+.detail-page {
+    background: var(--hero-wash);
+    background-attachment: fixed;
 }
- 
-/* ========================================
-   1. Global Styles
-======================================== */
- 
-* {
-    box-sizing: border-box;
-}
- 
-body.page-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #EEF4FF;
-    color: #0A1F44;
-}
- 
-[hidden] {
-    display: none !important;
-}
- 
-a {
-    text-decoration: none;
-}
- 
-.small-icon {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-}
- 
- 
-/* ========================================
-   2. Navbar / Breadcrumb Header
-======================================== */
- 
-.navbar {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 12px;
- 
+
+.detail-main {
     width: 100%;
-    height: 72px;
-    padding: 0 32px;
- 
-    color: #0A1F44;
-    background-color: #FFFFFF;
-    border-bottom: 1px solid #D6E2F7;
- 
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
- 
-    overflow: hidden;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 24px 40px 72px;
 }
- 
-/* Brand Name */
- 
-.navbar-brand {
+
+
+/* ชื่อรุ่นใน breadcrumb = หน้าปัจจุบัน (สีดำตัวหนา) ตอนอยู่หน้าเลือกขนาด */
+.crumbs .is-current { color: var(--ink); font-weight: 600; }
+
+/* การ์ดขาวพื้นฐาน */
+.detail-card {
+    border: 1px solid rgba(201, 216, 251, 0.6);
+    border-radius: 22px;
+    background: var(--white);
+    box-shadow: 0 14px 34px rgba(30, 64, 175, 0.07);
+    animation: rise-in 400ms ease backwards;
+}
+
+/* =========================================================
+   เลือกขนาด (แบนเนอร์ + การ์ด สไตล์เดียวกับหน้า Models)
+========================================================= */
+.size-picker { margin-top: 20px; }
+
+.size-picker[hidden] { display: none; }
+
+.picker-banner {
+    padding: 26px 32px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 28px;
+    border: 1px solid rgba(201, 216, 251, 0.6);
+    border-radius: 22px;
+    background: var(--white);
+    box-shadow: 0 14px 34px rgba(30, 64, 175, 0.07);
+    animation: rise-in 400ms ease backwards;
+}
+
+.picker-logo {
+    width: 190px;
+    height: 80px;
     flex-shrink: 0;
- 
-    color: #0A1F44;
-    font-size: 20px;
-    font-weight: 700;
-    text-decoration: none;
-    white-space: nowrap;
-    transform: translateY(3px);
-}
- 
-.navbar-brand:hover {
-    color: #1D63EE;
-}
- 
- 
-/* Logo Icon */
- 
-.navbar-brand-icon {
     display: flex;
     align-items: center;
     justify-content: center;
- 
-    width: 32px;
-    height: 32px;
+}
+
+.picker-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+.picker-logo-text { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--blue); }
+
+/* เส้นแบ่งแนวตั้ง */
+.picker-divider {
+    width: 1px;
+    height: 64px;
     flex-shrink: 0;
- 
-    border-radius: 8px;
- 
-    color: #1D63EE;
-    font-size: 18px;
-    line-height: 1;
-}
- 
- 
-/* Breadcrumb Arrow */
- 
-.breadcrumb-arrow {
-    display: block;
- 
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
- 
-    transform: translateY(6px);
-    color: #64748B;
-}
- 
- 
-/* Breadcrumb Links */
- 
-.breadcrumb-current {
-    display: block;
-    min-width: 0;
-    flex-shrink: 1;
- 
-    color: #0A1F44;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
- 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
- 
-.breadcrumb-current:hover {
-    text-decoration: underline;
-}
- 
- 
-/* Selected Size Wrapper */
- 
-.breadcrumb-size-wrapper {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    gap: 12px;
- 
-    min-width: 0;
-}
- 
-.breadcrumb-size-wrapper[hidden] {
-    display: none !important;
-}
- 
- 
-/* Clickable Size Breadcrumb */
- 
-.breadcrumb-size-link {
-    display: flex;
-    align-items: center;
-    gap: 12px;
- 
-    min-width: 0;
-    flex-shrink: 1;
- 
-    color: #ffffff;
-    text-decoration: none;
-    cursor: pointer;
-}
- 
-.breadcrumb-size-link .breadcrumb-current {
-    min-width: 0;
-    flex-shrink: 1;
-}
- 
-.breadcrumb-size-link:hover .breadcrumb-current {
-    text-decoration: underline;
-}
- 
-.breadcrumb-size-link:focus-visible {
-    outline: 2px solid #BDD2FB;
-    outline-offset: 4px;
-    border-radius: 4px;
-}
- 
- 
-/* Selected Size Text */
- 
-#breadcrumbSize {
-    display: block;
-    min-width: 0;
-    flex-shrink: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    color: #0A1F44;
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
-}
- 
- 
-/* ========================================
-   3. Main Container
-======================================== */
- 
-.model-detail-container {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 32px clamp(16px, 2.5vw, 40px);
+    background: var(--line);
 }
 
-.page-navigation {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 30px;
-}
+.picker-text { flex: 1; min-width: 0; }
 
-.page-breadcrumbs {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 0;
-}
+.picker-eyebrow { margin: 0; font-size: 13px; font-weight: 600; color: var(--blue); }
 
-
-/* ========================================
-   4. Sections
-======================================== */
- 
-.size-picker-section,
-.detail-view-section {
-    width: 100%;
-}
- 
- 
-/* ========================================
-   5. Back Button
-======================================== */
- 
-.back-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
- 
-    width: 56px;
-    height: 56px;
-    flex-shrink: 0;
- 
-    color: #0A1F44;
-    background-color: #ffffff;
- 
-    border: 1px solid #D6E2F7;
-    border-radius: 16px;
- 
-    box-shadow: 0 3px 6px rgba(15, 23, 42, 0.12);
- 
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
-}
- 
-.back-button:hover {
-    background-color: #EEF4FF;
-    color: #1D63EE;
-    transform: translateX(-2px);
-}
- 
-.back-button:focus-visible {
-    outline: 2px solid #1D63EE;
-    outline-offset: 3px;
-}
- 
- 
-/* ========================================
-   6. Size Picker
-======================================== */
- 
-.size-picker-title {
-    margin: 0;
-    color: #0A1F44;
-    font-size: 30px;
+.picker-title {
+    margin: 4px 0 0;
+    font-size: clamp(26px, 2.4vw, 34px);
     font-weight: 800;
-    line-height: 1.3;
-    overflow-wrap: anywhere;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--ink);
 }
- 
-.size-picker-description {
-    margin: 8px 0 24px;
-    color: #64748B;
+
+.picker-description { margin: 6px 0 0; font-size: 15px; color: var(--gray); }
+
+.picker-count {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: var(--blue-soft);
     font-size: 14px;
-    line-height: 1.7;
+    font-weight: 700;
+    color: var(--blue);
 }
- 
- 
-/* ========================================
-   7. Size Card Grid
-======================================== */
- 
-.size-card-grid {
+
+.picker-count[hidden] { display: none; }
+
+/* การ์ดขนาด = การ์ดขาวลอย + รูปดำขอบมน + ข้อความตรงกลาง (เหมือนการ์ดรุ่น) */
+.size-grid {
+    margin-top: 28px;
     display: grid;
- 
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-auto-rows: 1fr;
-    align-items: stretch;
- 
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 24px;
-    width: 100%;
 }
- 
+
+.size-grid[hidden] { display: none; }
+
 .size-card {
+    position: relative;
+    padding: 20px 20px 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
- 
-    width: 100%;
-    min-width: 0;
-    height: 100%;
-    min-height: 380px;
- 
-    padding: 20px;
- 
+    border: 1px solid rgba(201, 216, 251, 0.6);
+    border-radius: 22px;
+    background: var(--white);
+    box-shadow: 0 14px 34px rgba(30, 64, 175, 0.07);
     text-align: center;
-    color: inherit;
- 
-    background-color: #ffffff;
-    border: 1px solid #EEF4FF;
-    border-radius: 24px;
- 
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
- 
-    transition:
-        box-shadow 0.2s ease,
-        transform 0.2s ease,
-        border-color 0.2s ease;
+    animation: rise-in 450ms ease backwards;
+    transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color var(--ease), box-shadow 300ms ease;
 }
- 
-.size-card:hover,
-.size-card:focus-visible {
-    border-color: #BDD2FB;
-    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1);
-    transform: translateY(-2px);
-    outline: none;
+
+.size-card:nth-child(2) { animation-delay: 50ms; }
+.size-card:nth-child(3) { animation-delay: 100ms; }
+.size-card:nth-child(4) { animation-delay: 150ms; }
+.size-card:nth-child(5) { animation-delay: 200ms; }
+.size-card:nth-child(6) { animation-delay: 250ms; }
+
+/* ตอนเอาเมาส์ชี้: ลอยขึ้นนิดหน่อย + ขอบฟ้า + เงา (เหมือนการ์ดแบรนด์หน้าแรก) */
+.size-card:hover {
+    transform: translateY(-4px);
+    border-color: #BFD1F7;
+    box-shadow: 0 14px 30px rgba(30, 64, 175, 0.10);
 }
- 
- 
-/* ========================================
-   8. Size Card Image
-======================================== */
- 
+
 .size-card-image {
-    position: relative;
- 
-    display: flex;
-    align-items: center;
-    justify-content: center;
- 
     width: 100%;
-    height: 240px;
-    min-height: 240px;
-    flex-shrink: 0;
- 
-    margin-bottom: 20px;
-    padding: 12px;
- 
+    aspect-ratio: 4 / 5;
     overflow: hidden;
-    border-radius: 12px;
-}
- 
-.size-card-image img {
-    display: block;
- 
-    width: 100%;
-    height: 100%;
- 
-    max-width: 100%;
-    max-height: 100%;
- 
-    object-fit: contain;
-    object-position: center;
-}
- 
-.size-image-fallback {
-    color: #ffffff;
-    font-size: 36px;
-}
- 
-.size-image-fallback:not([hidden]) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
- 
-    width: 100%;
-    height: 100%;
-}
- 
- 
-/* ========================================
-   9. Size Card Text
-======================================== */
- 
-.size-card-title {
-    width: 100%;
-    margin: 0;
- 
-    color: #0A1F44;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.6;
- 
-    overflow-wrap: anywhere;
-}
- 
-.size-card-dimensions {
-    margin: 10px 0 0;
- 
-    color: #1D63EE;
-    font-size: 15px;
-    font-weight: 800;
-}
- 
-.size-card-variant {
-    margin: 6px 0 0;
- 
-    color: #64748B;
-    font-size: 13px;
-    line-height: 1.5;
- 
-    overflow-wrap: anywhere;
-}
- 
- 
-/* ========================================
-   10. Implant Detail Grid
-======================================== */
- 
-.implant-detail-grid {
+    border-radius: 18px;
+    background: #0B0B0B;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: start;
-    gap: 40px;
-    width: 100%;
+    place-items: center;
+    font-size: 32px;
 }
- 
- 
-/* ========================================
-   11. Implant Image
-======================================== */
- 
-.implant-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
- 
-    width: 100%;
-    min-width: 0;
-    min-height: 480px;
-    padding: 32px;
- 
-    background-color: #EEF4FF;
-    border-radius: 28px;
- 
-    box-shadow: 0 4px 8px rgba(15, 23, 42, 0.12);
- 
-    overflow: hidden;
-}
- 
-.implant-main-image {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    max-height: 440px;
-    object-fit: contain;
-}
- 
- 
-/* ========================================
-   12. Implant Information Card
-======================================== */
- 
-.implant-info {
-    width: 100%;
-    min-width: 0;
-    padding: 40px;
- 
-    background-color: #ffffff;
-    border: 1px solid #EEF4FF;
-    border-radius: 28px;
- 
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
-}
- 
- 
-/* ========================================
-   13. Brand Name
-======================================== */
- 
-.implant-brand-label {
-    display: block;
-    margin-bottom: 4px;
- 
-    color: #0A1F44;
-    font-size: 20px;
-    font-weight: 800;
- 
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-}
- 
- 
-/* ========================================
-   14. Model Name
-======================================== */
- 
-.implant-model-heading {
-    margin-top: 4px;
-    margin-bottom: 28px;
- 
-    color: #0A1F44;
-    font-size: clamp(24px, 2vw, 36px);
-    font-weight: 800;
-    line-height: 1.3;
- 
-    overflow-wrap: anywhere;
-}
- 
- 
-/* ========================================
-   15. Information Table
-======================================== */
- 
-.implant-info-table {
-    width: 100%;
-    margin-bottom: 28px;
-    overflow: hidden;
-    border-radius: 12px;
-    border: 1px solid #D6E2F7;
-}
- 
-.implant-info-row {
-    display: grid;
-    grid-template-columns: minmax(90px, 0.7fr) minmax(0, 1.3fr);
-    align-items: start;
-    gap: 16px;
- 
-    padding: 14px 12px;
- 
-    font-size: 14px;
-    line-height: 1.5;
- 
-    border-bottom: 1px solid #e5e7eb;
-}
- 
-.implant-info-row:last-child {
-    border-bottom: none;
-}
- 
-.implant-info-row.shaded-row {
-    background-color: #E8F0FD;
-}
- 
-.implant-info-row:not(.shaded-row) {
-    background-color: #ffffff;
-}
- 
-.info-label {
-    color: #0A1F44;
-    font-weight: 800;
-}
- 
-.info-value {
-    min-width: 0;
-    color: #52627a;
-    text-align: right;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-}
- 
- 
-/* ========================================
-   16. Selected Size
-======================================== */
- 
-.selected-size-card {
-    padding: 16px;
-    background-color: #E8F0FD;
-    border: 1px solid #BDD2FB;
-    border-radius: 12px;
-}
- 
-.selected-size-label {
+
+.size-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease; }
+
+.size-card:hover .size-card-image img { transform: scale(1.05); }
+
+.size-card-body { width: 100%; padding-top: 16px; display: flex; flex-direction: column; align-items: center; }
+
+/* ขนาด = ข้อความหลักของการ์ด */
+.size-card-size {
     margin: 0;
-    color: #64748B;
+    font-family: var(--font-head);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+}
+
+.size-card-title { margin: 4px 0 0; font-size: 13px; font-weight: 500; color: var(--gray); }
+
+.size-card-variant { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+
+/* ป้าย "View details →" */
+.size-card-cta {
+    margin-top: 12px;
+    padding: 5px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    background: var(--blue-soft);
     font-size: 12px;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    color: var(--blue);
+    transition: background-color var(--ease), color var(--ease);
 }
- 
-.selected-size {
-    margin: 6px 0 0;
-    color: #1D63EE;
-    font-size: 18px;
-    font-weight: 800;
-    overflow-wrap: anywhere;
-}
- 
-.size-variants {
-    margin: 6px 0 0;
-    color: #64748B;
-    font-size: 12px;
-    line-height: 1.6;
-    overflow-wrap: anywhere;
-}
- 
- 
-/* ========================================
-   17. No Size Message
-======================================== */
- 
+
+.size-card-cta svg { width: 14px; height: 14px; transition: transform var(--ease); }
+
+.size-card:hover .size-card-cta { background: var(--blue); color: var(--white); }
+
+.size-card:hover .size-card-cta svg { transform: translateX(3px); }
+
 .no-sizes {
-    margin: 20px 0;
-    padding: 16px;
- 
-    color: #94A3B8;
-    font-size: 14px;
-    line-height: 1.6;
+    margin: 0;
+    padding: 32px;
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    background: var(--page);
+    color: var(--gray);
     text-align: center;
- 
-    background-color: #ffffff;
-    border: 1px dashed #D6E2F7;
-    border-radius: 12px;
 }
- 
- 
-/* ========================================
-   18. Back to Admin Button
-======================================== */
- 
-.admin-back-button {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    z-index: 1000;
- 
-    display: none;
+
+.no-sizes[hidden] { display: none; }
+
+/* =========================================================
+   รายละเอียด: การ์ดซ้าย (รูป + Recommend) / การ์ดขวา (ข้อมูล)
+========================================================= */
+.detail-layout {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: minmax(300px, 0.62fr) minmax(0, 1.38fr);
+    gap: 24px;
+    align-items: stretch; /* การ์ดซ้าย-ขวาสูงเท่ากัน */
+}
+
+.detail-layout[hidden] { display: none; }
+
+/* ---------- การ์ดซ้าย ---------- */
+.detail-media {
+    padding: 26px 26px 22px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
- 
-    padding: 12px 20px 12px 12px;
- 
-    color: #ffffff;
-    background-color: #E8F0FD;
- 
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.2);
- 
+}
+
+.detail-image {
+    width: min(100%, 360px);
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #0B0B0B;
+    display: grid;
+    place-items: center;
+    font-size: 48px;
+}
+
+.detail-image img { width: 100%; height: 100%; object-fit: cover; }
+
+/* รูปรากฟันเอียงแบบ 3D ตามเมาส์ (ค่า --rx, --ry มาจาก js/tilt.js) */
+.detail-image[data-tilt] {
+    position: relative;
+    transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 300ms ease;
+}
+
+.detail-image.is-tilting {
+    transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.02);
+    transition: transform 120ms linear, box-shadow 300ms ease;
+    box-shadow: 0 26px 50px rgba(15, 23, 42, 0.30);
+}
+
+/* แสงสะท้อนบนรูปวิ่งตามเมาส์ */
+.detail-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--px, 50%) var(--py, 50%), rgba(255, 255, 255, 0.22), transparent 50%);
+    opacity: 0;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+}
+
+.detail-image.is-tilting::after { opacity: 1; }
+
+/* ตอนเปิดหน้ารายละเอียด ข้อมูลไหลเข้ามาทีละแถว */
+@keyframes row-in {
+    from { opacity: 0; transform: translateX(28px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes pop-in {
+    from { opacity: 0; transform: translateY(14px) scale(0.96); }
+    to   { opacity: 1; transform: none; }
+}
+
+.detail-brand { animation: row-in 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 100ms backwards; }
+
+.info-row { animation: row-in 550ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+.info-row:nth-child(1) { animation-delay: 180ms; }
+.info-row:nth-child(2) { animation-delay: 240ms; }
+.info-row:nth-child(3) { animation-delay: 300ms; }
+.info-row:nth-child(4) { animation-delay: 360ms; }
+.info-row:nth-child(5) { animation-delay: 420ms; }
+.info-row:nth-child(6) { animation-delay: 480ms; }
+.info-row:nth-child(7) { animation-delay: 540ms; }
+
+.references { animation: row-in 550ms cubic-bezier(0.2, 0.7, 0.2, 1) 620ms backwards; }
+
+/* รูปแนะนำเด้งขึ้นทีละรูป */
+.recommend-item { animation: pop-in 500ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+.recommend-item:nth-child(1) { animation-delay: 400ms; }
+.recommend-item:nth-child(2) { animation-delay: 480ms; }
+.recommend-item:nth-child(3) { animation-delay: 560ms; }
+.recommend-item:nth-child(4) { animation-delay: 640ms; }
+
+.recommend { width: min(100%, 360px); margin-top: 18px; }
+
+.recommend-title {
+    margin: 0 0 10px;
+    font-family: var(--font-head);
     font-size: 14px;
     font-weight: 700;
- 
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease;
+    color: var(--gray);
 }
- 
-.admin-back-button.is-visible {
-    display: inline-flex;
+
+.recommend-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+
+.recommend-item {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
- 
-.admin-back-button:hover {
-    background-color: #D6E2F7;
-    transform: translateY(-2px);
-}
- 
-.admin-back-icon-wrap {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
- 
-    width: 32px;
-    height: 32px;
- 
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.1);
+
+.recommend-thumb {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
     border-radius: 12px;
+    background: #0B0B0B;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    transition: transform var(--ease), box-shadow var(--ease);
 }
- 
- 
-/* ========================================
-   19. Responsive: Large Screens
-======================================== */
- 
-@media (min-width: 1600px) {
- 
-    .implant-detail-grid {
-        gap: 48px;
-    }
- 
-    .implant-image {
-        min-height: 560px;
-    }
- 
-    .implant-main-image {
-        max-height: 500px;
-    }
- 
-    .implant-info {
-        padding: 48px;
-    }
-}
- 
- 
-/* ========================================
-   20. Responsive: Tablet
-======================================== */
- 
-@media (max-width: 1024px) {
- 
-    .model-detail-container {
-        padding: 28px 24px;
-    }
- 
-    .size-card-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-    }
- 
-    .size-card {
-        min-height: 350px;
-    }
- 
-    .size-card-image {
-        height: 210px;
-        min-height: 210px;
-    }
- 
-    .implant-detail-grid {
-        gap: 24px;
-    }
- 
-    .implant-image {
-        min-height: 380px;
-        padding: 24px;
-    }
- 
-    .implant-main-image {
-        max-height: 340px;
-    }
- 
-    .implant-info {
-        padding: 28px;
-    }
- 
-    .implant-brand-label {
-        font-size: 20px;
-    }
- 
-    .implant-info-row {
-        grid-template-columns: minmax(90px, 0.7fr) minmax(0, 1.3fr);
-        gap: 16px;
-        padding: 14px 12px;
-        font-size: 14px;
-    }
-}
- 
- 
-/* ========================================
-   21. Responsive: Navbar
-======================================== */
- 
-@media (max-width: 768px) {
- 
-    .navbar {
-        height: 72px;
-        padding: 0 16px;
-        gap: 12px;
-    }
- 
-    .navbar-brand {
-        font-size: 20px;
-        gap: 10px;
-    }
- 
-    .navbar-brand-icon {
-        width: 32px;
-        height: 32px;
-    }
- 
-    .breadcrumb-current {
-        font-size: 14px;
-    }
- 
-    .model-detail-container {
-        padding: 24px 20px;
-    }
- 
-    .back-button {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
-    }
 
-    .page-navigation {
-        gap: 12px;
-        margin-bottom: 24px;
-    }
+.recommend-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-    .page-breadcrumbs {
-        gap: 8px;
-    }
+.recommend-item:hover .recommend-thumb { transform: translateY(-2px); box-shadow: 0 0 0 2px var(--blue), var(--shadow-soft); }
 
-    .implant-detail-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 24px;
-    }
- 
-    .size-card-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
- 
-    .implant-image {
-        min-height: 340px;
-        padding: 24px;
-        border-radius: 24px;
-    }
- 
-    .implant-main-image {
-        max-height: 300px;
-    }
- 
-    .implant-info {
-        padding: 28px;
-        border-radius: 24px;
-    }
- 
-    .implant-brand-label {
-        font-size: 20px;
-    }
- 
-    .implant-model-heading {
-        font-size: clamp(24px, 2vw, 36px);
-        margin-bottom: 28px;
-    }
- 
-    .implant-info-table {
-        margin-bottom: 28px;
-    }
+/* ชื่อแบรนด์ใต้รูปแนะนำ */
+.recommend-brand {
+    overflow: hidden;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray);
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: color var(--ease);
 }
- 
- 
-/* ========================================
-   22. Responsive: Mobile
-======================================== */
- 
-@media (max-width: 640px) {
- 
-    .navbar {
-        gap: 8px;
-        padding: 0 16px;
-    }
- 
-    .breadcrumb-arrow {
-        width: 16px;
-        height: 16px;
-    }
 
-    .breadcrumb-size-wrapper {
-        gap: 8px;
-    }
+.recommend-item:hover .recommend-brand { color: var(--blue); }
 
-    .breadcrumb-size-link {
-        gap: 8px;
-    }
- 
-    .breadcrumb-current {
-        font-size: 14px;
-    }
+/* ---------- การ์ดขวา ---------- */
+.detail-info { padding: 28px 30px 30px; }
+
+.detail-brand {
+    margin: 0 0 18px;
+    font-size: clamp(28px, 2.6vw, 38px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
 }
- 
- 
-/* ========================================
-   23. Responsive: Small Mobile
-======================================== */
- 
-@media (max-width: 480px) {
- 
-    .navbar {
-        padding: 0 12px;
-        gap: 8px;
-    }
- 
-    .navbar-brand {
-        font-size: 20px;
-    }
- 
-    .navbar-brand-icon {
-        width: 32px;
-        height: 32px;
-    }
- 
-    .breadcrumb-current {
-        font-size: 14px;
-    }
- 
-    .model-detail-container {
-        padding: 20px 14px;
-    }
- 
-    .size-picker-title {
-        font-size: 30px;
-    }
- 
-    .size-card-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-    }
- 
-    .size-card {
-        min-height: 280px;
-        padding: 12px;
-        border-radius: 18px;
-    }
- 
-    .size-card-image {
-        height: 160px;
-        min-height: 160px;
-        margin-bottom: 14px;
-        padding: 8px;
-    }
- 
-    .size-card-image img {
-        max-height: 100%;
-    }
- 
-    .size-card-title {
-        font-size: 16px;
-    }
- 
-    .size-card-dimensions {
-        font-size: 15px;
-    }
- 
-    .size-card-variant {
-        font-size: 13px;
-    }
- 
-    .implant-detail-grid {
-        gap: 18px;
-    }
- 
-    .implant-image {
-        min-height: 250px;
-        padding: 16px;
-        border-radius: 20px;
-    }
- 
-    .implant-main-image {
-        max-height: 220px;
-    }
- 
-    .implant-info {
-        padding: 20px 16px;
-        border-radius: 20px;
-    }
- 
-    .implant-brand-label {
-        font-size: 20px;
-    }
- 
-    .implant-model-heading {
-        font-size: clamp(24px, 2vw, 36px);
-        margin-bottom: 28px;
-    }
- 
-    .implant-info-row {
-        grid-template-columns: minmax(90px, 0.7fr) minmax(0, 1.3fr);
-        gap: 16px;
-        padding: 14px 12px;
-        font-size: 14px;
-    }
- 
-    .info-value {
-        font-size: 14px;
-    }
- 
-    .selected-size {
-        font-size: 18px;
-    }
- 
-    .admin-back-button {
-        right: 12px;
-        bottom: 12px;
-        padding: 10px 14px 10px 10px;
-        font-size: 14px;
-    }
+
+.info-table { display: flex; flex-direction: column; gap: 4px; }
+
+/* แถวสลับสี ฟ้าอ่อน / ขาว */
+.info-row {
+    min-height: 50px;
+    padding: 12px 24px;
+    display: grid;
+    grid-template-columns: minmax(120px, 40%) 1fr;
+    align-items: center;
+    gap: 16px;
+    border-radius: 12px;
+    transition: background-color var(--ease);
 }
- 
- 
-/* ========================================
-   NEW: Logo Image (Implant Finder)
-======================================== */
- 
-.navbar-brand-logo {
+
+.info-row:nth-child(odd) { background: var(--blue-soft); }
+
+.info-row:hover { background: #E3ECFE; }
+
+.info-label { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--ink); }
+
+.info-value { font-size: 15px; font-weight: 500; color: var(--text); overflow-wrap: anywhere; }
+
+.info-variants { margin-left: 6px; font-size: 12px; color: var(--gray); }
+
+/* ---------- References ---------- */
+.references { margin-top: 22px; }
+
+.references-title {
+    margin: 0 0 8px 4px;
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray);
+}
+
+.references-box {
     display: block;
-    height: 48px;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--page);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--blue);
+    word-break: break-all;
+    transition: border-color var(--ease), background-color var(--ease);
 }
- 
-@media (max-width: 480px) {
-    .navbar-brand-logo {
-        height: 38px;
-    }
+
+.references-box:hover { border-color: var(--border-strong); background: var(--blue-soft); text-decoration: underline; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+    .detail-layout { grid-template-columns: 1fr; }
+    .detail-media { max-width: 560px; width: 100%; justify-self: center; }
 }
- 
+
+@media (max-width: 900px) {
+    .picker-banner { flex-wrap: wrap; }
+    .picker-divider { display: none; }
+}
+
+@media (max-width: 600px) {
+    .detail-main { padding: 16px; }
+    .picker-banner, .detail-info { padding: 20px; }
+    .picker-banner { gap: 16px; }
+    .picker-logo { width: 130px; height: 56px; }
+    .size-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .size-card { padding: 12px 12px 14px; border-radius: 18px; }
+    .size-card-size { font-size: 16px; }
+    .info-row { grid-template-columns: 1fr; gap: 2px; padding: 10px 16px; }
+}
+
+/* =========================================================
+   โลโก้แบรนด์ในแบนเนอร์: ไฟล์โลโก้บางแบรนด์มีขอบขาวเยอะ ตัวโลโก้เลยดูเล็ก
+   → ขยายเฉพาะแบรนด์นั้น (อ้างจาก alt = "ชื่อแบรนด์ logo")
+   ปรับตัวเลข scale ได้ (1 = ขนาดเดิม)
+========================================================= */
+.picker-logo img[alt="Astra Tech logo"] { scale: 1.9; }
+.picker-logo img[alt="Dentaurum logo"]  { scale: 2.2; }
+.picker-logo img[alt="MegaGen logo"]    { scale: 2.0; }
+.picker-logo img[alt="MIS logo"]        { scale: 2.8; }
+.picker-logo img[alt="Neodent logo"]    { scale: 2.2; }

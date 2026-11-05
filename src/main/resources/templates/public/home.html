@@ -1,93 +1,116 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Find Your Implant</title>
+    <title>Implant Finder — Find the right implant</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/homepage.css}">
 </head>
+<body class="home-page">
 
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-         <a href="/" class="navbar-brand">
-    <img th:src="@{/images/logo.png}" alt="Implant Finder" class="navbar-brand-logo">
-</a>
-        <div class="navbar-actions">
-            <a href="/admin/login" class="admin-login-bottom">Admin Login</a>
+    <!-- ===== Navbar ===== -->
+    <nav class="topbar">
+        <a th:href="@{/}" class="site-logo" aria-label="Implant Finder home">
+            <img th:src="@{/images/logo.png}" alt="Implant Finder">
+        </a>
 
-            <button type="button" id="contactBtn" class="contact-bottom"
+        <div class="topbar-actions">
+            <!-- ปุ่มติดต่อ admin (ไอคอนหูฟัง) -->
+            <button type="button" id="contactBtn" class="contact-btn"
                     onclick="toggleContact()" aria-label="Contact admin"
-                    aria-expanded="false" aria-controls="contactPop">🎧</button>
+                    aria-expanded="false" aria-controls="contactPop">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 14v-2a8 8 0 0 1 16 0v2"/>
+                    <rect x="3" y="13" width="4" height="6" rx="1.5"/>
+                    <rect x="17" y="13" width="4" height="6" rx="1.5"/>
+                    <path d="M19 19c0 1.5-1.8 2.5-4 2.5h-2"/>
+                </svg>
+            </button>
+
+            <a th:href="@{/admin/login}" class="admin-login-btn">
+                Login
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
         </div>
     </nav>
 
-    <!--Banner -->
-    <section class="banner">
-        <div class="content">
-            <h1>Find Your <span>Implant</span></h1>
-            <p>Explore your implant in Thailand</p>
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="hero">
+        <!-- ลูกเล่นข้อ 1: ก้อนสีฟุ้ง ๆ ลอยช้า ๆ (ขยับตามเมาส์เล็กน้อย) -->
+        <div class="hero-bg" aria-hidden="true">
+            <span class="blob blob-1"></span>
+            <span class="blob blob-2"></span>
+            <span class="blob blob-3"></span>
+        </div>
 
-           <div class="search">
-                <input
-                type="text"
-                id="searchInput"
-                oninput="filterBrands()"
-                placeholder="Search for a brand..."
-                aria-label="Search for a brand">
+        <!-- ลูกเล่นข้อ 5: คลื่นขยับช้า ๆ ที่ขอบล่าง -->
+        <div class="hero-wave" aria-hidden="true">
+            <svg class="wave wave-back" viewBox="0 0 2880 80" preserveAspectRatio="none">
+                <path d="M0,40 C180,10 540,70 720,40 C900,10 1260,70 1440,40 C1620,10 1980,70 2160,40 C2340,10 2700,70 2880,40 L2880,80 L0,80 Z"/>
+            </svg>
+            <svg class="wave wave-front" viewBox="0 0 2880 80" preserveAspectRatio="none">
+                <path d="M0,50 C240,20 480,70 720,50 C960,30 1200,75 1440,50 C1680,20 1920,70 2160,50 C2400,30 2640,75 2880,50 L2880,80 L0,80 Z"/>
+            </svg>
+        </div>
 
-            <span class="search-icon">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.34-4.34" />
-        </svg>
-    </span>
-</div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <!-- คำแต่ละคำเด้งขึ้นทีละคำ (--i = ลำดับ) -->
+                <span class="hero-line">
+                    <span class="hero-word" style="--i:0">Find</span>
+                    <span class="hero-word" style="--i:1">the</span>
+                    <span class="hero-word" style="--i:2">right</span>
+                    <span class="hero-word" style="--i:3">implant</span>
+                </span>
+                <span class="hero-accent">in just a few seconds</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Every model, size and spec from leading implant brands, all in one place.
+            </p>
+
+            <div class="hero-search">
+                <input type="text" id="searchInput" oninput="filterBrands()"
+                       placeholder="Search implant brands..." aria-label="Search implant brands"
+                       autocomplete="off">
+                <span class="hero-search-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="7.5"/>
+                        <path d="m20 20-3.6-3.6"/>
+                    </svg>
+                </span>
+            </div>
         </div>
     </section>
 
-    <!-- Brand Section -->
-    <main class="page-content">
-        <h2 class="brands">Brands</h2>
+    <!-- ===== Brands (แสดงแค่โลโก้) ===== -->
+    <main class="brands-section">
+        <h2 class="brands-title">Brands</h2>
 
         <div class="brand-grid" id="brandGrid">
-            <a th:each="b : ${brands}"
-               th:href="@{'/brand/' + ${b.brandId}}"
-               class="brand-card">
-
-                <div class="brand-logo-container">
+            <a th:each="b : ${brands}" th:href="@{'/brand/' + ${b.brandId}}" class="brand-card" data-tilt="7"
+               th:attr="data-name=${b.brandName}" th:title="${b.brandName}" th:aria-label="${b.brandName}">
+                <div class="brand-logo-box">
                     <img th:if="${b.logoUrl != null and !#strings.isEmpty(b.logoUrl)}"
-                         th:src="${b.logoUrl}"
-                         th:alt="${b.brandName}"
-                         class="brand-logo"
-                         onerror="this.style.display='none'; this.nextElementSibling.classList.remove('logo-fallback-hidden')">
-
+                         th:src="${b.logoUrl}" th:alt="${b.brandName}" class="brand-logo"
+                         onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden')">
                     <span class="brand-logo-fallback"
-                          th:classappend="${b.logoUrl != null and !#strings.isEmpty(b.logoUrl)} ? ' logo-fallback-hidden' : ''"
+                          th:classappend="${b.logoUrl != null and !#strings.isEmpty(b.logoUrl)} ? ' hidden' : ''"
                           th:text="${b.brandName}"></span>
                 </div>
-
-                <p class="brand-name" th:text="${b.brandName}"></p>
             </a>
         </div>
 
         <p id="noBrand" class="no-brand-message hidden">No brands found.</p>
     </main>
 
-    <!-- Contact Admin popup -->
+    <!-- ===== Contact Admin popup ===== -->
     <div id="contactPop" class="contact-popup hidden" role="dialog" aria-label="Contact admin">
         <div id="contactArrow" class="contact-arrow"></div>
-
         <div class="contact-popup-heading">
             <div class="contact-popup-icon">🎧</div>
             <div>
@@ -95,55 +118,41 @@
                 <p class="contact-popup-subtitle">We usually reply within 1–2 days</p>
             </div>
         </div>
-
         <div class="admin-email-row">
             <span id="adminEmail" class="admin-email">admin@implant.com</span>
             <button type="button" onclick="copyEmail()" id="copyBtn" class="copy-btn">Copy</button>
         </div>
-
         <a href="mailto:admin@implant.com" class="send-email-btn">Send email</a>
     </div>
 
-    <!-- Back to Admin -->
-    <a id="backToAdmin" href="/admin/data-management"
+    <!-- ===== Back to Admin (แสดงตอน admin กด View as User) ===== -->
+    <a id="backToAdmin" th:href="@{/admin/data-management}"
        onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}"
        class="back-to-admin hidden">
-        <span class="back-to-admin-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="back-arrow-icon" fill="none"
-                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M19 12H5m0 0l6-6m-6 6l6 6" />
-            </svg>
-        </span>
+        <svg class="back-to-admin-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/>
+        </svg>
         Back to Admin
     </a>
 
-    <!-- JavaScript: Brand search -->
+    <!-- ===== JavaScript: ค้นหาแบรนด์ ===== -->
     <script>
-       
-function filterBrands() {
-    const query = document.getElementById('searchInput').value.toLowerCase().trim();
-    let shown = 0;
+        function filterBrands() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            let shown = 0;
 
-    document.querySelectorAll('.brand-card').forEach(card => {
-        const brandName = card.querySelector('.brand-name').textContent.toLowerCase().trim();
+            document.querySelectorAll('.brand-card').forEach(card => {
+                const name = (card.dataset.name || '').toLowerCase().trim();
+                const matches = name.startsWith(query);
+                card.style.display = matches ? '' : 'none';
+                if (matches) shown++;
+            });
 
-        // Match only brand names that start with the search term
-        const matches = brandName.startsWith(query);
-
-        card.style.display = matches ? 'block' : 'none';
-
-        if (matches) {
-            shown++;
+            document.getElementById('noBrand').classList.toggle('hidden', shown > 0);
         }
-    });
-
-    document.getElementById('noBrand').classList.toggle('hidden', shown > 0);
-}
-
     </script>
 
-    <!-- JavaScript: Back to Admin -->
+    <!-- ===== JavaScript: Back to Admin ===== -->
     <script>
         try {
             if (sessionStorage.getItem('adminPreview') === '1') {
@@ -154,7 +163,7 @@ function filterBrands() {
         } catch (e) {}
     </script>
 
-    <!-- JavaScript: Contact Admin popup -->
+    <!-- ===== JavaScript: Contact Admin popup ===== -->
     <script>
         const ARROW_HALF = 7;
         const OVERHANG = 36;
@@ -164,8 +173,8 @@ function filterBrands() {
             const btn = document.getElementById('contactBtn');
             const pop = document.getElementById('contactPop');
             const arrow = document.getElementById('contactArrow');
-
             const b = btn.getBoundingClientRect();
+
             let right = window.innerWidth - b.right - OVERHANG;
             if (right < 8) right = 8;
 
@@ -175,12 +184,7 @@ function filterBrands() {
 
             const p = pop.getBoundingClientRect();
             let arrowLeft = (b.left + b.width / 2) - p.left - ARROW_HALF;
-
-            const min = CORNER_SAFE;
-            const max = p.width - CORNER_SAFE - ARROW_HALF * 2;
-            arrowLeft = Math.max(min, Math.min(max, arrowLeft));
-
-            arrow.style.right = 'auto';
+            arrowLeft = Math.max(CORNER_SAFE, Math.min(p.width - CORNER_SAFE - ARROW_HALF * 2, arrowLeft));
             arrow.style.left = arrowLeft + 'px';
         }
 
@@ -200,32 +204,106 @@ function filterBrands() {
         function copyEmail() {
             const email = document.getElementById('adminEmail').textContent.trim();
             const btn = document.getElementById('copyBtn');
-
             navigator.clipboard.writeText(email).then(() => {
                 btn.textContent = 'Copied!';
                 setTimeout(() => btn.textContent = 'Copy', 1500);
-            }).catch(() => {
-                btn.textContent = 'Select & copy';
-            });
+            }).catch(() => { btn.textContent = 'Select & copy'; });
         }
 
-        document.addEventListener('click', function (e) {
+        document.addEventListener('click', e => {
             const btn = document.getElementById('contactBtn');
             const pop = document.getElementById('contactPop');
             if (!btn.contains(e.target) && !pop.contains(e.target)) closeContact();
         });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeContact();
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContact(); });
+        window.addEventListener('resize', () => {
+            if (!document.getElementById('contactPop').classList.contains('hidden')) positionContact();
         });
-
-        window.addEventListener('resize', function () {
-            if (!document.getElementById('contactPop').classList.contains('hidden')) {
-                positionContact();
-            }
-        });
-
         window.addEventListener('scroll', closeContact);
     </script>
+
+    <!-- ===== JavaScript: ลูกเล่นตอนเลื่อนหน้า ===== -->
+    <script>
+        (function () {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const topbar = document.querySelector('.topbar');
+            const heroContent = document.querySelector('.hero-content');
+
+            // 1) แถบบนมีเงา + ข้อความ hero ค่อย ๆ จางขึ้นไปตอนเลื่อนลง
+            let ticking = false;
+            function onScroll() {
+                if (ticking) return;
+                ticking = true;
+                requestAnimationFrame(() => {
+                    const y = window.scrollY;
+                    topbar.classList.toggle('is-scrolled', y > 8);
+                    if (!reduceMotion && heroContent) {
+                        const p = Math.min(y / 500, 1);
+                        heroContent.style.transform = 'translateY(' + (y * 0.25) + 'px)';
+                        heroContent.style.opacity = String(1 - p * 0.9);
+                    }
+                    ticking = false;
+                });
+            }
+            onScroll();
+            window.addEventListener('scroll', onScroll, { passive: true });
+
+            // 2) หัวข้อและการ์ดแบรนด์ลอยขึ้นทีละใบเมื่อเลื่อนมาถึง
+            if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+            const title = document.querySelector('.brands-title');
+            const cards = Array.from(document.querySelectorAll('.brand-card'));
+
+            title.classList.add('reveal');
+            cards.forEach(card => card.classList.add('reveal'));
+
+            const observer = new IntersectionObserver(entries => {
+                // การ์ดที่โผล่มาพร้อมกันจะขึ้นทีละใบ ห่างกัน 80ms
+                entries.filter(e => e.isIntersecting).forEach((entry, i) => {
+                    const el = entry.target;
+                    el.style.transitionDelay = (i * 80) + 'ms';
+                    el.classList.add('is-in');
+                    observer.unobserve(el);
+
+                    // ขึ้นเสร็จแล้วคืนค่าเดิม เพื่อให้ hover ทำงานลื่นเหมือนเดิม
+                    if (el.classList.contains('brand-card')) {
+                        setTimeout(() => {
+                            el.style.animation = 'none'; // กันไม่ให้ animation ตอนโหลดเล่นซ้ำ
+                            el.classList.remove('reveal', 'is-in');
+                            el.style.transitionDelay = '';
+                        }, 700 + i * 80);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+            observer.observe(title);
+            cards.forEach(card => observer.observe(card));
+        })();
+    </script>
+
+    <!-- ===== JavaScript: ก้อนสีพื้นหลัง hero ขยับตามเมาส์ ===== -->
+    <script>
+        (function () {
+            const hero = document.getElementById('hero');
+            const bg = hero && hero.querySelector('.hero-bg');
+            if (!bg || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            hero.addEventListener('pointermove', e => {
+                const r = hero.getBoundingClientRect();
+                const x = (e.clientX - r.left) / r.width - 0.5;
+                const y = (e.clientY - r.top) / r.height - 0.5;
+                bg.style.setProperty('--hx', (x * -24).toFixed(1) + 'px');
+                bg.style.setProperty('--hy', (y * -16).toFixed(1) + 'px');
+            });
+            hero.addEventListener('pointerleave', () => {
+                bg.style.setProperty('--hx', '0px');
+                bg.style.setProperty('--hy', '0px');
+            });
+        })();
+    </script>
+
+    <!-- การ์ดแบรนด์เอียงแบบ 3D ตามเมาส์ -->
+    <script th:src="@{/js/tilt.js}"></script>
 </body>
 </html>

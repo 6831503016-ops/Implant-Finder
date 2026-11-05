@@ -3,406 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Implant Data Management</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
-          rel="stylesheet">
-
+    <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/data-management.css}">
 </head>
+<body>
+<div class="admin-layout">
 
-<body class="page-body">
-
-    <!-- Sidebar -->
+    <!-- ===== เมนูข้าง ===== -->
     <aside class="sidebar">
-        <div class="sidebar-content">
 
-            <!-- Sidebar -->
-<div class="sidebar-brand">
-    <img th:src="@{/images/logo.png}" alt="Implant Finder" class="navbar-brand-logo">
-</div>
+        <a th:href="@{/}" class="site-logo" aria-label="Implant Finder home">
+            <img th:src="@{/images/logo.png}" alt="Implant Finder">
+        </a>
 
-            <nav class="sidebar-navigation">
+        <nav class="side-nav">
+            <a th:href="@{/admin/profile}" class="side-link">
+                <span class="side-icon">
+                    <img class="side-avatar"
+                         th:src="${session.admin != null and !#strings.isEmpty(session.admin.avatarLink)} ? ${session.admin.avatarLink} : 'https://api.dicebear.com/7.x/personas/svg?seed=Admin1&backgroundColor=efe9df'"
+                         alt="Admin avatar">
+                </span>
+                <span>Admin</span>
+            </a>
 
-                <a href="/admin/data-management"
-                   class="navigation-link navigation-link-active">
-
-                    <svg class="navigation-icon"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="1.8"
-                         stroke-linecap="round"
-                         stroke-linejoin="round"
-                         aria-hidden="true">
-                        <ellipse cx="12" cy="5" rx="8" ry="3"/>
-                        <path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/>
-                        <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>
+            <a th:href="@{/admin/data-management}" class="side-link is-active">
+                <span class="side-icon">
+                    <svg width="28" height="35" viewBox="0 0 24 30" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <ellipse cx="12" cy="5" rx="10" ry="4"/>
+                        <path d="M2 5v20c0 2.2 4.5 4 10 4s10-1.8 10-4V5"/>
+                        <path d="M2 15c0 2.2 4.5 4 10 4s10-1.8 10-4"/>
                     </svg>
+                </span>
+                <span>Implant Data</span>
+            </a>
 
-                    <span>Implant Data</span>
-                </a>
-
-                <a href="/admin/profile"
-                   class="navigation-link">
-
-                    <svg class="navigation-icon"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="1.8"
-                         stroke-linecap="round"
-                         stroke-linejoin="round"
-                         aria-hidden="true">
-                        <circle cx="12" cy="8" r="4"/>
-                        <path d="M4 21a8 8 0 0 1 16 0"/>
-                    </svg>
-
-                    <span>Profile</span>
-                </a>
-
-                <a href="/admin/logout"
-                   class="navigation-link navigation-link-logout">
-
-                    <svg class="navigation-icon"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="1.8"
-                         stroke-linecap="round"
-                         stroke-linejoin="round"
-                         aria-hidden="true">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                        <path d="m16 17 5-5-5-5"/>
+            <a th:href="@{/admin/logout}" class="side-link">
+                <span class="side-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M9 3H4v18h5"/>
+                        <path d="M16 7l5 5-5 5"/>
                         <path d="M21 12H9"/>
                     </svg>
-
-                    <span>Logout</span>
-                </a>
-
-            </nav>
-        </div>
+                </span>
+                <span>Logout</span>
+            </a>
+        </nav>
     </aside>
 
+    <div class="admin-main">
+        <div class="admin-band"></div>
 
-    <!-- Main Area -->
-    <div class="main-area">
+        <main class="admin-content">
 
-        <!-- Navbar -->
-        <header class="navbar">
+            <!-- ===== แถว 1: Breadcrumb + ปุ่มด้านขวา ===== -->
+            <div class="dm-top">
+                <nav class="page-nav" aria-label="Breadcrumb">
+                    <a th:href="@{/}" class="back-btn" title="Back to Home" aria-label="Back to Home">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/></svg>
+                    </a>
+                    <div class="crumbs">
+                        <a th:href="@{/}">Home</a>
+                        <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
+                        <span aria-current="page">Implant Data</span>
+                    </div>
+                </nav>
 
-           <!-- Header -->
-<a href="/" class="navbar-brand">
-    <img th:src="@{/images/logo.png}" alt="Implant Finder" class="navbar-brand-logo">
-</a>
-
-            <svg class="breadcrumb-arrow"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke="currentColor"
-                 stroke-width="2.5"
-                 aria-hidden="true">
-                <path stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9 5l7 7-7 7"/>
-            </svg>
-
-            <span class="breadcrumb-current">
-                Implant Data
-            </span>
-
-        </header>
-
-
-        <!-- Main Content -->
-        <main class="main-content">
-
-            <!-- Page Heading -->
-            <div class="page-heading">
-
-                <h1 class="page-title">
-                    Implant Data Management
-                </h1>
-
-               <div class="admin-actions">
-
-   <a href="/admin/preview" class="view-user-button">
-
-    <svg xmlns="http://www.w3.org/2000/svg"
-         width="18"
-         height="18"
-         viewBox="0 0 24 24"
-         fill="none"
-         stroke="currentColor"
-         stroke-width="2"
-         stroke-linecap="round"
-         stroke-linejoin="round">
-
-        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/>
-        <circle cx="12" cy="12" r="3"/>
-
-    </svg>
-
-    <span>View as User</span>
-
-</a>
-</div>
-
+                <div class="dm-top-actions">
+                    <a th:href="@{/admin/add-model}" class="btn-primary dm-add-btn">+ Add Model</a>
+                    <a th:href="@{/admin/preview}" class="btn-outline dm-view-btn">View as User</a>
+                </div>
             </div>
 
+            <!-- ===== แถว 2: หัวข้อ + ค้นหา ===== -->
+            <div class="dm-heading">
+                <h1 class="dm-title">Implant Data Management</h1>
 
-            <!-- Search and Add -->
-            <div class="table-toolbar">
-
-                <input type="text"
-                       id="searchInput"
-                       class="search-input"
-                       oninput="filterModels()"
-                       placeholder="Search models..."
-                       aria-label="Search implant models">
-
-                <a href="/admin/add-model"
-                   class="add-model-button">
-                    + Add
-                </a>
-
+                <div class="dm-search">
+                    <input type="text" id="searchInput" oninput="filterModels()"
+                           placeholder="Search models..." aria-label="Search implant models" autocomplete="off">
+                    <svg class="dm-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7.5"/>
+                        <path d="m20 20-3.6-3.6"/>
+                    </svg>
+                </div>
             </div>
 
-
-            <!-- Implant Data Table -->
-            <div class="table-container">
-
-                <table class="implant-table">
-
-                    <thead class="table-header">
+            <!-- ===== ตาราง ===== -->
+            <div class="dm-card">
+                <table class="dm-table">
+                    <colgroup>
+                        <col style="width: 97px">
+                        <col style="width: 110px">
+                        <col style="width: 216px">
+                        <col style="width: 228px">
+                        <col style="width: 335px">
+                        <col>
+                    </colgroup>
+                    <thead>
                         <tr>
-                            <th>Image</th>
+                            <th class="col-image">Image</th>
                             <th>Brand</th>
                             <th>Model</th>
                             <th>Material</th>
                             <th>Size</th>
-                            <th class="actions-heading">Actions</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
-                    <tbody class="table-body">
-                        <th:block th:each="m : ${models}">
-                            <tr th:each="size : ${m.sizeList}" class="model-row">
-                                <td class="image-cell">
-                                    <div class="model-thumbnail">
-                                        <img th:src="${m.imageUrl}"
-                                             class="thumbnail-image"
-                                             alt="Implant model thumbnail">
+                    <tbody>
+                        <tr th:each="m : ${models}" class="model-row">
+
+                            <!-- รูป -->
+                            <td class="col-image">
+                                <div class="dm-thumb">
+                                    <img th:src="${m.imageUrl}" alt="Implant model thumbnail"
+                                         onerror="this.style.visibility='hidden'">
+                                </div>
+                            </td>
+
+                            <td class="dm-text brand-cell" th:text="${m.brand != null ? m.brand.brandName : '-'}"></td>
+                            <td class="dm-text model-cell" th:text="${m.modelName}"></td>
+                            <td class="dm-text" th:text="${m.material != null ? m.material.materialName : '-'}"></td>
+
+                            <!-- ขนาด: ช่วงเส้นผ่านศูนย์กลาง + ช่วงความยาว + จำนวน + View all -->
+                            <td class="size-cell">
+                                <th:block th:if="${#lists.isEmpty(m.sizeList)}">
+                                    <span class="dm-text">-</span>
+                                </th:block>
+
+                                <th:block th:unless="${#lists.isEmpty(m.sizeList)}"
+                                          th:with="ds=${#lists.sort(m.sizeList.![diameterMm])},
+                                                   ls=${#lists.sort(m.sizeList.![lengthMm])},
+                                                   dMin=${#numbers.formatDecimal(ds[0], 1, 'NONE', 1, 'POINT')},
+                                                   dMax=${#numbers.formatDecimal(ds[ds.size() - 1], 1, 'NONE', 1, 'POINT')},
+                                                   lMin=${ls[0].stripTrailingZeros().toPlainString()},
+                                                   lMax=${ls[ls.size() - 1].stripTrailingZeros().toPlainString()}">
+                                    <div class="size-line">
+                                        <span class="size-range">
+                                            <span class="size-d" th:text="${dMin == dMax ? 'Ø ' + dMin + ' mm' : 'Ø ' + dMin + ' – ' + dMax + ' mm'}"></span>
+                                            <span class="size-l" th:text="${lMin == lMax ? 'L ' + lMin + ' mm' : 'L ' + lMin + ' – ' + lMax + ' mm'}"></span>
+                                        </span>
+                                        <span class="size-count" th:text="${m.sizeList.size() + ' sizes'}"></span>
                                     </div>
-                                </td>
-                                <td class="brand-cell"
-                                    th:text="${m.brand != null ? m.brand.brandName : '-'}"></td>
-                                <td class="model-name-cell" th:text="${m.modelName}"></td>
-                                <td class="material-cell"
-                                    th:text="${m.material != null ? m.material.materialName : '-'}"></td>
-                                <td class="size-cell" th:text="${size.displaySize}"></td>
-                                <td class="actions-cell">
-                                    <div class="action-buttons">
-                                        <a th:href="@{'/admin/edit-model/' + ${m.modelId}}"
-                                           class="icon-button edit-button"
-                                           title="Edit"
-                                           aria-label="Edit model">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                 stroke-width="2" stroke-linecap="round"
-                                                 stroke-linejoin="round" aria-hidden="true">
-                                                <path d="M15.232 5.232l3.536 3.536M9 13l6.768-6.768a2.5 2.5 0 113.536 3.536L12.536 16.536 8 18l1-5z"/>
+
+                                    <details class="size-dropdown">
+                                        <summary>View all <span class="caret">▾</span></summary>
+                                        <ul class="size-list">
+                                            <li th:each="size : ${m.sizeList}">
+                                                <span th:text="${size.displaySize}"
+                                                      th:classappend="${size.status == 'Hidden'} ? ' is-hidden' : ''"></span>
+                                                <form th:action="@{'/admin/toggle-size-status/' + ${size.sizeId}}" method="post">
+                                                    <button type="submit" class="switch switch-sm"
+                                                            th:classappend="${size.status == 'Hidden'} ? ' is-off' : ''"
+                                                            th:title="${size.status == 'Hidden'} ? 'Hidden (click to show)' : 'Visible (click to hide)'"
+                                                            th:attr="aria-label=${size.status == 'Hidden' ? 'Show size' : 'Hide size'}">
+                                                        <span class="switch-knob"></span>
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </th:block>
+                            </td>
+
+                            <!-- Actions -->
+                            <td>
+                                <div class="dm-actions">
+                                    <a th:href="@{'/admin/edit-model/' + ${m.modelId}}" class="icon-btn"
+                                       title="Edit" aria-label="Edit model">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/>
+                                        </svg>
+                                    </a>
+
+                                    <form th:action="@{'/admin/toggle-status/' + ${m.modelId}}" method="post">
+                                        <button type="submit" class="switch"
+                                                th:classappend="${m.status == 'Hidden'} ? ' is-off' : ''"
+                                                th:title="${m.status == 'Hidden'} ? 'Hidden (click to show)' : 'Visible (click to hide)'"
+                                                th:attr="aria-label=${m.status == 'Hidden' ? 'Show model' : 'Hide model'}">
+                                            <span class="switch-knob"></span>
+                                        </button>
+                                    </form>
+
+                                    <form th:action="@{'/admin/delete/' + ${m.modelId}}" method="post">
+                                        <button type="submit" class="icon-btn icon-btn-delete"
+                                                onclick="return confirm('Delete model?')"
+                                                title="Delete model" aria-label="Delete model">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                <path d="M5 7h14M10 7V4h4v3m-7 0 1 13h8l1-13M10 11v6m4-6v6"/>
                                             </svg>
-                                        </a>
-                                        <form th:action="@{'/admin/toggle-size-status/' + ${size.sizeId}}"
-                                              method="post" class="status-form">
-                                            <button type="submit" class="status-toggle"
-                                                    th:title="${size.status == 'Visible' ? 'Visible (click to hide)' : 'Hidden (click to show)'}"
-                                                    th:classappend="${size.status == 'Visible' ? ' status-visible' : ' status-hidden'}"
-                                                    th:attr="aria-label=${size.status == 'Visible' ? 'Hide size' : 'Show size'}">
-                                                <span class="status-toggle-knob"></span>
-                                            </button>
-                                        </form>
-                                        <form th:action="@{'/admin/delete/' + ${m.modelId}}"
-                                              method="post" class="delete-form">
-                                            <button type="submit" class="icon-button delete-button"
-                                                    onclick="return confirm('Delete model?')"
-                                                    title="Delete model" aria-label="Delete model">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="1.8" stroke-linecap="round"
-                                                     stroke-linejoin="round" aria-hidden="true">
-                                                    <path d="M6 7h12M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/>
-                                                </svg>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr th:if="${#lists.isEmpty(m.sizeList)}" class="model-row">
-                                <td class="image-cell">
-                                    <div class="model-thumbnail">
-                                        <img th:src="${m.imageUrl}"
-                                             class="thumbnail-image"
-                                             alt="Implant model thumbnail">
-                                    </div>
-                                </td>
-                                <td class="brand-cell"
-                                    th:text="${m.brand != null ? m.brand.brandName : '-'}"></td>
-                                <td class="model-name-cell" th:text="${m.modelName}"></td>
-                                <td class="material-cell"
-                                    th:text="${m.material != null ? m.material.materialName : '-'}"></td>
-                                <td class="size-cell">-</td>
-                                <td class="actions-cell">
-                                    <div class="action-buttons">
-                                        <a th:href="@{'/admin/edit-model/' + ${m.modelId}}"
-                                           class="icon-button edit-button"
-                                           title="Edit"
-                                           aria-label="Edit model">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                 stroke-width="2" stroke-linecap="round"
-                                                 stroke-linejoin="round" aria-hidden="true">
-                                                <path d="M15.232 5.232l3.536 3.536M9 13l6.768-6.768a2.5 2.5 0 113.536 3.536L12.536 16.536 8 18l1-5z"/>
-                                            </svg>
-                                        </a>
-                                        <form th:action="@{'/admin/toggle-status/' + ${m.modelId}}"
-                                              method="post" class="status-form">
-                                            <button type="submit" class="status-toggle"
-                                                    th:title="${m.status == 'Visible' ? 'Visible (click to hide)' : 'Hidden (click to show)'}"
-                                                    th:classappend="${m.status == 'Visible' ? ' status-visible' : ' status-hidden'}"
-                                                    th:attr="aria-label=${m.status == 'Visible' ? 'Hide model' : 'Show model'}">
-                                                <span class="status-toggle-knob"></span>
-                                            </button>
-                                        </form>
-                                        <form th:action="@{'/admin/delete/' + ${m.modelId}}"
-                                              method="post" class="delete-form">
-                                            <button type="submit" class="icon-button delete-button"
-                                                    onclick="return confirm('Delete model?')"
-                                                    title="Delete model" aria-label="Delete model">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="1.8" stroke-linecap="round"
-                                                     stroke-linejoin="round" aria-hidden="true">
-                                                    <path d="M6 7h12M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/>
-                                                </svg>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        </th:block>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
 
-            </div>
+                <p id="noResults" class="dm-empty" hidden>No implant models found.</p>
 
-            <div class="pagination-container">
-                <span id="resultsSummary" class="results-summary" aria-live="polite"></span>
-                <nav class="pagination" aria-label="Table pages">
-                    <button type="button" id="previousPage" class="pagination-button">Previous</button>
-                    <div id="pageNumbers" class="pagination-pages"></div>
-                    <button type="button" id="nextPage" class="pagination-button">Next</button>
-                </nav>
+                <!-- ===== Pagination ===== -->
+                <div class="dm-footer">
+                    <span id="pageInfo" class="page-info" aria-live="polite"></span>
+                    <button type="button" id="previousPage" class="page-arrow" aria-label="Previous page">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                             stroke-linecap="round" aria-hidden="true"><path d="M19 12H5m0 0 5-5m-5 5 5 5"/></svg>
+                    </button>
+                    <button type="button" id="nextPage" class="page-arrow" aria-label="Next page">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                             stroke-linecap="round" aria-hidden="true"><path d="M5 12h14m0 0-5-5m5 5-5 5"/></svg>
+                    </button>
+                </div>
             </div>
-
         </main>
     </div>
+</div>
 
+<script>
+    // ===== ค้นหา + แบ่งหน้า (6 แถวต่อหน้า เหมือน Canva) =====
+    const pageSize = 6;
+    const rows = Array.from(document.querySelectorAll('.model-row'));
+    const pageInfo = document.getElementById('pageInfo');
+    const previousPage = document.getElementById('previousPage');
+    const nextPage = document.getElementById('nextPage');
+    const noResults = document.getElementById('noResults');
 
-    <!-- Search Models -->
-    <script>
-        const pageSize = 10;
-        const modelRows = Array.from(document.querySelectorAll('.model-row'));
-        const pageNumbers = document.getElementById('pageNumbers');
-        const resultsSummary = document.getElementById('resultsSummary');
-        const previousPage = document.getElementById('previousPage');
-        const nextPage = document.getElementById('nextPage');
-        let currentPage = 1;
-        let filteredRows = modelRows;
+    let currentPage = 1;
+    let filteredRows = rows;
 
-        function renderPage() {
-            const pageCount = Math.ceil(filteredRows.length / pageSize);
-            currentPage = Math.min(currentPage, Math.max(pageCount, 1));
+    function renderPage() {
+        const pageCount = Math.max(1, Math.ceil(filteredRows.length / pageSize));
+        currentPage = Math.min(currentPage, pageCount);
 
-            modelRows.forEach(row => {
-                row.style.display = 'none';
-            });
+        rows.forEach(row => row.style.display = 'none');
+        const start = (currentPage - 1) * pageSize;
+        filteredRows.slice(start, start + pageSize).forEach(row => row.style.display = '');
 
-            const startIndex = (currentPage - 1) * pageSize;
-            filteredRows.slice(startIndex, startIndex + pageSize).forEach(row => {
-                row.style.display = '';
-            });
+        noResults.hidden = filteredRows.length > 0;
+        pageInfo.textContent = filteredRows.length ? `Page ${currentPage} of ${pageCount}` : '';
+        previousPage.disabled = currentPage <= 1;
+        nextPage.disabled = currentPage >= pageCount;
+    }
 
-            resultsSummary.textContent = filteredRows.length === 0
-                ? 'Showing 0 of 0 rows'
-                : `Showing ${startIndex + 1}-${Math.min(startIndex + pageSize, filteredRows.length)} of ${filteredRows.length} rows`;
-
-            pageNumbers.replaceChildren();
-            const visiblePages = pageCount <= 6
-                ? Array.from({ length: pageCount }, (_, index) => index + 1)
-                : [1, 2, 3, 4, ...(currentPage > 4 && currentPage < pageCount ? [currentPage] : []), pageCount];
-
-            visiblePages.forEach((page, index) => {
-                if (index > 0 && page - visiblePages[index - 1] > 1) {
-                    const ellipsis = document.createElement('span');
-                    ellipsis.className = 'pagination-ellipsis';
-                    ellipsis.textContent = '...';
-                    ellipsis.setAttribute('aria-hidden', 'true');
-                    pageNumbers.appendChild(ellipsis);
-                }
-
-                const button = document.createElement('button');
-                button.type = 'button';
-                button.className = 'pagination-button';
-                button.textContent = page;
-                button.setAttribute('aria-label', `Page ${page}`);
-                if (page === currentPage) {
-                    button.classList.add('pagination-button-active');
-                    button.setAttribute('aria-current', 'page');
-                }
-                button.addEventListener('click', () => {
-                    currentPage = page;
-                    renderPage();
-                });
-                pageNumbers.appendChild(button);
-            });
-
-            previousPage.disabled = currentPage <= 1;
-            nextPage.disabled = currentPage >= pageCount;
-        }
-
-        function filterModels() {
-            const query = document.getElementById('searchInput')
-                .value.toLowerCase().trim();
-
-            filteredRows = modelRows.filter(row => {
-                const brandName = row.cells[1].textContent
-                    .toLowerCase().trim();
-
-                const modelName = row.cells[2].textContent
-                    .toLowerCase().trim();
-
-                return brandName.startsWith(query) || modelName.startsWith(query);
-            });
-            currentPage = 1;
-            renderPage();
-        }
-
-        previousPage.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage -= 1;
-                renderPage();
-            }
+    function filterModels() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        filteredRows = rows.filter(row => {
+            const brand = row.querySelector('.brand-cell').textContent.toLowerCase().trim();
+            const model = row.querySelector('.model-cell').textContent.toLowerCase().trim();
+            return brand.startsWith(query) || model.startsWith(query);
         });
-
-        nextPage.addEventListener('click', () => {
-            if (currentPage < Math.ceil(filteredRows.length / pageSize)) {
-                currentPage += 1;
-                renderPage();
-            }
-        });
-
+        currentPage = 1;
         renderPage();
-    </script>
+    }
 
+    previousPage.addEventListener('click', () => { currentPage--; renderPage(); });
+    nextPage.addEventListener('click', () => { currentPage++; renderPage(); });
 
+    // ปิด dropdown "View all" อันอื่นเมื่อเปิดอันใหม่ / คลิกข้างนอก
+    document.addEventListener('click', e => {
+        document.querySelectorAll('.size-dropdown[open]').forEach(d => {
+            if (!d.contains(e.target)) d.removeAttribute('open');
+        });
+    });
+
+    renderPage();
+</script>
 </body>
 </html>

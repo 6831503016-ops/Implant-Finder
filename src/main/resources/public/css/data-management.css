@@ -1,1144 +1,369 @@
-:root {
-    --dark-navy: #0A1F44;
-    --primary-blue: #1D63EE;
-    --hover-blue: #1650C8;
-    --page-background: #EEF4FF;
-    --light-blue: #E8F0FD;
-    --white: #FFFFFF;
-    --main-text: #0A1F44;
-    --secondary-text: #64748B;
-    --muted-text: #94A3B8;
-    --border: #D6E2F7;
-}
- 
-/* ========================================
-   1. Global Styles
-======================================== */
- 
-* {
-    box-sizing: border-box;
-}
- 
-body.page-body {
-    display: flex;
-    min-height: 100vh;
-    margin: 0;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: #0A1F44;
-    background-color: #EEF4FF;
-}
- 
-a {
-    color: inherit;
-    text-decoration: none;
-}
- 
-button,
-input {
-    font: inherit;
-}
- 
-button,
-a {
-    -webkit-tap-highlight-color: transparent;
-}
- 
-button {
-    cursor: pointer;
-}
- 
- 
-/* ========================================
-   2. Sidebar
-======================================== */
- 
-.sidebar {
-    flex: 0 0 256px;
-    width: 256px;
-    min-height: 100vh;
-    padding: 24px;
-    color: #0A1F44;
-    background-color: #FFFFFF;
-    border-right: 1px solid #D6E2F7;
-}
- 
-.sidebar-content {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
- 
-.sidebar-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
- 
-.sidebar-brand-icon {
-    font-size: 24px;
-    line-height: 1;
-}
- 
-.sidebar-brand-name {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-}
- 
- 
-/* ========================================
-   3. Sidebar Navigation
-======================================== */
- 
-.sidebar-navigation {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
- 
-.navigation-link {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    color: #64748B;
-    background-color: #FFFFFF;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-}
- 
-.navigation-icon {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-}
- 
-.navigation-link:hover {
-    color: #FFFFFF;
-    background-color: #1D63EE;
-}
- 
-.navigation-link-active {
-    color: #FFFFFF;
-    background-color: #1D63EE;
-    font-weight: 700;
-}
- 
-.navigation-link-active:hover {
-    color: #FFFFFF;
-    background-color: #1650C8;
-}
- 
-.navigation-link-logout:hover {
-    color: #f87171;
-}
- 
- 
-/* ========================================
-   4. Main Area
-======================================== */
- 
-.main-area {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    min-width: 0;
-}
- 
- 
-/* ========================================
-   5. Navbar / Breadcrumb
-======================================== */
- 
-.navbar {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 12px;
-    width: 100%;
-    height: 72px;
-    min-height: 72px;
-    padding: 0 32px;
-    overflow: hidden;
-    color: #0A1F44;
-    background-color: #FFFFFF;
-    border-bottom: 1px solid #D6E2F7;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
- 
-.navbar-brand {
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-    gap: 10px;
-    color: #0A1F44;
-    font-size: 20px;
-    font-weight: 800;
-    white-space: nowrap;
-    transform: translateY(3px);
-}
- 
-.navbar-brand:hover {
-    color: #1D63EE;
-}
- 
-.navbar-brand-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    font-size: 24px;
-    line-height: 1;
-}
- 
-.breadcrumb-arrow {
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
-    margin: 0 4px;
-    color: #64748B;
-    transform: translateY(3px);
-}
- 
-.breadcrumb-current {
-    min-width: 0;
-    overflow: hidden;
-    color: #0A1F44;
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    transform: translateY(3px);
-}
- 
- 
-/* ========================================
-   6. Main Content
-======================================== */
- 
-.main-content {
-    flex: 1;
-    min-width: 0;
-    padding: 32px;
-}
- 
- 
-/* ========================================
-   7. Page Heading
-======================================== */
- 
-.page-heading {
+/* =========================================================
+   data-management.css — Implant Data Management (Canva หน้า 6)
+   ต้องโหลด base.css ก่อนไฟล์นี้
+========================================================= */
+
+/* ---------- แถว 1 ---------- */
+.dm-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 24px;
-}
- 
-.page-title {
-    margin: 0;
-    color: #0A1F44;
-    font-size: 24px;
-    font-weight: 800;
-    line-height: 1.4;
-}
- 
- 
-/* ========================================
-   8. Admin Actions
-======================================== */
- 
-.admin-actions {
-    display: flex;
-    align-items: center;
     gap: 16px;
-    flex-shrink: 0;
-    margin-left: auto;
-}
- 
-.view-user-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 16px;
- 
-    color: #0A1F44;
-    background-color: #FFFFFF;
- 
-    border: 1px solid #D6E2F7;
-    border-radius: 12px;
- 
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
- 
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
- 
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease;
-}
- 
-.view-user-button:hover {
-    background-color: #EEF4FF;
-    border-color: #D6E2F7;
-}
- 
-.view-user-button:hover {
-    background-color: #EEF4FF;
-    border-color: #D6E2F7;
-}
- 
-.admin-profile-button {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 16px 8px 8px;
-    background-color: #ffffff;
-    border: 1px solid #D6E2F7;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease;
-}
- 
-.admin-profile-button:hover {
-    background-color: #EEF4FF;
-    border-color: #BDD2FB;
-}
- 
-.admin-avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    color: #1D63EE;
-    background-color: #E8F0FD;
-    border-radius: 50%;
-    font-size: 14px;
-    font-weight: 700;
-}
- 
-.admin-name {
-    color: #0A1F44;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-}
- 
- 
-/* ========================================
-   9. Table Toolbar
-======================================== */
- 
-.table-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 24px;
-}
- 
-.search-input {
-    width: 260px;
-    max-width: 100%;
-    min-width: 0;
-    padding: 10px 16px;
-    color: #0A1F44;
-    background-color: #ffffff;
-    border: 1px solid #D6E2F7;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
-    font-size: 14px;
-    outline: none;
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
- 
-.search-input::placeholder {
-    color: #94A3B8;
-}
- 
-.search-input:focus {
-    border-color: #BDD2FB;
-    box-shadow: 0 0 0 3px rgba(29, 99, 238, 0.12);
-}
- 
-.add-model-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    color: #ffffff;
-    background-color: #1D63EE;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
-    font-size: 14px;
-    font-weight: 700;
-    white-space: nowrap;
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease;
-}
- 
-.add-model-button:hover {
-    background-color: #1650C8;
-}
- 
-.add-model-button:active {
-    transform: translateY(1px);
-}
- 
- 
-/* ========================================
-   10. Table Container
-======================================== */
- 
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-    background-color: #ffffff;
-    border: 1px solid #D6E2F7;
-    border-radius: 16px;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
 }
 
-.pagination-container {
+.dm-top-actions {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
     gap: 12px;
     margin-top: 16px;
 }
 
-.results-summary {
-    color: #64748B;
-    font-size: 13px;
-    font-weight: 600;
+.dm-view-btn {
+    width: 157px;
+    height: 45px;
+    padding: 0;
+    font-size: 15.33px;
 }
 
-.pagination,
-.pagination-pages {
+.dm-add-btn {
+    height: 45px;
+    padding: 0 22px;
+    font-size: 15.33px;
+}
+
+/* ---------- แถว 2 ---------- */
+.dm-heading {
+    margin-top: 18px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: space-between;
+    gap: 16px;
 }
 
-.pagination-ellipsis {
-    padding: 0 2px;
-    color: #64748B;
-    font-weight: 700;
-}
-
-.pagination-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 36px;
-    height: 36px;
-    padding: 0 10px;
-    color: #0A1F44;
-    background-color: #FFFFFF;
-    border: 1px solid #D6E2F7;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.pagination-button:hover:not(:disabled) {
-    background-color: #EEF4FF;
-    border-color: #BDD2FB;
-}
-
-.pagination-button-active {
-    color: #FFFFFF;
-    background-color: #1D63EE;
-    border-color: #1D63EE;
-}
-
-.pagination-button-active:hover:not(:disabled) {
-    background-color: #1650C8;
-    border-color: #1650C8;
-}
-
-.pagination-button:disabled {
-    color: #94A3B8;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.implant-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-}
- 
- 
-/* ========================================
-   11. Table Header
-======================================== */
- 
-.table-header {
-    color: #94A3B8;
-    background-color: #F7FAFF;
-    border-bottom: 1px solid #D6E2F7;
-}
- 
-.table-header th {
-    padding: 16px;
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
- 
-.table-header .actions-heading {
-    text-align: right;
-}
- 
- 
-/* ========================================
-   12. Table Body
-======================================== */
- 
-.table-body {
-    color: #0A1F44;
-    font-size: 14px;
-    font-weight: 600;
-}
- 
-.table-body tr {
-    border-bottom: 1px solid #EEF4FF;
-    transition: background-color 0.15s ease;
-}
- 
-.table-body tr:last-child {
-    border-bottom: none;
-}
- 
-.table-body tr:hover {
-    background-color: #EEF4FF;
-}
- 
-.table-body td {
-    padding: 20px 16px;
-    vertical-align: middle;
-}
- 
-.brand-cell {
-    color: #0A1F44;
-    font-weight: 700;
-}
- 
-.model-name-cell {
-    min-width: 140px;
-    overflow-wrap: anywhere;
-}
- 
-.material-cell {
-    color: #64748B;
-}
- 
- 
-/* ========================================
-   13. Model Thumbnail
-======================================== */
- 
-.model-thumbnail {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    padding: 4px;
-    overflow: hidden;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-}
- 
-.thumbnail-image {
-    display: block;
-    max-width: 100%;
-    max-height: 40px;
-    object-fit: contain;
-}
- 
- 
-/* ========================================
-   14. Action Buttons
-======================================== */
- 
-.actions-cell {
-    text-align: right;
-}
- 
-.action-buttons {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-}
- 
-/* Edit and Delete buttons: same button dimensions */
-.icon-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    padding: 4px;
-    color: #94A3B8;
-    background-color: transparent;
-    border: none;
-    border-radius: 8px;
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease;
-}
- 
-/* Edit and Delete icons: same dimensions */
-.icon-button svg {
-    display: block;
-    width: 22px;
-    height: 22px;
-}
- 
-.edit-button:hover {
-    color: #1D63EE;
-    background-color: #E8F0FD;
-}
- 
-.delete-button:hover {
-    color: #dc2626;
-    background-color: #fef2f2;
-}
- 
-.status-form,
-.delete-form {
-    display: flex;
-    align-items: center;
+.dm-title {
     margin: 0;
+    font-family: var(--font-head);
+    font-size: 37.33px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--navy);
 }
- 
- 
-/* ========================================
-   15. Status Toggle
-======================================== */
- 
-.status-toggle {
-    display: flex;
-    align-items: center;
-    width: 40px;
-    height: 24px;
-    padding: 4px;
-    border: none;
+
+.dm-search {
+    position: relative;
+    width: min(493px, 45%);
+    opacity: 0.94;
+}
+
+.dm-search input {
+    width: 100%;
+    height: 42px;
+    padding: 0 44px 0 23px;
+    border: 1px solid var(--muted);
     border-radius: 999px;
-    transition:
-        background-color 0.2s ease,
-        justify-content 0.2s ease;
+    background: var(--white);
+    font-size: 11.89px;
+    color: var(--navy);
+    outline: none;
 }
- 
-.status-visible {
-    justify-content: flex-end;
-    background-color: #1D63EE;
+
+.dm-search input::placeholder { color: var(--gray); }
+
+.dm-search input:focus { border-color: var(--blue-2); }
+
+.dm-search-icon {
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    width: 14px;
+    height: 14px;
+    transform: translateY(-50%);
+    color: var(--blue-2);
+    pointer-events: none;
 }
- 
-.status-hidden {
-    justify-content: flex-start;
-    background-color: #D6E2F7;
-}
- 
-.status-toggle:hover {
-    filter: brightness(0.96);
-}
- 
-.status-toggle-knob {
-    display: block;
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
-}
- 
- 
-/* ========================================
-   16. Size Summary
-======================================== */
- 
-.size-cell {
-    min-width: 280px;
-}
- 
-.size-summary {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px 12px;
-}
- 
-.size-summary-diameter {
-    color: #0A1F44;
-    font-weight: 800;
-    white-space: nowrap;
-}
- 
-.size-summary-length {
-    color: #94A3B8;
-    font-weight: 600;
-    white-space: nowrap;
-}
- 
-.size-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3px 8px;
-    color: #64748B;
-    background-color: #EEF4FF;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-}
- 
-.toggle-size-button {
-    padding: 5px 12px;
-    color: #64748B;
-    background-color: #ffffff;
-    border: 1px solid #D6E2F7;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease;
-}
- 
-.toggle-size-button:hover {
-    background-color: #EEF4FF;
-    border-color: #D6E2F7;
-}
- 
- 
-/* ========================================
-   17. Expanded Size Details
-======================================== */
- 
-.size-detail {
+
+/* ---------- การ์ดตาราง ---------- */
+.dm-card {
+    min-height: 600px;
+    margin-top: 24px;
+    overflow: visible;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin-top: 12px;
-    padding: 12px;
-    background-color: #ffffff;
-    border: 1px solid #EEF4FF;
-    border-radius: 12px;
+    border: 1px solid #C8D1D9;
+    border-radius: 26px;
+    background: #F7FAFF;
 }
- 
-.size-detail-hidden {
-    display: none;
+
+.dm-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
- 
-.diameter-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
- 
-.diameter-chip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 64px;
-    min-height: 32px;
-    padding: 4px;
-    color: #1D63EE;
-    background-color: #E8F0FD;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 800;
-    white-space: nowrap;
-}
- 
-.length-chip-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
- 
-.length-chip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 32px;
-    min-height: 32px;
-    padding: 4px 8px;
-    color: #0A1F44;
-    background-color: #EEF4FF;
-    border-radius: 8px;
+
+.dm-table th {
+    height: 48px;
+    padding: 0 12px 0 0;
+    border-bottom: 1px solid var(--muted);
     font-size: 12px;
     font-weight: 700;
+    line-height: 1.4;
+    text-align: left;
+    text-transform: uppercase;
+    color: var(--navy);
 }
- 
-.size-detail-note {
-    margin: 4px 0 0;
-    padding-top: 4px;
-    color: #94A3B8;
+
+.dm-table th.col-image { color: #000000; }
+
+.dm-table td {
+    height: 87px;
+    padding: 0 10px 0 0;
+    vertical-align: middle;
+}
+
+.dm-table .col-image { padding-left: 24px; }
+
+.dm-thumb {
+    width: 46px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 7px;
+    background: #000000;
+}
+
+.dm-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dm-text {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.143;
+    color: var(--navy);
+}
+
+/* ---------- ช่องขนาด ---------- */
+.size-cell { position: relative; }
+
+.size-line {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.size-range {
+    min-width: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.size-d { color: var(--navy); }
+
+.size-l { color: var(--blue); margin-left: 4px; }
+
+.size-count {
+    height: 20px;
+    padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: #E9EEF5;
     font-size: 12px;
+    font-weight: 700;
+    color: var(--gray);
+    white-space: nowrap;
 }
- 
- 
-/* ========================================
-   18. Responsive: Tablet
-======================================== */
- 
-@media (max-width: 1100px) {
-    .sidebar {
-        flex-basis: 220px;
-        width: 220px;
-        padding: 20px;
-    }
- 
-    .main-content {
-        padding: 24px;
-    }
- 
-    .page-heading {
-        align-items: flex-start;
-    }
- 
-    .page-title {
-        font-size: 22px;
-    }
- 
-    .admin-actions {
-        gap: 10px;
-    }
- 
-    .table-container {
-        overflow-x: auto;
-    }
- 
-    .implant-table {
-        min-width: 900px;
-    }
+
+.size-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-top: 6px;
 }
- 
- 
-/* ========================================
-   19. Responsive: Small Tablet
-======================================== */
- 
-@media (max-width: 768px) {
-    body.page-body {
-        flex-direction: column;
-    }
- 
-    .sidebar {
-        width: 100%;
-        min-height: auto;
-        padding: 16px 20px;
-    }
- 
-    .sidebar-content {
-        gap: 16px;
-    }
- 
-    .sidebar-navigation {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
- 
-    .navigation-link {
-        flex: 1;
-        justify-content: center;
-        gap: 8px;
-        padding: 10px 12px;
-        font-size: 12px;
-    }
- 
-    .navigation-icon {
-        width: 18px;
-        height: 18px;
-    }
- 
-    /* Navbar */
-    .navbar {
-        height: 64px;
-        min-height: 64px;
-        gap: 8px;
-        padding: 0 20px;
-    }
- 
-    .navbar-brand {
-        gap: 8px;
-        font-size: 18px;
-    }
- 
-    .navbar-brand-icon {
-        width: 28px;
-        height: 28px;
-        font-size: 21px;
-    }
- 
-    .breadcrumb-arrow {
-        width: 14px;
-        height: 14px;
-    }
- 
-    .breadcrumb-current {
-        font-size: 12px;
-    }
- 
-    .main-content {
-        padding: 20px;
-    }
- 
-    .page-heading {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 16px;
-    }
- 
-    .admin-actions {
-        justify-content: space-between;
-    }
- 
-    .table-toolbar {
-        gap: 12px;
-    }
- 
-    .search-input {
-        flex: 1;
-        width: auto;
-        min-width: 150px;
-    }
- 
-    .implant-table {
-        min-width: 850px;
-    }
- 
-    .size-summary-diameter {
-        font-size: 18px;
-    }
- 
-    .size-summary-length {
-        font-size: 17px;
-    }
- 
-    .diameter-chip {
-        width: 76px;
-        min-height: 44px;
-        font-size: 17px;
-    }
- 
-    .length-chip {
-        min-width: 46px;
-        min-height: 44px;
-        font-size: 17px;
-    }
+
+.size-dropdown summary {
+    height: 24px;
+    padding: 0 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+    border-radius: 999px;
+    background: #E9EEF5;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray);
+    cursor: pointer;
+    user-select: none;
 }
- 
- 
-/* ========================================
-   20. Responsive: Mobile
-======================================== */
- 
-@media (max-width: 480px) {
-    .sidebar {
-        padding: 14px;
-    }
- 
-    .sidebar-brand-name {
-        font-size: 18px;
-    }
- 
-    .sidebar-navigation {
-        gap: 6px;
-    }
- 
-    .navigation-link {
-        gap: 6px;
-        padding: 10px 8px;
-        font-size: 11px;
-    }
- 
-    .navigation-icon {
-        width: 16px;
-        height: 16px;
-    }
- 
-    /* Navbar */
-    .navbar {
-        height: 64px;
-        min-height: 64px;
-        gap: 6px;
-        padding: 0 14px;
-    }
- 
-    .navbar-brand {
-        gap: 6px;
-        font-size: 16px;
-    }
- 
-    .navbar-brand-icon {
-        width: 24px;
-        height: 24px;
-        font-size: 20px;
-    }
- 
-    .breadcrumb-arrow {
-        width: 12px;
-        height: 12px;
-        margin: 0 2px;
-    }
- 
-    .breadcrumb-current {
-        font-size: 11px;
-    }
- 
-    .main-content {
-        padding: 16px;
-    }
- 
-    .page-title {
-        font-size: 20px;
-    }
- 
-    .admin-actions {
-        gap: 8px;
-    }
- 
-    .view-user-button {
-        padding: 9px 10px;
-        font-size: 11px;
-    }
- 
-    .admin-profile-button {
-        gap: 8px;
-        padding: 6px 10px 6px 6px;
-    }
- 
-    .admin-avatar {
-        width: 28px;
-        height: 28px;
-    }
- 
-    .admin-name {
-        font-size: 11px;
-    }
- 
-    .table-toolbar {
-        align-items: stretch;
-        gap: 10px;
-    }
- 
-    .search-input {
-        width: 100%;
-        min-width: 0;
-        padding: 10px 12px;
-    }
- 
-    .add-model-button {
-        padding: 10px 16px;
-        font-size: 12px;
-    }
- 
-    .table-header th,
-    .table-body td {
-        padding: 12px;
-    }
- 
-    .size-summary {
-        gap: 8px;
-    }
- 
-    .size-summary-diameter {
-        font-size: 17px;
-    }
- 
-    .size-summary-length {
-        font-size: 16px;
-    }
- 
-    .size-count {
-        padding: 6px 9px;
-        font-size: 13px;
-    }
- 
-    .toggle-size-button {
-        padding: 8px 12px;
-        font-size: 13px;
-    }
- 
-    .size-detail {
-        padding: 10px;
-    }
- 
-    .diameter-row {
-        gap: 6px;
-    }
- 
-    .diameter-chip {
-        width: 68px;
-        min-height: 40px;
-        padding: 4px;
-        font-size: 15px;
-    }
- 
-    .length-chip-list {
-        gap: 6px;
-    }
- 
-    .length-chip {
-        min-width: 40px;
-        min-height: 40px;
-        padding: 4px 8px;
-        font-size: 15px;
-    }
+
+.size-dropdown summary::-webkit-details-marker { display: none; }
+
+.size-dropdown summary:hover { color: var(--blue); }
+
+.size-dropdown .caret { font-weight: 300; }
+
+.size-dropdown[open] .caret { display: inline-block; transform: rotate(180deg); }
+
+.size-list {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 50;
+    width: 260px;
+    max-height: 260px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 8px;
+    list-style: none;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--white);
+    box-shadow: 0 12px 32px rgba(10, 31, 68, 0.14);
 }
- 
- 
-/* ========================================
-   NEW: Logo Image (Implant Finder)
-======================================== */
- 
-.navbar-brand-logo {
-    display: block;
-    height: 48px;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
+
+.size-list li {
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
 }
- 
-/* Logo inside the sidebar */
-.sidebar-brand .navbar-brand-logo {
-    height: 48px;
+
+.size-list li:hover { background: #F7FAFF; }
+
+.size-list .is-hidden { color: var(--muted); text-decoration: line-through; }
+
+.size-list form { margin: 0; }
+
+/* ---------- Actions ---------- */
+.dm-actions {
+    display: flex;
+    align-items: center;
+    gap: 13px;
 }
- 
-@media (max-width: 480px) {
-    .navbar-brand-logo {
-        height: 38px;
-    }
- 
-    .sidebar-brand .navbar-brand-logo {
-        height: 40px;
-    }
+
+.dm-actions form { margin: 0; }
+
+.icon-btn {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--gray);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: color .2s ease;
 }
- 
+
+.icon-btn svg { width: 15px; height: 16px; }
+
+.icon-btn:hover { color: var(--blue); }
+
+.icon-btn-delete:hover { color: #DC2626; }
+
+/* สวิตช์เปิด/ปิด (สีเขียว = แสดงอยู่) */
+.switch {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: #22A35A;
+    cursor: pointer;
+    transition: background-color .2s ease;
+}
+
+.switch-knob {
+    position: absolute;
+    top: 3px;
+    left: 19px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--white);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: left .2s ease;
+}
+
+.switch.is-off { background: #CBD5E1; }
+
+.switch.is-off .switch-knob { left: 3px; }
+
+.switch-sm { width: 30px; height: 16px; }
+
+.switch-sm .switch-knob { top: 2px; left: 16px; width: 12px; height: 12px; }
+
+.switch-sm.is-off .switch-knob { left: 2px; }
+
+/* ---------- Footer / pagination ---------- */
+.dm-empty {
+    margin: 40px 0;
+    text-align: center;
+    color: var(--gray);
+}
+
+.dm-footer {
+    margin-top: auto;
+    min-height: 52px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 9px;
+    border-top: 1px solid var(--muted);
+}
+
+.page-info {
+    margin-right: auto;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray);
+}
+
+.page-arrow {
+    width: 36px;
+    height: 26px;
+    padding: 0;
+    border: 0.5px solid var(--muted);
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--muted);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+.page-arrow svg { width: 16px; height: 16px; }
+
+.page-arrow:not(:disabled):hover { color: var(--blue); border-color: var(--blue); }
+
+.page-arrow:disabled { opacity: .45; cursor: default; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px) {
+    .dm-card { overflow-x: auto; }
+    .dm-table { min-width: 1000px; }
+}
+
+@media (max-width: 760px) {
+    .dm-top, .dm-heading { flex-direction: column; align-items: stretch; }
+    .dm-search { width: 100%; }
+    .dm-title { font-size: 28px; }
+}
+
+/* ---------- ความกว้างคอลัมน์ (เป็น % ให้ยืดตามจอ) ---------- */
+.dm-table col:nth-child(1) { width: 9% !important; }
+.dm-table col:nth-child(2) { width: 12% !important; }
+.dm-table col:nth-child(3) { width: 21% !important; }
+.dm-table col:nth-child(4) { width: 19% !important; }
+.dm-table col:nth-child(5) { width: 27% !important; }
+.dm-table col:nth-child(6) { width: 12% !important; }

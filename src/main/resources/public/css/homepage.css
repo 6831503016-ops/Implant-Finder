@@ -1,582 +1,576 @@
+/* =========================================================
+   homepage.css — หน้าแรก + Admin Preview
+   ต้องโหลด base.css ก่อนไฟล์นี้
+========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
- 
-:root {
-    --dark-navy: #0A1F44;
-    --primary-blue: #1D63EE;
-    --hover-blue: #1650C8;
-    --page-background: #EEF4FF;
-    --light-blue: #E8F0FD;
-    --white: #FFFFFF;
-    --main-text: #0A1F44;
-    --secondary-text: #64748B;
-    --muted-text: #94A3B8;
-    --border: #D6E2F7;
+.home-page {
+    --head: "Plus Jakarta Sans", "Inter", "Segoe UI", Arial, sans-serif;
+    --teal: #0D9488;
+    --brand-bg: #F7F9FC;
+    background: var(--brand-bg);
 }
- 
-/* ========================================
-   Global Styles
-======================================== */
- 
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    margin: 0;
-    background-color: #EEF4FF;
+
+/* ---------- แถบบน ---------- */
+.home-page .topbar {
+    height: 70px;
+    padding: 0 40px;
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid #E6ECF5;
 }
- 
- 
- 
-/* ========================================
-   Page Content
-======================================== */
- 
-.page-content {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0 32px 48px;
-    box-sizing: border-box;
-}
- 
- 
-/* ========================================
-   Hero Banner
-======================================== */
- 
-.banner {
-    width: 100%;
-    min-height: 390px;
-    margin: 0;
-    padding: 48px 24px;
-    box-sizing: border-box;
- 
-    background-image:
-        linear-gradient(
-            rgba(238, 244, 255, 0.45),
-            rgba(238, 244, 255, 0.65)
-        ),
-        url("https://images.ctfassets.net/ep6a2e51ydt1/74hoGpswU2gOvHgmXBAmKu/6a9912544c61f8dec7416743fc0da398/ChatGPT_Image_Oct_11__2025__01_32_30_AM.png?w=1200&h=630&fm=webp&q=85");
- 
-    background-position: center 45%;
-    background-size: cover; /*ขยายภาพให้เต็มพทใ*/
-    background-repeat: no-repeat;
- 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
- 
- 
-/* ========================================
-Content
-======================================== */
- 
-.content {
-    width: min(100%, 900px);
-}
- 
-.banner h1 {
-    color: #0A1F44;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    line-height: 1.12;
-    margin: 0 0 14px;
-}
- 
-.banner h1 span {
-    color: #1D63EE;
-}
- 
-.banner p {
-    color: #ffffff;
-    margin: 0;
-    font-size: clamp(1rem, 1.8vw, 1.35rem);
-}
- 
- 
-/* ========================================
-   Search Bar
-======================================== */
- 
-.search {
-    position: relative;
-    width: min(100%, 700px);
-    margin: 30px auto 0;
-}
- 
-.search input {
-    width: 100%;
-    height: 56px;
-    padding: 0 22px 0 56px;
-    box-sizing: border-box;
- 
-    border: 1px solid #D6E2F7;
-    border-radius: 999px;
- 
-    background: #FFFFFF;
-    color: #0A1F44;
- 
-    font: inherit;
-    font-size: 15px;
-    outline: none;
- 
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
- 
-    transition: background 0.2s ease, border-color 0.2s ease;
-}
- 
-.search input::placeholder {
-    color: #94A3B8;
-}
- 
-.search input:focus {
-    background: #FFFFFF;
-    border-color: #1D63EE;
-}
- 
- 
-.search-icon {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
- 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
- 
-    width: 24px;
-    height: 24px;
- 
-    color: #1D63EE;
-    transition: color 0.3s ease;
- 
-    cursor: pointer;
-    z-index: 2;
-}
- 
-.search-icon svg {
-    display: block;
-    width: 24px;
-    height: 24px;
- 
-    transition: transform 0.3s ease;
-}
- 
-.search-icon:hover svg {
-    animation: search-wiggle 0.8s ease-in-out;
-}
- 
-@keyframes search-wiggle {
-    0%, 100% {
-        transform: rotate(0deg);
-    }
-    25% {
-        transform: rotate(-15deg);
-    }
-    50% {
-        transform: rotate(15deg);
-    }
-    75% {
-        transform: rotate(-10deg);
-    }
-}
- 
-/* ========================================
-   Brands Section
-======================================== */
- 
-.brands {
-    margin-top: 36px;
-}
- 
-.logo-fallback-hidden {
-    display: none;
-}
- 
- 
-/* ========================================
-   Admin Login Button
-======================================== */
- 
-.admin-login-bottom {
-    background-color: #1D63EE;
-    color: #FFFFFF;
- 
-    padding: 10px 24px;
-    border-radius: 9999px;
- 
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
- 
-    transition: background-color 0.2s ease;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
- 
-.admin-login-bottom:hover {
-    background-color: #1650C8;
-    color: #FFFFFF;
-}
- 
- 
-/* ========================================
-   Logo Icon
-======================================== */
- 
-.logo-icon {
-    width: 32px;
-    height: 32px;
- 
-    background-color: #E8F0FD;
-    border-radius: 8px;
- 
-    display: flex;
-    align-items: center;
-    justify-content: center;
- 
-    color: #1D63EE;
-    font-size: 18px;
-}
- 
- 
-/* ========================================
-   Navigation Bar
-======================================== */
- 
-.navbar {
-    background-color: #FFFFFF;
-    height: 72px;
-    padding: 0 32px;
-    box-sizing: border-box;
- 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
- 
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
- 
-.navbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-}
- 
-.navbar-brand-name {
-    color: #0A1F44;
-    font-size: 20px;
-    font-weight: 700;
-}
- 
-.navbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
- 
- 
- 
-/* ========================================
-   Contact Button
-======================================== */
- 
-.contact-bottom {
+
+.home-page .site-logo { --logo-w: 138px; }
+
+.home-page .topbar-actions { gap: 10px; }
+
+/* ปุ่มติดต่อ (ไอคอนหูฟัง) */
+.home-page .contact-btn {
     width: 40px;
     height: 40px;
- 
-    background-color: #E8F0FD;
-    border: none;
-    border-radius: 50%;
- 
-    display: flex;
+    border: 1px solid #C9D8FB;
+    background: var(--white);
+    color: var(--blue);
+}
+
+.home-page .contact-btn:hover { background: var(--blue-soft); border-color: var(--blue); }
+
+.home-page .contact-btn svg { width: 19px; height: 19px; }
+
+/* ปุ่ม Login (แคปซูลเส้นขอบ) */
+.admin-login-btn {
+    height: 40px;
+    padding: 0 16px 0 18px;
+    display: inline-flex;
     align-items: center;
+    gap: 8px;
+    border: 1px solid #C9D8FB;
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--blue);
+    font-family: var(--head);
+    font-size: 14px;
+    font-weight: 700;
+    transition: background-color var(--ease), border-color var(--ease);
+}
+
+.admin-login-btn svg { width: 16px; height: 16px; transition: transform var(--ease); }
+
+.admin-login-btn:hover { background: var(--blue-soft); border-color: var(--blue); }
+
+.admin-login-btn:hover svg { transform: translateX(3px); }
+
+.admin-login-btn.is-disabled { cursor: default; }
+
+/* ---------- Hero: ไล่สีฟ้า → มิ้นต์ + ก้อนสีลอย + ลายจุด + คลื่น ---------- */
+.hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 575px;
+    padding: 115px 24px 150px;
+    display: flex;
     justify-content: center;
- 
-    font-size: 18px;
-    cursor: pointer;
- 
-    transition: background-color 0.2s ease;
+    text-align: center;
+    background: linear-gradient(120deg, #EAF0FF 0%, #F3F6FB 45%, #F1F7F6 100%);
+    isolation: isolate; /* ให้ชั้นพื้นหลัง (z-index ติดลบ) อยู่ใต้ตัวหนังสือแต่ยังอยู่ใน hero */
 }
- 
-.contact-bottom:hover {
-    background-color: #BDD2FB;
+
+/* ลูกเล่นข้อ 1: ก้อนสีฟุ้ง ๆ ลอยช้า ๆ (--hx, --hy มาจาก JS ให้ขยับตามเมาส์เล็กน้อย) */
+.hero-bg {
+    position: absolute;
+    inset: -40px;
+    z-index: -2;
+    translate: var(--hx, 0px) var(--hy, 0px);
+    transition: translate 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
- 
- 
-/* ========================================
-   Brand Cards
-======================================== */
- 
-.brand-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    will-change: transform;
 }
- 
-.brand-card {
+
+.blob-1 {
+    top: -120px;
+    left: -60px;
+    width: 560px;
+    height: 560px;
+    background: #93B2FF;          /* ฟ้า */
+    opacity: 0.55;
+    animation: blob-a 18s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+    right: -80px;
+    bottom: -160px;
+    width: 520px;
+    height: 520px;
+    background: #86D6C4;          /* มิ้นต์ */
+    opacity: 0.55;
+    animation: blob-b 22s ease-in-out infinite alternate;
+}
+
+.blob-3 {
+    top: 18%;
+    left: 52%;
+    width: 380px;
+    height: 380px;
+    background: #C7D2FE;          /* ม่วงอ่อน */
+    opacity: 0.5;
+    animation: blob-c 26s ease-in-out infinite alternate;
+}
+
+@keyframes blob-a {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(140px, 60px) scale(1.12); }
+    100% { transform: translate(60px, 140px) scale(0.95); }
+}
+
+@keyframes blob-b {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-160px, -40px) scale(1.1); }
+    100% { transform: translate(-60px, -120px) scale(0.92); }
+}
+
+@keyframes blob-c {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-180px, 80px) scale(1.15); }
+    100% { transform: translate(120px, -60px) scale(0.9); }
+}
+
+/* ลูกเล่นข้อ 3: ลายจุดจาง ๆ ชัดตรงกลาง แล้วค่อย ๆ จางหายที่ขอบ */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(rgba(37, 99, 235, 0.16) 1.2px, transparent 1.6px);
+    background-size: 24px 24px;
+    -webkit-mask-image: radial-gradient(ellipse 65% 70% at 50% 45%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(ellipse 65% 70% at 50% 45%, #000 20%, transparent 75%);
+    pointer-events: none;
+}
+
+/* ลูกเล่นข้อ 5: คลื่นที่ขอบล่าง 2 ชั้น ขยับสวนกันช้า ๆ ต่อเข้ากับพื้นส่วน Brands */
+.hero-wave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 80px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.wave {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 200%;
+    height: 100%;
+}
+
+.wave-back {
+    fill: rgba(255, 255, 255, 0.55);
+    animation: wave-move 22s linear infinite reverse;
+}
+
+.wave-front {
+    fill: var(--brand-bg);         /* สีเดียวกับพื้นส่วน Brands */
+    animation: wave-move 16s linear infinite;
+}
+
+@keyframes wave-move {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 820px);
     display: flex;
     flex-direction: column;
     align-items: center;
- 
-    padding: 24px;
-    border-radius: 16px;
-    border: 1px solid #D6E2F7;
- 
-    background: white;
-    text-decoration: none;
-    color: #0A1F44;
- 
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
- 
+
+.hero-title {
+    margin: 0;
+    font-family: var(--head);
+    font-size: clamp(40px, 4.6vw, 64px);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+    color: #0F172A;
+}
+
+/* บรรทัดแรกเด้งขึ้นทีละคำ */
+.hero-word {
+    display: inline-block;
+    animation: word-up 750ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+    animation-delay: calc(var(--i, 0) * 90ms + 120ms);
+}
+
+@keyframes word-up {
+    from { opacity: 0; transform: translateY(0.55em) rotateX(-45deg); filter: blur(6px); }
+    to   { opacity: 1; transform: none; filter: none; }
+}
+
+/* บรรทัดที่สอง = ตัวหนังสือไล่สีน้ำเงิน → เขียวอมฟ้า + แสงวิ่งผ่านเป็นระยะ */
+.hero-accent {
+    display: block;
+    padding-bottom: 0.08em;
+    background:
+        linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.85) 50%, transparent 60%),
+        linear-gradient(90deg, var(--blue) 0%, #1D6FD8 45%, var(--teal) 100%);
+    background-size: 250% 100%, 100% 100%;
+    background-position: 150% 0, 0 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: none;
+    animation:
+        word-up 800ms cubic-bezier(0.2, 0.7, 0.2, 1) 520ms backwards,
+        shine 6s ease-in-out 1.6s infinite;
+}
+
+@keyframes shine {
+    0%        { background-position: 150% 0, 0 0; }
+    35%, 100% { background-position: -50% 0, 0 0; }
+}
+
+.hero-subtitle {
+    max-width: 640px;
+    margin: 18px auto 0;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #475569;
+    animation: fade-up 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 850ms backwards;
+}
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ---------- ช่องค้นหา ---------- */
+.hero-search {
+    position: relative;
+    width: min(100%, 620px);
+    margin-top: 42px;
+    animation: fade-up 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 1000ms backwards;
+}
+
+.hero-search input {
+    width: 100%;
+    height: 58px;
+    padding: 0 60px 0 24px;
+    border: 1px solid #D5DEEC;
+    border-radius: 999px;
+    background: var(--white);
+    font-size: 15px;
+    color: #0F172A;
+    text-align: left;
+    outline: none;
+    box-shadow: 0 12px 32px rgba(30, 64, 175, 0.08);
+    transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.hero-search input::placeholder { color: #64748B; }
+
+.hero-search input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14), 0 12px 32px rgba(30, 64, 175, 0.08);
+}
+
+.hero-search-icon {
+    position: absolute;
+    top: 50%;
+    right: 22px;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+    color: #64748B;
+    pointer-events: none;
+}
+
+.hero-search-icon svg { width: 20px; height: 20px; }
+
+/* ---------- Brands ---------- */
+.brands-section {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 52px 40px 80px;
+}
+
+/* หัวข้อ + เส้นยาวด้านขวา */
+.brands-title {
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-family: var(--head);
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #0F172A;
+}
+
+.brands-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #D9E3F2;
+}
+
+/* 4 การ์ดต่อแถว */
+.brand-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.brand-card {
+    position: relative;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #E3E9F2;
+    border-radius: 16px;
+    background: var(--white);
+    color: #0F172A;
+    text-align: center;
+    animation: rise-in 450ms ease backwards;
+    transition:
+        transform 450ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        border-color var(--ease),
+        box-shadow var(--ease);
+}
+
+.brand-card:nth-child(2) { animation-delay: 50ms; }
+.brand-card:nth-child(3) { animation-delay: 100ms; }
+.brand-card:nth-child(4) { animation-delay: 150ms; }
+.brand-card:nth-child(5) { animation-delay: 200ms; }
+.brand-card:nth-child(6) { animation-delay: 250ms; }
+
 .brand-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+    border-color: #BFD1F7;
+    box-shadow: 0 14px 30px rgba(30, 64, 175, 0.10);
 }
- 
-.brand-logo-container {
+
+/* การ์ดเอียงแบบ 3D ตามเมาส์ (ค่า --rx, --ry มาจาก js/tilt.js) */
+.brand-card[data-tilt] { transform-style: preserve-3d; }
+
+.brand-card.is-tilting {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px);
+    transition: transform 120ms linear, border-color var(--ease), box-shadow var(--ease);
+    box-shadow: 0 22px 40px rgba(30, 64, 175, 0.14);
+}
+
+/* แสงสะท้อนวิ่งตามเมาส์ */
+.brand-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--px, 50%) var(--py, 50%), rgba(37, 99, 235, 0.12), transparent 55%);
+    opacity: 0;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+}
+
+.brand-card.is-tilting::after { opacity: 1; }
+
+/* กรอบโลโก้แบรนด์ */
+.brand-logo-box {
     width: 100%;
-    height: 100px;
- 
+    height: 150px;
+    padding: 20px 28px;
     display: flex;
     align-items: center;
     justify-content: center;
- 
-    margin-bottom: 12px;
+    border-radius: 12px;
+    background: var(--white);
+    transition: transform 450ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
- 
+
+/* โลโก้ลอยนูนออกมาตอนการ์ดเอียง */
+.brand-card.is-tilting .brand-logo-box { transform: translateZ(36px) scale(1.04); transition-duration: 200ms; }
+
+/* โลโก้ทุกแบรนด์อยู่ในพื้นที่ขนาดเดียวกัน */
 .brand-logo {
-    max-width: 100%;
-    max-height: 100%;
+    width: auto;
+    height: auto;
+    max-width: 70%;
+    max-height: 72px;
     object-fit: contain;
 }
- 
+
+/* ไฟล์โลโก้บางแบรนด์มีขอบขาวเยอะ → ขยายเฉพาะแบรนด์นั้น (ปรับตัวเลข scale ได้) */
+.brand-card[data-name="Astra Tech"] .brand-logo { scale: 2.1; }
+.brand-card[data-name="Dentaurum"]  .brand-logo { scale: 2.6; }
+.brand-card[data-name="MegaGen"]    .brand-logo { scale: 2.3; }
+.brand-card[data-name="MIS"]        .brand-logo { scale: 3.2; }
+.brand-card[data-name="Neodent"]    .brand-logo { scale: 2.6; }
+
 .brand-logo-fallback {
-    font-size: 18px;
+    font-family: var(--head);
+    font-size: 20px;
     font-weight: 700;
-    text-align: center;
+    color: var(--blue);
 }
- 
-.brand-name {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 600;
-    text-align: center;
-}
- 
+
 .no-brand-message {
+    margin-top: 16px;
+    padding: 32px;
+    border-radius: 16px;
+    background: var(--white);
+    border: 1px dashed #D9E3F2;
     text-align: center;
-    margin-top: 24px;
     color: #64748B;
 }
- 
-.hidden {
-    display: none !important;
-}
- 
- 
-/* ========================================
-   Contact Popup
-======================================== */
- 
+
+/* ---------- Contact popup ---------- */
 .contact-popup {
     position: fixed;
     z-index: 1000;
- 
-    width: min(320px, calc(100vw - 32px));
-    padding: 20px;
-    box-sizing: border-box;
- 
-    border-radius: 16px;
-    background: white;
-    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.18);
+    width: min(300px, calc(100vw - 32px));
+    padding: 18px;
+    border: 1px solid #E3E9F2;
+    border-radius: 18px;
+    background: var(--white);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
 }
- 
-.contact-popup-heading {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
+
+.contact-arrow {
+    position: absolute;
+    top: -7px;
+    width: 12px;
+    height: 12px;
+    background: var(--white);
+    border-left: 1px solid #E3E9F2;
+    border-top: 1px solid #E3E9F2;
+    transform: rotate(45deg);
 }
- 
+
+.contact-popup-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+
 .contact-popup-icon {
-    font-size: 28px;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border: 1px solid var(--border-blue);
+    border-radius: 50%;
+    color: var(--blue);
+    background: var(--white);
 }
- 
-.contact-popup-title {
-    margin: 0 0 4px;
-    font-weight: 700;
-    color: #0A1F44;
-}
- 
-.contact-popup-subtitle {
-    margin: 0;
-    font-size: 12px;
-    color: #64748B;
-}
- 
+
+.contact-popup-icon svg { width: 18px; height: 16px; }
+
+.contact-popup-title { margin: 0 0 2px; font-family: var(--head); font-weight: 700; color: #0F172A; }
+
+.contact-popup-subtitle { margin: 0; font-size: 12px; color: #64748B; }
+
 .admin-email-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
+    padding: 8px 8px 8px 14px;
+    border-radius: 999px;
+    background: #F1F5FB;
 }
- 
-.admin-email {
-    overflow-wrap: anywhere;
-    font-size: 14px;
-    color: #0A1F44;
-}
- 
+
+.admin-email { font-size: 13px; color: #0F172A; overflow-wrap: anywhere; }
+
 .copy-btn {
-    padding: 7px 12px;
-    border: none;
-    border-radius: 8px;
-    background: #E8F0FD;
+    padding: 6px 12px;
+    border: 1px solid #E3E9F2;
+    border-radius: 999px;
+    background: var(--white);
+    font-size: 12px;
+    font-weight: 600;
     cursor: pointer;
 }
- 
+
 .send-email-btn {
     display: block;
     padding: 10px;
-    border-radius: 10px;
- 
-    background: #1D63EE;
-    color: white;
- 
-    text-align: center;
-    text-decoration: none;
-}
- 
-.contact-arrow {
-    position: absolute;
-    top: -7px;
- 
-    width: 14px;
-    height: 14px;
- 
-    background: white;
-    transform: rotate(45deg);
-}
- 
- 
-/* ========================================
-   Back to Admin
-======================================== */
- 
-.back-to-admin {
-    position: fixed;
-    left: 24px;
-    bottom: 24px;
-    z-index: 1000;
- 
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
- 
-    padding: 12px 18px;
     border-radius: 999px;
- 
-    background: white;
-    color: #1D63EE;
-    text-decoration: none;
- 
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
- 
+    background: var(--blue);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* =========================================================
+   ลูกเล่นตอนเลื่อนหน้า (ทำงานคู่กับ script ท้าย home.html)
+========================================================= */
+
+/* แถบบนมีเงาเมื่อเลื่อนลง */
+.home-page .topbar { transition: box-shadow 250ms ease, background-color 250ms ease; }
+
+.home-page .topbar.is-scrolled {
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.07);
+}
+
+/* ข้อความ hero ค่อย ๆ จางและเลื่อนขึ้นช้ากว่าหน้า (parallax) */
+.hero-content { will-change: transform, opacity; }
+
+/* การ์ด / หัวข้อ ที่ยังไม่เลื่อนมาถึง: ซ่อนไว้ต่ำกว่าเดิมนิดหน่อย */
+.reveal {
     opacity: 0;
-    transform: translateY(10px);
- 
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateY(32px) scale(0.98);
+    animation: none !important;
 }
- 
-.back-to-admin.is-visible {
+
+/* เลื่อนมาถึงแล้ว: ลอยขึ้น + ชัดขึ้น */
+.reveal.is-in {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
+    transition:
+        opacity 650ms cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
- 
-.back-to-admin-icon {
-    display: inline-flex;
-    align-items: center;
+
+/* เส้นข้างหัวข้อ Brands ค่อย ๆ ลากยาวออกไป */
+.brands-title.reveal::after {
+    transform: scaleX(0);
+    transform-origin: left center;
 }
- 
-.back-arrow-icon {
-    width: 20px;
-    height: 20px;
+
+.brands-title.reveal.is-in::after {
+    transform: scaleX(1);
+    transition: transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1) 200ms;
 }
- 
- 
-/* ========================================
-   Responsive Design
-======================================== */
- 
-@media (max-width: 768px) {
-    .brand-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
-    }
- 
-    .navbar {
-        padding: 14px 16px;
-    }
- 
-    .navbar-brand-name {
-        font-size: 17px;
-    }
- 
-    .admin-login-bottom {
-        padding: 9px 14px;
-    }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+    .brand-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
- 
-@media (max-width: 640px) {
-    .page-content {
-        padding: 0 16px 32px;
-    }
- 
-    .banner {
-        min-height: 350px;
-        padding: 36px 18px;
-    }
- 
-    .search {
-        margin-top: 24px;
-    }
- 
-    .search input {
-        height: 52px;
-    }
+
+@media (max-width: 760px) {
+    .home-page .topbar { padding: 0 16px; }
+    .hero { min-height: 0; padding: 72px 16px 110px; }
+    .blob { filter: blur(50px); }
+    .blob-1, .blob-2 { width: 320px; height: 320px; }
+    .blob-3 { width: 240px; height: 240px; }
+    .hero-wave { height: 50px; }
+    .brands-section { padding: 36px 16px 56px; }
+    .brand-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .brand-logo-box { height: 110px; padding: 14px 16px; }
+    .brand-logo { max-height: 52px; max-width: 80%; }
 }
- 
+
 @media (max-width: 420px) {
-    .brand-grid {
-        grid-template-columns: 1fr;
-    }
- 
-    .navbar-brand-name {
-        font-size: 15px;
-    }
+    .admin-login-btn { padding: 0 12px; font-size: 13px; }
 }
- 
- 
-/* ========================================
-   NEW: Logo Image (Implant Finder)
-======================================== */
- 
-.navbar-brand-logo {
-    display: block;
-    height: 48px;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-}
- 
-@media (max-width: 480px) {
-    .navbar-brand-logo {
-        height: 38px;
-    }
-}
- 

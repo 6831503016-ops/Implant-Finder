@@ -7,69 +7,69 @@
 -- =========================================================
 -- 1. BRANDS
 -- Store image URLs only in logo_url, NOT HTML <img> tags.
+-- โลโก้ใช้ไฟล์ใน static/images (ช่องว่างในชื่อไฟล์เขียนเป็น %20)
 -- =========================================================
 
 INSERT INTO BRAND (brand_name, country, logo_url)
 VALUES (
     'Astra Tech',
     'Sweden',
-    'https://www.stom-pro-lab.ru/upload/iblock/27c/444z6cf1utt7kq6i128bjqo6yctnycea.png'
+    '/images/logo%20astratech.png'
 );
 
 INSERT INTO BRAND (brand_name, country, logo_url)
 VALUES (
     'Dentaurum',
     'Germany',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtV2zbkXRDYivBQ_KgToQh8gyzD4f-8aHPKSBvzv8TnU33OlmT9qKmaBk&s=10'
+    '/images/logo%20dentaurum.png'
 );
 
 INSERT INTO BRAND (brand_name, country, logo_url)
 VALUES (
     'MegaGen',
     'South Korea',
-    'https://imegagen.com/tha/wp-content/uploads/sites/26/2019/12/logo.jpg'
+    '/images/logo%20megagen.png'
 );
 
 INSERT INTO BRAND (brand_name, country, logo_url)
 VALUES (
     'MIS',
     'Israel',
-    'https://no.dental-tribune.com/up/dt/2014/02/MIS.png'
+    '/images/logo%20mis.png'
 );
 
 INSERT INTO BRAND (brand_name, country, logo_url)
 VALUES (
     'Neodent',
     'Brazil',
-    'https://images.seeklogo.com/logo-png/59/1/neodent-logo-png_seeklogo-593373.png'
+    '/images/logo%20neodent.png'
 );
 
 INSERT INTO BRAND (brand_name, country, logo_url)
 VALUES (
     'NeoBiotech',
     'South Korea',
-    'https://static.wixstatic.com/media/30e7e5_db812960f27d40c68f2ccd4b26ac15bb~mv2.png'
+    '/images/logo%20neo%20biotech.png'
 );
 
 INSERT INTO BRAND (brand_name, country, logo_url)
 VALUES (
     'PRK',
     'Thailand',
-    'https://innovation.bb.go.th/image/03020031-956725.jpg'
+    '/images/logo%20prk.png'
 );
 
 INSERT INTO BRAND (brand_name, country, logo_url)
 VALUES (
     'Straumann',
     'Switzerland',
-    'https://www.logotypes101.com/logos/280/3BF4A02346A56B1572FB84299FA3538E/Straumann.png'
+    '/images/logo%20straumann.png'
 );
 
 -- 2. ADMIN
 INSERT INTO ADMIN (full_name, username, email, password_hash, avatar_link)
 VALUES ('Admin User', '@implantadmin', 'admin@implant.com', '123456',
-'https://api.dicebear.com/7.x/bottts/svg?seed=Admin1');
-
+'https://api.dicebear.com/7.x/personas/svg?seed=Admin1&backgroundColor=efe9df');
 -- =========================================================
 -- 3. MATERIAL
 -- =========================================================
@@ -1001,3 +1001,36 @@ CROSS JOIN (
     UNION ALL SELECT 4.10, 14.0, 'Bone level'
 ) v
 WHERE b.brand_name = 'Straumann' AND m.model_name = 'PURE Ceramic Implant Monotype';
+
+
+-- =========================================================
+-- 6. REFERENCES (ลิงก์แหล่งข้อมูลของแต่ละรุ่น แสดงในหัวข้อ References)
+-- =========================================================
+UPDATE IMPLANT_MODEL SET reference_url = 'https://assets.dentsplysirona.com/flagship/en/explore/implantology/implant-systems/astra-tech-implant-system-ev/documents/documents/IMP-System-Brochure-Astra-Tech-Implant-System-EV-32670204-USX-1706.pdf' WHERE model_name = 'OsseoSpeed EV';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.dentsplysirona.com/content/dam/dentsply/pim/manufacturer/Implants/Implant_systems/Astra_Tech_Implant_System/32671191-USX-1904%20Product%20catalog%20OsseoSpeed%20TX_LR.pdf' WHERE model_name = 'OsseoSpeed TX';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.dentsplysirona.com/content/dam/master/education/documents/upload/A/32670151-USX-1712%20Manual%20and%20product%20catalog%20OsseoSpeed%20TX%20Profile_LR.pdf' WHERE model_name = 'OsseoSpeed TX Profile';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.dentaurum.de/eng/dentaurum-celebrates-30-years-of-implantology-with-tiolox-tiologic-tiologic-twinfit-49165.aspx' WHERE model_name = 'tioLogic® TWINFIT Implant, Series S (Brown)';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.dentaurum.de/eng/dentaurum-celebrates-30-years-of-implantology-with-tiolox-tiologic-tiologic-twinfit-49165.aspx' WHERE model_name = 'tioLogic® TWINFIT Implant, Series M (Yellow)';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.dentaurum.de/eng/dentaurum-celebrates-30-years-of-implantology-with-tiolox-tiologic-tiologic-twinfit-49165.aspx' WHERE model_name = 'tioLogic® TWINFIT Implant, Series L (Red)';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.dentaurum.de/eng/dentaurum-celebrates-30-years-of-implantology-with-tiolox-tiologic-tiologic-twinfit-49165.aspx' WHERE model_name = 'tioLogic® TWINFIT Implant, Series XL (Blue)';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.dentaurum.de/eng/dentaurum-celebrates-30-years-of-implantology-with-tiolox-tiologic-tiologic-twinfit-49165.aspx' WHERE model_name = 'tioLogic® TWINFIT Implant, Series XXL (Green)';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://pdf.medicalexpo.com/pdf/megagen-implant/anyridge/73228-139460.html' WHERE model_name = 'AnyRidge';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.medicalexpo.com/prod/megagen-implant/product-73228-931151.html' WHERE model_name = 'AnyOne External';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.mis-implants.com/upload/pdf/Products/Implants/MIS_C1_Catalog.pdf' WHERE model_name = 'C1';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.mis-implants.com/products/implant-systems/v3' WHERE model_name = 'V3';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.mis-implants.com/Products/Implant-Systems/SEVEN' WHERE model_name = 'SEVEN';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://shop.straumann.com/neodent/us/en_us/Implant-Lines/Grand-Morse/c/cat_neo_gmline' WHERE model_name = 'Titamax GM';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://shop.straumann.com/neodent/be/en_be/Implant-Lines/Grand-Morse/GM-Implants/GM-Titamax-Acqua-Implant/p/140.923' WHERE model_name = 'Titamax GM Acqua';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://shop.straumann.com/neodent/pt/en_nz/Implant-Lines/Grand-Morse/GM-Implants/c/cat_neo_gmimplants' WHERE model_name = 'Drive GM';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://shop.straumann.com/neodent/be/en_be/Implant-Lines/Grand-Morse/GM-Implants/GM-Drive-Acqua-Implant/p/140.971' WHERE model_name = 'Drive GM Acqua';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://shop.straumann.com/neodent/ca/en_ca/Implant-Lines/Grand-Morse/GM-Implants/GM-Helix-Acqua-Implant/p/109.978' WHERE model_name = 'Helix GM';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://shop.straumann.com/neodent/us/en_us/Implant-Lines/Grand-Morse/GM-Implants/GM-Helix-Acqua-Implant/p/109.982' WHERE model_name = 'Helix GM Acqua';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.straumann.com/neodent/en/dental-professionals/implantology/neoarch/helix-gm-long.html' WHERE model_name = 'Helix GM Long';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://issuu.com/keilim/docs/s-narrow_catalog' WHERE model_name = 'S-Narrow';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://neobiotech.com/cmi/neobiotech/is-iii-active-fixture' WHERE model_name = 'IS-III Active';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.neobiotech.com/cmi/products/s-wide-kit' WHERE model_name = 'IS-III Active S-Wide';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://neobiotech.com/cmi/neobiotech/s-mini-ball-type' WHERE model_name = 'S-Mini';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://innovation.bb.go.th/PDF/03020031-278282.pdf' WHERE model_name = 'PRK Dental Implant (Six Smooth Curve)';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://innovation.bb.go.th/PDF/03020031-278282.pdf' WHERE model_name = 'PRK Dental Implant (Hexagonal)';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://shop.straumann.com/ca/en_ca/Implants/Straumann%C2%AE-Mini-Implants/%C3%98-2-4mm-Straumann%C2%AE-Mini-Implants/p/042.945S/' WHERE model_name = 'Mini Implant';
+UPDATE IMPLANT_MODEL SET reference_url = 'https://www.straumann.com/gb/en/dental-professionals/dental-implants/ceramic-implants/ceramic-implants.html' WHERE model_name = 'PURE Ceramic Implant Monotype';

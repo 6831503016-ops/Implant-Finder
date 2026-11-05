@@ -1,743 +1,236 @@
- 
-:root {
-    --dark-navy: #0A1F44;
-    --primary-blue: #1D63EE;
-    --hover-blue: #1650C8;
-    --page-background: #EEF4FF;
-    --light-blue: #E8F0FD;
-    --white: #FFFFFF;
-    --main-text: #0A1F44;
-    --secondary-text: #64748B;
-    --muted-text: #94A3B8;
-    --border: #D6E2F7;
+/* =========================================================
+   brand-models.css — หน้ารุ่นของแบรนด์
+   ต้องโหลด base.css ก่อนไฟล์นี้
+   (สไตล์การ์ด/แบนเนอร์ชุดเดียวกับหน้าเลือกขนาดใน model-detail.css)
+========================================================= */
+
+/* พื้นหลังไล่สีฟ้า (ซ้ายบน) → มิ้นต์ (ขวาล่าง) เหมือนหน้ารายละเอียด */
+.brand-page {
+    background: var(--hero-wash);
+    background-attachment: fixed;
 }
- 
-/* ========================================
-   1. Global Styles
-======================================== */
- 
-* {
-    box-sizing: border-box;
-}
- 
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: #0A1F44;
-    background-color: #EEF4FF;
-}
- 
-button,
-input {
-    font: inherit;
-}
- 
-a {
-    color: inherit;
-    text-decoration: none;
-}
- 
- 
-/* ========================================
-   2. Navbar / Breadcrumb Header
-======================================== */
- 
-.navbar {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 12px;
- 
+
+.brand-main {
     width: 100%;
-    height: 72px;
-    padding: 0 32px;
- 
-    box-sizing: border-box;
- 
-    color: #0A1F44;
-    background-color: #FFFFFF;
- 
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
- 
- 
-/* Brand Name */
- 
-.navbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
- 
-    color: #0A1F44;
-    font-size: 20px;
-    font-weight: 700;
-    text-decoration: none;
-    white-space: nowrap;
-    transform: translateY(3px);
-}
- 
-.navbar-brand:hover {
-    color: #1D63EE;
-}
- 
- 
-/* Logo Icon */
- 
-.navbar-brand-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
- 
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
- 
-    border-radius: 8px;
- 
-    color: #1D63EE;
-    font-size: 18px;
-    line-height: 1;
-}
- 
- 
-/* Breadcrumb arrow */
- 
-.breadcrumb-arrow {
-    display: block;
- 
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
- 
-    transform: translateY(3px);
-    color: #64748B;
-}
- 
- 
-/* Current Brand */
- 
-.breadcrumb-current {
-    min-width: 0;
- 
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    cursor: pointer;
- 
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 1;
- 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
- 
-.breadcrumb-current:hover {
-    text-decoration: underline;
-}
- 
- 
-/* ========================================
-   3. Main Content
-======================================== */
- 
-.page-content {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 32px 40px 48px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 24px 40px 80px;
 }
 
-.page-navigation {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 24px;
-}
-
-
-/* ========================================
-   4. Back Button
-======================================== */
- 
-.back-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
- 
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
- 
-    color: #0A1F44;
-    background-color: #ffffff;
- 
-    border-radius: 12px;
- 
-    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
- 
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
- 
-.back-button:hover {
-    color: #1D63EE;
-    background-color: #EEF4FF;
-    transform: translateX(-2px);
-    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
-}
- 
- 
-/* ========================================
-   5. Brand Banner
-======================================== */
- 
+/* ---------- Banner แบรนด์: การ์ดขาว โลโก้ | ชื่อ | ค้นหา ---------- */
 .brand-banner {
+    margin-top: 20px;
+    padding: 26px 32px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 24px;
- 
-    width: 100%;
-    margin-bottom: 32px;
-    padding: 32px;
- 
-    background: linear-gradient(
-        to right,
-        #EEF4FF,
-        #E8F0FD
-    );
- 
-    border-radius: 24px;
- 
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    gap: 28px;
+    border: 1px solid rgba(201, 216, 251, 0.6);
+    border-radius: 22px;
+    background: var(--white);
+    box-shadow: 0 14px 34px rgba(30, 64, 175, 0.07);
+    animation: rise-in 400ms ease backwards;
 }
- 
- 
-/* ========================================
-   6. Brand Information
-======================================== */
- 
-.brand-banner-content {
+
+.brand-banner-logo {
+    width: 190px;
+    height: 80px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
-    gap: 24px;
-    min-width: 0;
+    justify-content: center;
 }
- 
-.brand-logo {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
- 
-    min-width: 128px;
-    max-width: 240px;
-    padding-right: 24px;
- 
-    border-right: 2px solid #D6E2F7;
+
+.brand-banner-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+.brand-name-fallback { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--blue); }
+
+/* เส้นแบ่งแนวตั้ง */
+.brand-divider {
+    width: 1px;
+    height: 64px;
+    flex-shrink: 0;
+    background: var(--line);
 }
- 
-.brand-logo img {
-    display: block;
-    max-width: 160px;
-    max-height: 64px;
-    object-fit: contain;
-}
- 
-.brand-name-fallback {
-    color: #0A1F44;
-    font-size: 30px;
-    font-weight: 800;
-    overflow-wrap: anywhere;
-}
- 
-.brand-info {
-    min-width: 0;
-}
- 
+
+.brand-banner-text { flex: 1; min-width: 0; }
+
 .brand-label {
-    margin: 0 0 8px;
- 
-    color: #1D63EE;
-    font-size: 14px;
+    margin: 0 0 4px;
+    font-size: 13px;
     font-weight: 600;
- 
-    overflow-wrap: anywhere;
+    color: var(--blue);
 }
- 
-.page-title {
+
+.brand-title {
     margin: 0;
- 
-    color: #0A1F44;
-    font-size: 30px;
+    font-size: clamp(28px, 2.6vw, 36px);
     font-weight: 800;
-    line-height: 1.3;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--ink);
 }
- 
- 
-/* ========================================
-   7. Search Models
-======================================== */
- 
-.search-container {
+
+/* ---------- ค้นหา (แคปซูล) ---------- */
+.model-search {
     position: relative;
- 
-    width: 320px;
-    max-width: 100%;
+    width: min(440px, 40%);
     flex-shrink: 0;
 }
- 
-.search-icon {
+
+.model-search input {
+    width: 100%;
+    height: 54px;
+    padding: 0 52px 0 24px;
+    border: 1px solid #D5DEEC;
+    border-radius: 999px;
+    background: var(--white);
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    box-shadow: 0 8px 24px rgba(30, 64, 175, 0.06);
+    transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.model-search input::placeholder { color: var(--gray); }
+
+.model-search input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14); }
+
+.model-search-icon {
     position: absolute;
     top: 50%;
-    left: 16px;
- 
-    display: flex;
-    align-items: center;
-    justify-content: center;
- 
+    right: 20px;
+    width: 18px;
+    height: 18px;
     transform: translateY(-50%);
- 
-    color: #94A3B8;
+    color: var(--blue);
     pointer-events: none;
 }
- 
-.search-icon svg {
-    display: block;
-    width: 24px;
-    height: 24px;
-}
- 
-.search-container input {
-    display: block;
- 
-    width: 100%;
-    min-height: 48px;
-    padding: 12px 16px 12px 44px;
- 
-    color: #0A1F44;
-    background-color: #ffffff;
- 
-    border: 1px solid transparent;
-    border-radius: 999px;
- 
-    outline: none;
- 
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
- 
-    font-size: 14px;
- 
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
- 
-.search-container input::placeholder {
-    color: #94A3B8;
-    opacity: 1;
-}
- 
-.search-container input:focus {
-    border-color: #1D63EE;
-    box-shadow: 0 0 0 3px rgba(29, 99, 238, 0.15);
-}
- 
- 
-/* ========================================
-   8. Empty Messages
-======================================== */
- 
-.empty-message,
-.no-model-message {
-    color: #94A3B8;
-    font-size: 14px;
-    line-height: 1.7;
-    text-align: center;
-}
- 
-.empty-message {
-    padding: 64px 0;
-}
- 
-.no-model-message {
-    margin-top: 32px;
-}
- 
-[hidden] {
-    display: none !important;
-}
- 
- 
-/* ========================================
-   9. Model Grid
-======================================== */
- 
+
+.model-search-icon svg { width: 18px; height: 18px; }
+
+/* ---------- การ์ดรุ่น (การ์ดขาวลอย + รูปดำขอบมน + ชื่อตรงกลาง) ---------- */
+.models-section { margin-top: 28px; }
+
 .model-grid {
     display: grid;
- 
-    grid-template-columns: repeat(4, minmax(0, 1fr));
- 
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 24px;
-    width: 100%;
- 
-    align-items: stretch;
 }
- 
- 
-/* ========================================
-   10. Model Card
-======================================== */
- 
+
 .model-card {
+    position: relative;
+    padding: 22px 22px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
- 
-    width: 100%;
-    min-width: 0;
-    height: 100%;
-    min-height: 380px;
- 
-    padding: 20px;
- 
+    border: 1px solid rgba(201, 216, 251, 0.6);
+    border-radius: 22px;
+    background: var(--white);
+    box-shadow: 0 14px 34px rgba(30, 64, 175, 0.07);
     text-align: center;
- 
-    background-color: #ffffff;
-    border: 1px solid #EEF4FF;
-    border-radius: 24px;
- 
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
- 
-    transition:
-        box-shadow 0.2s ease,
-        transform 0.2s ease,
-        border-color 0.2s ease;
+    animation: rise-in 450ms ease backwards;
+    transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color var(--ease), box-shadow 300ms ease;
 }
- 
+
+.model-card:nth-child(2) { animation-delay: 60ms; }
+.model-card:nth-child(3) { animation-delay: 120ms; }
+.model-card:nth-child(4) { animation-delay: 180ms; }
+.model-card:nth-child(5) { animation-delay: 240ms; }
+.model-card:nth-child(6) { animation-delay: 300ms; }
+
+/* ตอนเอาเมาส์ชี้: ลอยขึ้นนิดหน่อย + ขอบฟ้า + เงา (เหมือนการ์ดแบรนด์หน้าแรก) */
 .model-card:hover {
-    border-color: #BDD2FB;
- 
-    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.10);
- 
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    border-color: #BFD1F7;
+    box-shadow: 0 14px 30px rgba(30, 64, 175, 0.10);
 }
- 
- 
-/* ========================================
-   11. Model Image
-======================================== */
- 
+
+.model-card[hidden] { display: none; }
+
 .model-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
- 
     width: 100%;
-    height: 240px;
-    min-height: 240px;
-    flex-shrink: 0;
- 
-    margin-bottom: 20px;
-    padding: 12px;
- 
+    aspect-ratio: 4 / 5;
     overflow: hidden;
- 
-    background-color: #ffffff;
-    border-radius: 12px;
-}
- 
-.model-image img {
-    display: block;
- 
-    width: 100%;
-    height: 100%;
- 
-    max-width: 100%;
-    max-height: 100%;
- 
-    object-fit: contain;
-    object-position: center;
-}
- 
- 
-/* ========================================
-   12. Model Image Fallback
-======================================== */
- 
-.model-image-fallback {
+    border-radius: 18px;
+    background: #0B0B0B;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
- 
-    width: 100%;
-    height: 100%;
- 
-    color: #ffffff;
-    text-align: center;
 }
- 
-.model-image-fallback.hidden {
-    display: none !important;
-}
- 
-.model-image-fallback span {
-    font-size: 36px;
-}
- 
-.model-image-fallback p {
-    margin: 8px 0 0;
-    font-size: 12px;
-}
- 
- 
-/* ========================================
-   13. Model Name
-======================================== */
- 
+
+.model-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease; }
+
+.model-card:hover .model-image img { transform: scale(1.05); }
+
+.model-image-fallback { color: var(--muted); text-align: center; font-size: 12px; }
+
+.model-image-fallback span { font-size: 32px; }
+
 .model-title {
-    width: 100%;
-    margin: 0;
-    margin-top: auto;
- 
-    color: #0A1F44;
-    font-size: 18px;
+    margin: 18px 4px 0;
+    font-family: var(--font-head);
+    font-size: 17px;
     font-weight: 700;
-    line-height: 1.5;
- 
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+}
+
+/* ป้าย "View sizes →" ใต้ชื่อ */
+.model-cta {
+    margin-top: 10px;
+    padding: 5px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    background: var(--blue-soft);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue);
+    transition: background-color var(--ease), color var(--ease);
+}
+
+.model-cta svg { width: 14px; height: 14px; transition: transform var(--ease); }
+
+.model-card:hover .model-cta { background: var(--blue); color: var(--white); }
+
+.model-card:hover .model-cta svg { transform: translateX(3px); }
+
+.empty-message,
+.no-model-message {
+    margin-top: 12px;
+    padding: 40px;
+    border: 1px dashed var(--border-blue);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.8);
     text-align: center;
-    overflow-wrap: anywhere;
+    color: var(--gray);
 }
- 
- 
-/* ========================================
-   14. Responsive: Tablet
-======================================== */
- 
+
+/* ---------- Responsive ---------- */
 @media (max-width: 900px) {
- 
-    .page-content {
-        padding: 28px 24px 40px;
-    }
- 
-    .brand-banner {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 28px;
-    }
- 
-    .search-container {
-        width: 100%;
-    }
- 
-    .model-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-    }
- 
-    .model-card {
-        min-height: 420px;
-    }
- 
-    .model-image {
-        height: 280px;
-        min-height: 280px;
-    }
+    .brand-banner { flex-wrap: wrap; }
+    .brand-divider { display: none; }
+    .model-search { width: 100%; }
 }
- 
- 
-/* ========================================
-   15. Responsive: Navbar
-   Match Homepage Navbar
-======================================== */
- 
-@media (max-width: 768px) {
- 
-    .navbar {
-        height: 72px;
-        padding: 0 16px;
-    }
- 
-    .navbar-brand {
-        font-size: 17px;
-        gap: 10px;
-    }
- 
-    .navbar-brand-icon {
-        width: 32px;
-        height: 32px;
-    }
-}
- 
-@media (max-width: 420px) {
- 
-    .navbar {
-        padding: 0 12px;
-    }
- 
-    .navbar-brand {
-        font-size: 15px;
-    }
- 
-    .navbar-brand-icon {
-        width: 32px;
-        height: 32px;
-    }
-}
- 
- 
-/* ========================================
-   16. Responsive: Mobile
-======================================== */
- 
-@media (max-width: 640px) {
- 
-    .navbar {
-        gap: 8px;
-    }
 
-    .breadcrumb-current {
-        font-size: 12px;
-    }
+@media (max-width: 600px) {
+    .brand-main { padding: 16px; }
+    .brand-banner { padding: 20px; gap: 16px; }
+    .brand-banner-logo { width: 130px; height: 56px; }
+    .model-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .model-card { padding: 12px 12px 14px; border-radius: 18px; }
+    .model-title { font-size: 14px; }
+}
 
-    .page-navigation {
-        gap: 12px;
-    }
-
-    .page-content {
-        padding: 24px 16px 32px;
-    }
- 
-    .brand-banner {
-        align-items: stretch;
-        padding: 24px;
-        gap: 20px;
-        border-radius: 20px;
-    }
- 
-    .brand-banner-content {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 20px;
-        width: 100%;
-    }
- 
-    .brand-logo {
-        width: 100%;
-        max-width: none;
-        min-width: 0;
- 
-        padding: 0 0 16px;
- 
-        border-right: 0;
-        border-bottom: 2px solid #D6E2F7;
-    }
- 
-    .brand-logo img {
-        max-width: 160px;
-        max-height: 56px;
-    }
- 
-    .brand-name-fallback {
-        font-size: 26px;
-    }
- 
-    .brand-info {
-        width: 100%;
-    }
- 
-    .page-title {
-        font-size: 26px;
-    }
- 
-    .search-container {
-        width: 100%;
-    }
- 
-    .model-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-    }
- 
-    .model-card {
-        min-height: 340px;
-        padding: 12px;
-        border-radius: 18px;
-    }
- 
-    .model-image {
-        height: 230px;
-        min-height: 230px;
-        margin-bottom: 14px;
-    }
- 
-    .model-title {
-        font-size: 14px;
-    }
-}
- 
- 
-/* ========================================
-   17. Responsive: Small Mobile
-======================================== */
- 
-@media (max-width: 360px) {
- 
-    .page-content {
-        padding-right: 12px;
-        padding-left: 12px;
-    }
- 
-    .brand-banner {
-        padding: 18px;
-    }
- 
-    .page-title {
-        font-size: 23px;
-    }
- 
-    .model-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-    }
- 
-    .model-card {
-        min-height: 300px;
-        padding: 8px;
-    }
- 
-    .model-image {
-        height: 190px;
-        min-height: 190px;
-        padding: 6px;
-    }
- 
-    .model-title {
-        font-size: 12px;
-    }
-}
- 
- 
-/* ========================================
-   NEW: Logo Image (Implant Finder)
-======================================== */
- 
-.navbar-brand-logo {
-    display: block;
-    height: 48px;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-}
- 
-@media (max-width: 480px) {
-    .navbar-brand-logo {
-        height: 38px;
-    }
-}
- 
+/* =========================================================
+   โลโก้แบรนด์ในแบนเนอร์: ไฟล์โลโก้บางแบรนด์มีขอบขาวเยอะ ตัวโลโก้เลยดูเล็ก
+   → ขยายเฉพาะแบรนด์นั้น (อ้างจาก alt = "ชื่อแบรนด์ logo")
+   ปรับตัวเลข scale ได้ (1 = ขนาดเดิม)
+========================================================= */
+.brand-banner-logo img[alt="Astra Tech logo"] { scale: 1.9; }
+.brand-banner-logo img[alt="Dentaurum logo"]  { scale: 2.2; }
+.brand-banner-logo img[alt="MegaGen logo"]    { scale: 2.0; }
+.brand-banner-logo img[alt="MIS logo"]        { scale: 2.8; }
+.brand-banner-logo img[alt="Neodent logo"]    { scale: 2.2; }

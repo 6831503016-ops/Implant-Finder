@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- =========================================================
+     เมนูข้างของหน้า Admin (ใช้ร่วมกัน: data-management, add-model, edit-model)
+     เรียกใช้:  <aside th:replace="~{admin/fragments :: sidebar('data')}"></aside>
+========================================================= -->
+<aside th:fragment="sidebar(active)" class="sidebar">
+
+    <a th:href="@{/}" class="site-logo" aria-label="Implant Finder home">
+        <img th:src="@{/images/logo.png}" alt="Implant Finder">
+    </a>
+
+    <nav class="side-nav">
+        <a th:href="@{/admin/profile}" class="side-link"
+           th:classappend="${active == 'profile'} ? ' is-active' : ''">
+            <span class="side-icon">
+                <img class="side-avatar"
+                     th:src="${session.admin != null and !#strings.isEmpty(session.admin.avatarLink)} ? ${session.admin.avatarLink} : 'https://api.dicebear.com/7.x/personas/svg?seed=Admin1&backgroundColor=efe9df'"
+                     alt="Admin avatar">
+            </span>
+            <span>Admin</span>
+        </a>
+
+        <a th:href="@{/admin/data-management}" class="side-link"
+           th:classappend="${active == 'data'} ? ' is-active' : ''">
+            <span class="side-icon">
+                <svg width="28" height="35" viewBox="0 0 24 30" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <ellipse cx="12" cy="5" rx="10" ry="4"/>
+                    <path d="M2 5v20c0 2.2 4.5 4 10 4s10-1.8 10-4V5"/>
+                    <path d="M2 15c0 2.2 4.5 4 10 4s10-1.8 10-4"/>
+                </svg>
+            </span>
+            <span>Implant Data</span>
+        </a>
+
+        <a th:href="@{/admin/logout}" class="side-link">
+            <span class="side-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 3H4v18h5"/>
+                    <path d="M16 7l5 5-5 5"/>
+                    <path d="M21 12H9"/>
+                </svg>
+            </span>
+            <span>Logout</span>
+        </a>
+    </nav>
+</aside>
+
+<!-- ลูกศร breadcrumb -->
+<svg th:fragment="chev" class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4"
+     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
+
+<!-- ปุ่มย้อนกลับ (ลูกศร) -->
+<svg th:fragment="back-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/>
+</svg>
+
+</body>
+</html>

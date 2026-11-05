@@ -1,578 +1,203 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Edit Model | Implant-Finder</title>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <!-- External CSS -->
-    <link rel="stylesheet" th:href="@{/css/edit-model.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Model | Implant Finder</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/model-form.css}">
 </head>
-
 <body>
+<div class="admin-layout">
 
-<div class="page-layout">
-
-    <!-- ==================== SIDEBAR ==================== -->
+    <!-- ===== เมนูข้าง ===== -->
     <aside class="sidebar">
-        <div class="sidebar-content">
 
-            <div class="sidebar-brand">
-                <!-- โลโก้ฟัน (SVG) -->
-                <svg class="sidebar-brand-logo" viewBox="0 0 32 44" fill="none" stroke="#3b82f6"
-                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 10c0-4 3-7 7-7 2 0 3 1 5 1s3-1 5-1c4 0 7 3 7 7 0 5-3 8-4 12H8c-1-4-4-7-4-12z"/>
-                    <path d="M11 26h10M11 31h10M12 36h8M14 41h4"/>
-                </svg>
-                <span class="sidebar-brand-name">Implant</span>
-            </div>
+        <a th:href="@{/}" class="site-logo" aria-label="Implant Finder home">
+            <img th:src="@{/images/logo.png}" alt="Implant Finder">
+        </a>
 
-            <div class="sidebar-user">
-                <img th:src="@{/images/admin-avatar.png}"
-                     src="https://via.placeholder.com/36"
-                     class="user-avatar" alt="Admin Avatar">
-                <div class="user-info">
-                    <span class="user-name">Admin</span>
-                    <span class="user-role">Administrator</span>
-                </div>
-            </div>
+        <nav class="side-nav">
+            <a th:href="@{/admin/profile}" class="side-link">
+                <span class="side-icon">
+                    <img class="side-avatar"
+                         th:src="${session.admin != null and !#strings.isEmpty(session.admin.avatarLink)} ? ${session.admin.avatarLink} : 'https://api.dicebear.com/7.x/personas/svg?seed=Admin1&backgroundColor=efe9df'"
+                         alt="Admin avatar">
+                </span>
+                <span>Admin</span>
+            </a>
 
-            <nav class="sidebar-menu">
-
-                <a href="/admin/data-management" class="sidebar-link active">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <ellipse cx="12" cy="5" rx="9" ry="3"/>
-                        <path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/>
-                        <path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/>
+            <a th:href="@{/admin/data-management}" class="side-link is-active">
+                <span class="side-icon">
+                    <svg width="28" height="35" viewBox="0 0 24 30" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <ellipse cx="12" cy="5" rx="10" ry="4"/>
+                        <path d="M2 5v20c0 2.2 4.5 4 10 4s10-1.8 10-4V5"/>
+                        <path d="M2 15c0 2.2 4.5 4 10 4s10-1.8 10-4"/>
                     </svg>
-                    <span>Implant Data</span>
-                </a>
+                </span>
+                <span>Implant Data</span>
+            </a>
 
-                <a href="/admin/logout" class="sidebar-link">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                        <path d="M16 17l5-5-5-5"/>
+            <a th:href="@{/admin/logout}" class="side-link">
+                <span class="side-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M9 3H4v18h5"/>
+                        <path d="M16 7l5 5-5 5"/>
                         <path d="M21 12H9"/>
                     </svg>
-                    <span>Logout</span>
-                </a>
-
-            </nav>
-        </div>
+                </span>
+                <span>Logout</span>
+            </a>
+        </nav>
     </aside>
 
+    <div class="admin-main">
+        <div class="admin-band"></div>
 
-    <!-- ==================== MAIN CONTENT ==================== -->
-    <main class="main-content">
+        <main class="admin-content">
+            <div class="mf-wrap">
 
-        <!-- ==================== HEADER ==================== -->
-        <header class="content-header">
-
-            <div class="header-top">
-                <h1 class="header-title">Implant Data Management</h1>
-                <a href="/" class="btn-view-user">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                        <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                    <span>View as user</span>
-                </a>
-            </div>
-
-            <div class="header-card">
-
-                <nav class="tab-navigation">
-                    <a href="/admin/data-management?tab=models" class="tab-link active">Models</a>
-                    <a href="/admin/data-management?tab=brands" class="tab-link">Brands</a>
+                <!-- ===== Breadcrumb ===== -->
+                <nav class="page-nav" aria-label="Breadcrumb">
+                    <a th:href="@{/admin/data-management}" class="back-btn" title="Back" aria-label="Back">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/></svg>
+                    </a>
+                    <div class="crumbs">
+                        <a th:href="@{/}">Home</a>
+                        <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
+                        <a th:href="@{/admin/data-management}">Implant Data</a>
+                        <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
+                        <span aria-current="page">Edit Model</span>
+                    </div>
                 </nav>
 
-                <div class="toolbar-action">
-                    <div class="search-box">
-                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="7"/>
-                            <path d="M21 21l-4.3-4.3"/>
-                        </svg>
-                        <input type="text" class="search-input" placeholder="Search models...">
+                <!-- ===== หัวข้อ + ปุ่ม ===== -->
+                <div class="mf-head">
+                    <h1 class="mf-title">Edit Model</h1>
+                    <div class="mf-actions">
+                        <a th:href="@{/admin/data-management}" class="btn-outline">Cancel</a>
+                        <button form="editForm" type="submit" class="btn-primary mf-save-wide">Save Change</button>
                     </div>
-                    <a href="/admin/add-model" class="btn-add">Add</a>
                 </div>
 
-            </div>
-        </header>
+                <!-- ===== ฟอร์ม ===== -->
+                <form id="editForm" th:action="@{'/admin/edit-model/' + ${implant.modelId}}"
+                      th:object="${implant}" method="post" class="mf-grid">
 
-
-        <!-- ==================== EDIT FORM ==================== -->
-        <form id="editForm"
-              class="edit-form"
-              th:action="@{'/admin/edit-model/' + ${implant.modelId}}"
-              th:object="${implant}"
-              method="post">
-
-            <!-- PAGE HEADER -->
-            <div class="page-header">
-
-                <div class="page-heading">
-                    <a href="/admin/data-management" class="back-button" title="Back to Implant Data">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                             stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 12H5"/>
-                            <path d="M12 19l-7-7 7-7"/>
-                        </svg>
-                    </a>
-                    <h1 class="page-title">Edit Model</h1>
-                </div>
-
-                <div class="page-actions">
-                    <a href="/admin/data-management" class="cancel-button">Cancel</a>
-                    <button type="submit" class="save-button">Save Changes</button>
-                </div>
-
-            </div>
-
-
-            <!-- FORM LAYOUT -->
-            <div class="form-layout">
-
-                <!-- IMAGE CARD -->
-                <section class="image-card">
-
-                    <h2 class="card-heading">Model Image</h2>
-
-                    <div class="image-preview-container">
-                        <img id="preview"
-                             class="image-preview"
-                             th:src="${implant.imageUrl}"
-                             alt="Implant model image">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="imageUrl" class="form-label">Image URL</label>
-
-                        <input type="text"
-                               id="imageUrl"
-                               th:field="*{imageUrl}"
-                               class="form-input"
-                               placeholder="https://example.com/image.png">
-
-                        <p class="input-description">
-                            Paste an image URL to update the model preview.
-                        </p>
-                    </div>
-
-                </section>
-
-
-                <!-- DETAILS CARD -->
-                <section class="details-card">
-
-                    <h2 class="card-heading">Model Details</h2>
-
-                    <div class="details-grid">
-
-                        <!-- BRAND -->
-                        <div class="form-group">
-                            <label for="brand" class="form-label">Brand</label>
-
-                            <select id="brand" name="brand.brandId" class="form-input">
-                                <option value="">Select Brand</option>
-                                <option th:each="brand : ${brands}"
-                                        th:value="${brand.brandId}"
-                                        th:text="${brand.brandName}"
-                                        th:selected="${implant.brand != null and implant.brand.brandId == brand.brandId}">
-                                </option>
-                            </select>
+                    <!-- การ์ดรูป -->
+                    <section class="mf-image-card">
+                        <div class="mf-image">
+                            <img id="imagePreview" th:src="${implant.imageUrl}" alt="Implant model image"
+                                 th:hidden="${#strings.isEmpty(implant.imageUrl)}">
+                            <span id="imagePlaceholder" class="mf-image-placeholder"
+                                  th:hidden="${!#strings.isEmpty(implant.imageUrl)}">ADD IMPLANT PICTURE</span>
                         </div>
 
-                        <!-- MODEL NAME -->
-                        <div class="form-group">
-                            <label for="modelName" class="form-label">Model Name</label>
-                            <input type="text" id="modelName" th:field="*{modelName}"
-                                   class="form-input" placeholder="Enter model name">
-                        </div>
+                        <label for="imageUrl" class="mf-image-label">Image URL</label>
+                        <input type="text" id="imageUrl" th:field="*{imageUrl}"
+                               placeholder="https://example.com/image.jpg" class="mf-url-input">
+                    </section>
 
-                        <!-- MATERIAL -->
-                        <div class="form-group">
-                            <label for="materialName" class="form-label">Material</label>
-                            <input type="text" id="materialName" name="materialName"
-                                   th:value="${implant.material != null ? implant.material.materialName : ''}"
-                                   class="form-input" placeholder="Enter material">
-                        </div>
+                    <!-- การ์ดรายละเอียด -->
+                    <section class="mf-panel">
+                        <p class="mf-section-label">Model Details</p>
 
-                        <!-- TYPE -->
-                        <div class="form-group">
-                            <label for="type" class="form-label">Type</label>
-                            <input type="text" id="type" th:field="*{type}"
-                                   class="form-input" placeholder="Enter implant type">
-                        </div>
-
-                        <!-- CONNECTION TYPE -->
-                        <div class="form-group">
-                            <label for="connectionType" class="form-label">Connection Type</label>
-                            <input type="text" id="connectionType" th:field="*{connectionType}"
-                                   class="form-input" placeholder="Enter connection type">
-                        </div>
-
-                        <!-- SURFACE TREATMENT -->
-                        <div class="form-group">
-                            <label for="surfaceTreatment" class="form-label">Surface Treatment</label>
-                            <input type="text" id="surfaceTreatment" th:field="*{surfaceTreatment}"
-                                   class="form-input" placeholder="Enter surface treatment">
-                        </div>
-
-                        <!-- COUNTRY -->
-                        <div class="form-group">
-                            <label for="country" class="form-label">Country</label>
-                            <input type="text" id="country" name="country"
-                                   th:value="${implant.brand != null ? implant.brand.country : ''}"
-                                   class="form-input" placeholder="Enter country">
-                        </div>
-
-                        <!-- COLOR -->
-                        <div class="form-group">
-                            <label for="color" class="form-label">Color</label>
-                            <input type="text" id="color" th:field="*{color}"
-                                   class="form-input" placeholder="Enter color">
-                        </div>
-
-                    </div>
-
-
-                    <!-- SIZES -->
-                    <div class="sizes-section">
-
-                        <h2 class="section-title">Implant Sizes</h2>
-
-                        <p class="input-description">
-                            Add implant diameters and their corresponding lengths.
-                        </p>
-
-                        <input type="hidden" id="sizes" name="sizeValues"
-                               th:value="${implant.sizes}">
-
-                        <div class="size-input-grid">
-
-                            <div class="form-group">
-                                <label for="diameterInput" class="form-label">Diameter (mm)</label>
-                                <input type="number" id="diameterInput" class="form-input"
-                                       step="0.1" min="0" placeholder="e.g. 3.6">
+                        <div class="mf-fields">
+                            <div class="mf-field">
+                                <label for="brand" class="mf-label">Brand</label>
+                                <select id="brand" name="brand.brandId" class="mf-input mf-select">
+                                    <option value="">Select Brand</option>
+                                    <option th:each="b : ${brands}" th:value="${b.brandId}" th:text="${b.brandName}"
+                                            th:selected="${implant.brand != null and implant.brand.brandId == b.brandId}"></option>
+                                </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="lengthsInput" class="form-label">Lengths (mm)</label>
-                                <input type="text" id="lengthsInput" class="form-input"
-                                       placeholder="e.g. 8, 10, 12">
+                            <div class="mf-field">
+                                <label for="modelName" class="mf-label">Model Name</label>
+                                <input type="text" id="modelName" th:field="*{modelName}"
+                                       placeholder="Enter model name" class="mf-input">
                             </div>
 
-                            <button type="button" id="addSizeBtn" class="add-size-button">
-                                + Add Size
-                            </button>
+                            <div class="mf-field">
+                                <label for="materialName" class="mf-label">Material</label>
+                                <input type="text" id="materialName" name="materialName"
+                                       th:value="${implant.material != null ? implant.material.materialName : ''}"
+                                       placeholder="Enter material name" class="mf-input">
+                            </div>
 
+                            <div class="mf-field">
+                                <label for="type" class="mf-label">Type</label>
+                                <input type="text" id="type" th:field="*{type}"
+                                       placeholder="Enter implant type" class="mf-input">
+                            </div>
+
+                            <div class="mf-field">
+                                <label for="connectionType" class="mf-label">Connection Type</label>
+                                <input type="text" id="connectionType" th:field="*{connectionType}"
+                                       placeholder="Enter connecting type" class="mf-input">
+                            </div>
+
+                            <div class="mf-field">
+                                <label for="surfaceTreatment" class="mf-label">Surface Treatment</label>
+                                <input type="text" id="surfaceTreatment" th:field="*{surfaceTreatment}"
+                                       placeholder="Enter surface treatment" class="mf-input">
+                            </div>
+
+                            <div class="mf-field">
+                                <label for="country" class="mf-label">Country</label>
+                                <input type="text" id="country" name="country"
+                                       th:value="${implant.brand != null ? implant.brand.country : ''}"
+                                       placeholder="Enter country" class="mf-input">
+                            </div>
+
+                            <div class="mf-field">
+                                <label for="color" class="mf-label">Color</label>
+                                <input type="text" id="color" th:field="*{color}"
+                                       placeholder="Enter color" class="mf-input">
+                            </div>
                         </div>
 
-                        <p id="sizeError" class="size-error hidden">
-                            Please enter a valid diameter and at least one length.
-                        </p>
+                        <!-- ขนาด -->
+                        <div class="mf-sizes">
+                            <h2 class="mf-sizes-title">Implant Sizes</h2>
+                            <p class="mf-sizes-desc">Add implant diameters and their corresponding lengths.</p>
 
-                        <div class="size-toolbar">
-                            <p id="chipCount" class="size-count"></p>
-                            <button type="button" id="clearAllBtn" class="clear-all-button hidden">
-                                Clear All
-                            </button>
-                        </div>
+                            <input type="hidden" id="sizes" name="sizeValues" th:value="${implant.sizes}">
 
-                        <div id="sizeChips" class="size-chips"></div>
-
-                    </div>
-
-
-                    <!-- CURRENT RECORD -->
-                    <div class="record-section">
-
-                        <h2 class="card-heading record-heading">Current Record</h2>
-
-                        <div class="record-grid">
-
-                            <div class="record-card">
-                                <span class="record-label">Model ID</span>
-                                <span class="record-value" th:text="${implant.modelId}">-</span>
-                            </div>
-
-                            <div class="record-card">
-                                <span class="record-label">Brand</span>
-                                <span class="record-value"
-                                      th:text="${implant.brand != null ? implant.brand.brandName : '-'}">-</span>
-                            </div>
-
-                            <div class="record-card">
-                                <span class="record-label">Status</span>
-                                <span class="record-value"
-                                      th:text="${implant.status}"
-                                      th:classappend="${implant.status == 'Visible'} ? 'status-visible' : 'status-hidden'">-</span>
-                            </div>
-
-                            <div class="record-card">
-                                <span class="record-label">Size Summary</span>
-                                <div id="sizeSummary" class="size-summary">
-                                    <span class="empty-summary">-</span>
+                            <div class="mf-size-inputs">
+                                <div class="mf-field">
+                                    <label for="diameterInput" class="mf-size-label">Diameter (mm)</label>
+                                    <input type="number" id="diameterInput" step="0.1" min="0"
+                                           placeholder="e.g. 3.6" class="mf-input mf-input-lg">
                                 </div>
+                                <div class="mf-field">
+                                    <label for="lengthsInput" class="mf-size-label">Lengths (mm)</label>
+                                    <input type="text" id="lengthsInput" placeholder="e.g. 8, 10, 12"
+                                           class="mf-input mf-input-lg">
+                                </div>
+                                <button type="button" id="addSizeBtn" class="mf-add-size">+ Add Size</button>
                             </div>
 
+                            <p id="sizeError" class="mf-size-error" hidden>
+                                Please enter a valid diameter and at least one length.
+                            </p>
+
+                            <div id="sizeToolbar" class="mf-size-toolbar" hidden>
+                                <span id="chipCount"></span>
+                                <button type="button" id="clearAllBtn" class="mf-clear">Clear All</button>
+                            </div>
+
+                            <div id="sizeChips" class="mf-chips"></div>
                         </div>
-
-                    </div>
-
-                </section>
-
+                    </section>
+                </form>
             </div>
-
-        </form>
-
-    </main>
-
+        </main>
+    </div>
 </div>
 
-
-<!-- ==================== JAVASCRIPT ==================== -->
-<script>
-
-    // IMAGE PREVIEW
-    const imageUrlInput = document.getElementById('imageUrl');
-    const imagePreview = document.getElementById('preview');
-
-    imageUrlInput.addEventListener('input', function () {
-        imagePreview.src = this.value;
-    });
-
-
-    // FORMAT NUMBER
-    function formatNumber(number) {
-        return Number.isInteger(number)
-            ? number.toFixed(1)
-            : String(number);
-    }
-
-
-    // PARSE EXISTING SIZES
-    function parseSizes(raw) {
-
-        const list = [];
-        const regex = /([\d.]+)\s*[x×]\s*([\d.]+)/gi;
-        let match;
-
-        while ((match = regex.exec(raw || '')) !== null) {
-
-            const diameter = parseFloat(match[1]);
-            const length = parseFloat(match[2]);
-
-            const exists = list.some(size =>
-                size.d === diameter && size.l === length
-            );
-
-            if (!exists) {
-                list.push({ d: diameter, l: length });
-            }
-        }
-
-        return list;
-    }
-
-
-    // ELEMENTS
-    const hiddenSizes = document.getElementById('sizes');
-    const diameterInput = document.getElementById('diameterInput');
-    const lengthsInput = document.getElementById('lengthsInput');
-    const sizeError = document.getElementById('sizeError');
-    const addSizeButton = document.getElementById('addSizeBtn');
-    const clearAllButton = document.getElementById('clearAllBtn');
-    const sizeChips = document.getElementById('sizeChips');
-    const chipCount = document.getElementById('chipCount');
-    const sizeSummary = document.getElementById('sizeSummary');
-
-
-    // INITIAL SIZE DATA
-    let sizeList = parseSizes(hiddenSizes.value);
-
-
-    // SYNCHRONIZE SIZE DATA
-    function syncSizes() {
-
-        sizeList.sort((a, b) => a.d - b.d || a.l - b.l);
-
-        hiddenSizes.value = sizeList
-            .map(size => `Ø ${formatNumber(size.d)} x ${formatNumber(size.l)} mm`)
-            .join(', ');
-
-        renderChips();
-        renderSummary();
-    }
-
-
-    // ADD SIZES
-    function addSizes() {
-
-        const diameter = parseFloat(diameterInput.value);
-
-        const lengths = lengthsInput.value
-            .split(/[,\s]+/)
-            .map(value => parseFloat(value))
-            .filter(value => !isNaN(value) && value > 0);
-
-        if (isNaN(diameter) || diameter <= 0 || lengths.length === 0) {
-            sizeError.classList.remove('hidden');
-            return;
-        }
-
-        sizeError.classList.add('hidden');
-
-        lengths.forEach(length => {
-
-            const exists = sizeList.some(size =>
-                size.d === diameter && size.l === length
-            );
-
-            if (!exists) {
-                sizeList.push({ d: diameter, l: length });
-            }
-        });
-
-        lengthsInput.value = '';
-        lengthsInput.focus();
-
-        syncSizes();
-    }
-
-    addSizeButton.addEventListener('click', addSizes);
-
-
-    // ENTER KEY TO ADD SIZE
-    [diameterInput, lengthsInput].forEach(input => {
-        input.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                addSizes();
-            }
-        });
-    });
-
-
-    // CLEAR ALL SIZES
-    clearAllButton.addEventListener('click', function () {
-
-        if (confirm('Are you sure you want to remove all sizes?')) {
-            sizeList = [];
-            syncSizes();
-        }
-    });
-
-
-    // RENDER SIZE CHIPS
-    function renderChips() {
-
-        sizeChips.innerHTML = '';
-        chipCount.textContent = '';
-
-        if (sizeList.length === 0) {
-
-            const emptyMessage = document.createElement('p');
-            emptyMessage.className = 'empty-size-message';
-            emptyMessage.textContent = 'No sizes added yet.';
-            sizeChips.appendChild(emptyMessage);
-
-            clearAllButton.classList.add('hidden');
-            return;
-        }
-
-        chipCount.textContent = `${sizeList.length} sizes`;
-        clearAllButton.classList.remove('hidden');
-
-        sizeList.forEach((size, index) => {
-
-            const chip = document.createElement('div');
-            chip.className = 'size-chip';
-
-            const sizeText = document.createElement('span');
-            sizeText.textContent = `Ø ${formatNumber(size.d)} × ${formatNumber(size.l)} mm`;
-
-            const removeButton = document.createElement('button');
-            removeButton.type = 'button';
-            removeButton.className = 'remove-chip';
-            removeButton.textContent = '×';
-            removeButton.title = 'Remove size';
-
-            removeButton.addEventListener('click', function () {
-                sizeList.splice(index, 1);
-                syncSizes();
-            });
-
-            chip.appendChild(sizeText);
-            chip.appendChild(removeButton);
-            sizeChips.appendChild(chip);
-        });
-    }
-
-
-    // RENDER SIZE SUMMARY
-    function renderSummary() {
-
-        sizeSummary.innerHTML = '';
-
-        if (sizeList.length === 0) {
-
-            const emptySummary = document.createElement('span');
-            emptySummary.className = 'empty-summary';
-            emptySummary.textContent = '-';
-            sizeSummary.appendChild(emptySummary);
-            return;
-        }
-
-        const diameters = [...new Set(sizeList.map(size => size.d))].sort((a, b) => a - b);
-        const lengths = [...new Set(sizeList.map(size => size.l))].sort((a, b) => a - b);
-
-        const minDiameter = diameters[0];
-        const maxDiameter = diameters[diameters.length - 1];
-        const minLength = lengths[0];
-        const maxLength = lengths[lengths.length - 1];
-
-        const diameterText = minDiameter === maxDiameter
-            ? `Ø ${formatNumber(minDiameter)} mm`
-            : `Ø ${formatNumber(minDiameter)} – ${formatNumber(maxDiameter)} mm`;
-
-        const lengthText = minLength === maxLength
-            ? `L ${formatNumber(minLength)} mm`
-            : `L ${formatNumber(minLength)} – ${formatNumber(maxLength)} mm`;
-
-        const diameterElement = document.createElement('p');
-        diameterElement.className = 'summary-diameter';
-        diameterElement.textContent = diameterText;
-
-        const lengthElement = document.createElement('p');
-        lengthElement.className = 'summary-length';
-        lengthElement.textContent = lengthText;
-
-        const countElement = document.createElement('span');
-        countElement.className = 'summary-count';
-        countElement.textContent = `${sizeList.length} sizes`;
-
-        sizeSummary.appendChild(diameterElement);
-        sizeSummary.appendChild(lengthElement);
-        sizeSummary.appendChild(countElement);
-    }
-
-
-    // INITIALIZE
-    syncSizes();
-
-</script>
-
+<script th:src="@{/js/model-form.js}"></script>
 </body>
 </html>

@@ -1,13 +1,13 @@
 package th.mfu.domain;
 
 import jakarta.persistence.*;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "IMPLANT_MODEL", uniqueConstraints = @UniqueConstraint(columnNames = {"brand_id", "model_name"}))
 public class ImplantModel {
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long modelId;
 
@@ -36,6 +36,10 @@ public class ImplantModel {
     private String color;
     private String status = "Visible"; // Visible / Hidden
     private String imageUrl;
+
+    @Column(name = "reference_url", length = 1000)
+    private String referenceUrl; // ลิงก์แหล่งข้อมูล (แสดงในหัวข้อ References)
+
     public ImplantModel() {}
 
     public Long getModelId() { return modelId; }
@@ -44,22 +48,24 @@ public class ImplantModel {
     public void setBrand(Brand brand) { this.brand = brand; }
     public String getModelName() { return modelName; }
     public void setModelName(String modelName) { this.modelName = modelName; }
-   
+
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
     public String getConnectionType() { return connectionType; }
     public void setConnectionType(String connectionType) { this.connectionType = connectionType; }
     public String getSurfaceTreatment() { return surfaceTreatment; }
     public void setSurfaceTreatment(String surfaceTreatment) { this.surfaceTreatment = surfaceTreatment; }
-   
+
     public String getColor() { return color; }
     public void setColor(String color) { this.color = color; }
-  
+
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-        public Material getMaterial() { return material; }
+    public String getReferenceUrl() { return referenceUrl; }
+    public void setReferenceUrl(String referenceUrl) { this.referenceUrl = referenceUrl; }
+    public Material getMaterial() { return material; }
     public void setMaterial(Material material) { this.material = material; }
     public Admin getCreatedBy() { return createdBy; }
     public void setCreatedBy(Admin createdBy) { this.createdBy = createdBy; }
