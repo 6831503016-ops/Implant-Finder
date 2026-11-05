@@ -11,7 +11,7 @@ import th.mfu.repository.BrandRepository;
 import th.mfu.repository.ImplantModelRepository;
 import th.mfu.repository.ImplantSizeRepository;
 import th.mfu.repository.MaterialRepository;
-
+import java.util.stream.Collectors;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -30,7 +30,7 @@ public class ImplantService {
 
     @Autowired
     private ImplantSizeRepository sizeRepo;
-
+    
 
     @Autowired
     private BrandRepository brandRepo;
@@ -94,7 +94,25 @@ public class ImplantService {
             return materialRepo.save(m);
         });
     }
+    // รุ่นที่ผู้ใช้ทั่วไปมองเห็น: ตัวรุ่นต้อง Visible และ (ไม่มีขนาดเลย หรือมีอย่างน้อย 1 ขนาดที่ไม่ Hidden)
+public static boolean isPublic(ImplantModel m) {
+    if (!"Visible".equals(m.getStatus())) return false;
+    return m.getSizeList().isEmpty()
+            || m.getSizeList().stream().anyMatch(s -> !"Hidden".equals(s.getStatus()));
+}
 
+// เฉพาะแบรนด์ที่มีอย่างน้อย 1 รุ่นที่ผู้ใช้เห็นได้
+public List<Brand> getBrandsWithPublicModels() {
+    Set<Long> brandIds = modelRepo.findAll().stream()
+            .filter(ImplantService::isPublic)
+            .filter(m -> m.getBrand() != null)
+            .map(m -> m.getBrand().getBrandId())
+            .collect(Collectors.toSet());
+
+    return brandRepo.findAll().stream()
+            .filter(b -> brandIds.contains(b.getBrandId()))
+            .toList();
+}
 
     // แปลง "Ø 4.3 x 10 mm, Ø 4.3 x 8.5 mm" เป็นแถว IMPLANT_SIZE
     // ขนาดที่มีอยู่แล้วเก็บไว้ ขนาดใหม่เพิ่มเข้าไป ขนาดที่ไม่อยู่ในรายการถูกลบ

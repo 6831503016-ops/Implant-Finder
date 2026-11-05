@@ -8,6 +8,7 @@ import th.mfu.repository.BrandRepository;
 import th.mfu.repository.ImplantModelRepository;
 import th.mfu.domain.ImplantModel;
 import th.mfu.domain.ImplantSize;
+import th.mfu.service.ImplantService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+
 
 @Controller
 public class PublicController {
@@ -28,9 +30,14 @@ public class PublicController {
     @Autowired
     private ImplantModelRepository modelRepo;
 
+    @Autowired
+    private ImplantService implantService;
+
+
     @GetMapping("/")
+    
     public String home(Model model) {
-        model.addAttribute("brands", brandRepo.findAll());
+       model.addAttribute("brands", implantService.getBrandsWithPublicModels());
         return "public/home";
     }
 
@@ -38,7 +45,7 @@ public class PublicController {
     public String brandModels(@PathVariable Long id, Model model) {
         model.addAttribute("brand", brandRepo.findById(id).orElse(null));
         model.addAttribute("models", modelRepo.findByBrandBrandId(id).stream()
-                .filter(this::isPublic)
+               
                 .toList());
         return "public/brand-models";
     }
@@ -202,9 +209,7 @@ public class PublicController {
 
     /** รุ่นที่ผู้ใช้ทั่วไปมองเห็น */
     private boolean isPublic(ImplantModel implant) {
-        return implant.getSizeList().isEmpty()
-                ? "Visible".equals(implant.getStatus())
-                : implant.getSizeList().stream().anyMatch(size -> !"Hidden".equals(size.getStatus()));
+        return ImplantService.isPublic(implant);
     }
 
     private List<ImplantSize> visibleSizes(ImplantModel implant) {
