@@ -6,6 +6,7 @@
     <title th:text="${implant.modelName + ' | Implant Finder'}">Model Detail</title>
     <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/model-detail.css}">
+    <link rel="stylesheet" th:href="@{/css/contact-popup.css}">
 </head>
 <body class="detail-page">
 
@@ -326,5 +327,8 @@
 
     <!-- รูปรากฟันเอียงแบบ 3D ตามเมาส์ -->
     <script th:src="@{/js/tilt.js}"></script>
+
+    <!-- ปุ่มหูฟัง → popup อีเมล admin -->
+    <script th:src="@{/js/contact-popup.js}"></script>
 </body>
 </html>

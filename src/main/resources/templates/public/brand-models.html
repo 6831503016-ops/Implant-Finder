@@ -6,6 +6,7 @@
     <title th:text="${brand.brandName + ' Models'}">Brand Models</title>
     <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/brand-models.css}">
+    <link rel="stylesheet" th:href="@{/css/contact-popup.css}">
 </head>
 <body class="brand-page">
 
@@ -34,7 +35,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/>
                 </svg>
             </a>
-                       <div class="crumbs">
+            <div class="crumbs">
                 <a th:href="@{/}">Home</a>
                 <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4"
                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
@@ -144,5 +145,8 @@
             }
         } catch (e) {}
     </script>
+
+    <!-- ปุ่มหูฟัง → popup อีเมล admin -->
+    <script th:src="@{/js/contact-popup.js}"></script>
 </body>
 </html>

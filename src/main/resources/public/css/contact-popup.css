@@ -1,0 +1,65 @@
+/* ---------- Contact popup (ใช้ทุกหน้า) ---------- */
+.contact-popup {
+    position: fixed;
+    z-index: 1000;
+    width: min(300px, calc(100vw - 32px));
+    padding: 18px;
+    border: 1px solid #E3E9F2;
+    border-radius: 18px;
+    background: var(--white);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.contact-arrow {
+    position: absolute;
+    top: -7px;
+    width: 12px;
+    height: 12px;
+    background: var(--white);
+    border-left: 1px solid #E3E9F2;
+    border-top: 1px solid #E3E9F2;
+    transform: rotate(45deg);
+}
+
+.contact-popup-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+
+.contact-popup-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border: 1px solid var(--border-blue);
+    border-radius: 50%;
+    color: var(--blue);
+    background: var(--white);
+}
+
+.contact-popup-icon svg { width: 18px; height: 16px; }
+
+.contact-popup-title { margin: 0 0 2px; font-family: var(--head); font-weight: 700; color: #0F172A; }
+
+.contact-popup-subtitle { margin: 0; font-size: 12px; color: #64748B; }
+
+.admin-email-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 0;
+    padding: 8px 8px 8px 14px;
+    border-radius: 999px;
+    background: #F1F5FB;
+}
+
+.admin-email { font-size: 13px; color: #0F172A; overflow-wrap: anywhere; }
+
+.copy-btn {
+    padding: 6px 12px;
+    border: 1px solid #E3E9F2;
+    border-radius: 999px;
+    background: var(--white);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
