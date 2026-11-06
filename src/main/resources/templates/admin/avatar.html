@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -75,14 +76,8 @@
         </section>
     </main>
 
-    <script>
-        // เปลี่ยนรูปหัวกรอบตามรูปที่กดเลือก
-        document.querySelectorAll('.avatar-option input').forEach(input => {
-            input.addEventListener('change', () => {
-                const img = input.closest('.avatar-option').querySelector('.avatar-image');
-                document.getElementById('avatarPreview').src = img.src;
-            });
-        });
-    </script>
+    <!-- ===== JavaScript ===== -->
+    <script th:src="@{/js/avatar-selection.js}"></script>
+
 </body>
 </html>

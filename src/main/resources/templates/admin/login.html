@@ -71,23 +71,7 @@
         </section>
     </div>
 
-    <script>
-        const passwordInput = document.getElementById('passInput');
-        const toggleButton = document.getElementById('togglePassButton');
-        const eyeIcon = document.getElementById('eyeIcon');
-
-        const showIcon = '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>';
-        const hideIcon = '<path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/>'
-            + '<path d="M9.9 5.2A11.5 11.5 0 0 1 12 5c6.4 0 10 7 10 7a16.7 16.7 0 0 1-4 4.8"/>'
-            + '<path d="M6.6 6.6C3.6 8.4 2 12 2 12s3.6 7 10 7a10.9 10.9 0 0 0 3.4-.5"/>';
-
-        toggleButton.addEventListener('click', () => {
-            const show = passwordInput.type === 'password';
-            passwordInput.type = show ? 'text' : 'password';
-            toggleButton.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
-            toggleButton.setAttribute('aria-pressed', String(show));
-            eyeIcon.innerHTML = show ? showIcon : hideIcon;
-        });
-    </script>
+    <!-- JavaScript -->
+    <script th:src="@{/js/login.js}"></script>
 </body>
 </html>

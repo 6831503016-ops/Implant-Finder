@@ -1,13 +1,18 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Add Implant Model</title>
+
     <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/model-form.css}">
 </head>
+
 <body>
+
 <div class="admin-layout">
 
     <!-- ===== เมนูข้าง ===== -->
@@ -18,6 +23,8 @@
         </a>
 
         <nav class="side-nav">
+
+            <!-- Admin Profile -->
             <a th:href="@{/admin/profile}" class="side-link">
                 <span class="side-icon">
                     <img class="side-avatar"
@@ -27,183 +34,453 @@
                 <span>Admin</span>
             </a>
 
+            <!-- Implant Data -->
             <a th:href="@{/admin/data-management}" class="side-link is-active">
                 <span class="side-icon">
-                    <svg width="28" height="35" viewBox="0 0 24 30" fill="none" stroke="currentColor"
-                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg width="28" height="35" viewBox="0 0 24 30"
+                         fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" aria-hidden="true">
+
                         <ellipse cx="12" cy="5" rx="10" ry="4"/>
                         <path d="M2 5v20c0 2.2 4.5 4 10 4s10-1.8 10-4V5"/>
                         <path d="M2 15c0 2.2 4.5 4 10 4s10-1.8 10-4"/>
+
                     </svg>
                 </span>
                 <span>Implant Data</span>
             </a>
 
+            <!-- Logout -->
             <a th:href="@{/admin/logout}" class="side-link">
                 <span class="side-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg width="32" height="32" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor"
+                         stroke-width="1.9" stroke-linecap="round"
+                         stroke-linejoin="round" aria-hidden="true">
+
                         <path d="M9 3H4v18h5"/>
                         <path d="M16 7l5 5-5 5"/>
                         <path d="M21 12H9"/>
+
                     </svg>
                 </span>
                 <span>Logout</span>
             </a>
+
         </nav>
     </aside>
 
+
+    <!-- ===== เนื้อหาหลัก ===== -->
     <div class="admin-main">
+
         <div class="admin-band"></div>
 
         <main class="admin-content">
+
             <div class="mf-wrap">
 
                 <!-- ===== Breadcrumb ===== -->
                 <nav class="page-nav" aria-label="Breadcrumb">
-                    <a th:href="@{/admin/data-management}" class="back-btn" title="Back" aria-label="Back">
-                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/></svg>
+
+                    <a th:href="@{/admin/data-management}"
+                       class="back-btn"
+                       title="Back"
+                       aria-label="Back">
+
+                        <svg fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor" stroke-width="2"
+                             aria-hidden="true">
+
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M19 12H5m0 0l6-6m-6 6l6 6"/>
+
+                        </svg>
                     </a>
+
                     <div class="crumbs">
+
                         <a th:href="@{/}">Home</a>
-                        <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
-                        <a th:href="@{/admin/data-management}">Implant Data</a>
+
+                        <svg class="chev" viewBox="0 0 11 16"
+                             fill="none" stroke="currentColor"
+                             stroke-width="2.4" stroke-linecap="round"
+                             stroke-linejoin="round" aria-hidden="true">
+
+                            <path d="M3 2.5 8.5 8 3 13.5"/>
+
+                        </svg>
+
+                        <a th:href="@{/admin/data-management}">
+                            Implant Data
+                        </a>
+
                     </div>
                 </nav>
 
+
                 <!-- ===== หัวข้อ + ปุ่ม ===== -->
                 <div class="mf-head">
+
                     <h1 class="mf-title">Add Implant Model</h1>
+
                     <div class="mf-actions">
-                        <a th:href="@{/admin/data-management}" class="btn-outline">Cancel</a>
-                        <button form="addForm" type="submit" class="btn-primary">Save</button>
+
+                        <a th:href="@{/admin/data-management}"
+                           class="btn-outline">
+                            Cancel
+                        </a>
+
+                        <button form="addForm"
+                                type="submit"
+                                class="btn-primary">
+                            Save
+                        </button>
+
                     </div>
                 </div>
 
-                <p th:if="${error}" class="mf-error" th:text="${error}"></p>
 
-                <!-- ===== ฟอร์ม ===== -->
-                <form id="addForm" th:action="@{/admin/add-model}" th:object="${implant}" method="post" class="mf-grid">
-                <form id="addForm" th:action="@{/admin/add-model}" th:object="${implant}"
-      method="post" enctype="multipart/form-data" class="mf-grid">
-                    <!-- การ์ดรูป -->
+                <!-- ===== ข้อความแจ้งเตือน ===== -->
+                <p th:if="${error}"
+                   class="mf-error"
+                   th:text="${error}">
+                </p>
+
+
+                <!-- ===== ฟอร์มเพิ่ม Implant Model ===== -->
+                <form id="addForm"
+                      th:action="@{/admin/add-model}"
+                      th:object="${implant}"
+                      method="post"
+                      enctype="multipart/form-data"
+                      class="mf-grid">
+
+                    <!-- ===== การ์ดรูปภาพ ===== -->
                     <section class="mf-image-card">
-    <div id="dropZone" class="mf-image mf-dropzone" tabindex="0" role="button"
-         aria-label="Upload implant picture">
-        <img id="imagePreview" alt="Preview" hidden>
-        <span id="imagePlaceholder" class="mf-image-placeholder">
-            ADD IMPLANT PICTURE
-            <small>Drag &amp; drop or click to browse</small>
-        </span>
-        <button type="button" id="removeImageBtn" class="mf-image-remove"
-                aria-label="Remove image" hidden>✕</button>
-    </div>
 
-    <input type="file" id="imageFile" name="imageFile"
-           accept="image/png,image/jpeg,image/webp" hidden>
-    <p id="imageFileError" class="mf-size-error" hidden></p>
+                        <div id="dropZone"
+                             class="mf-image mf-dropzone"
+                             tabindex="0"
+                             role="button"
+                             aria-label="Upload implant picture">
 
-    <label for="imageUrl" class="mf-image-label">Or paste Image URL</label>
-    <input id="imageUrl" type="url" th:field="*{imageUrl}"
-           placeholder="https://example.com/image.jpg" class="mf-url-input">
-</section>
+                            <img id="imagePreview"
+                                 alt="Preview"
+                                 hidden>
 
-                    <!-- การ์ดรายละเอียด -->
+                            <span id="imagePlaceholder"
+                                  class="mf-image-placeholder">
+
+                                ADD IMPLANT PICTURE
+
+                                <small>
+                                    Drag &amp; drop or click to browse
+                                </small>
+
+                            </span>
+
+                            <button type="button"
+                                    id="removeImageBtn"
+                                    class="mf-image-remove"
+                                    aria-label="Remove image"
+                                    hidden>
+                                ✕
+                            </button>
+
+                        </div>
+
+
+                        <!-- เลือกไฟล์รูปภาพจากเครื่อง -->
+                        <input type="file"
+                               id="imageFile"
+                               name="imageFile"
+                               accept="image/png,image/jpeg,image/webp"
+                               hidden>
+
+                        <p id="imageFileError"
+                           class="mf-size-error"
+                           hidden>
+                        </p>
+
+
+                        <!-- ใส่ URL รูปภาพ -->
+                        <label for="imageUrl" class="mf-image-label">
+                            Or paste Image URL
+                        </label>
+
+                        <input id="imageUrl"
+                               type="url"
+                               th:field="*{imageUrl}"
+                               placeholder="https://example.com/image.jpg"
+                               class="mf-url-input">
+
+                    </section>
+
+
+                    <!-- ===== การ์ดรายละเอียด ===== -->
                     <section class="mf-panel">
-                        <p class="mf-section-label">Add Details</p>
+
+                        <p class="mf-section-label">
+                            Add Details
+                        </p>
 
                         <div class="mf-fields">
+
+                            <!-- Brand -->
                             <div class="mf-field">
-                                <label for="brandName" class="mf-label">Brand</label>
-                                <input type="text" id="brandName" name="brandName" required list="brandList"
-                                       placeholder="Enter brand name" class="mf-input" autocomplete="off">
+
+                                <label for="brandName" class="mf-label">
+                                    Brand
+                                </label>
+
+                                <input type="text"
+                                       id="brandName"
+                                       name="brandName"
+                                       required
+                                       list="brandList"
+                                       placeholder="Enter brand name"
+                                       class="mf-input"
+                                       autocomplete="off">
+
                                 <datalist id="brandList">
-                                    <option th:each="b : ${brands}" th:value="${b.brandName}"></option>
+
+                                    <option th:each="b : ${brands}"
+                                            th:value="${b.brandName}">
+                                    </option>
+
                                 </datalist>
+
                             </div>
 
+
+                            <!-- Model Name -->
                             <div class="mf-field">
-                                <label for="modelName" class="mf-label">Model Name</label>
-                                <input type="text" id="modelName" th:field="*{modelName}" required
-                                       placeholder="Enter model name" class="mf-input">
+
+                                <label for="modelName" class="mf-label">
+                                    Model Name
+                                </label>
+
+                                <input type="text"
+                                       id="modelName"
+                                       th:field="*{modelName}"
+                                       required
+                                       placeholder="Enter model name"
+                                       class="mf-input">
+
                             </div>
 
+
+                            <!-- Material -->
                             <div class="mf-field">
-                                <label for="materialName" class="mf-label">Material</label>
-                                <input type="text" id="materialName" name="materialName"
-                                       placeholder="Enter material name" class="mf-input">
+
+                                <label for="materialName" class="mf-label">
+                                    Material
+                                </label>
+
+                                <input type="text"
+                                       id="materialName"
+                                       name="materialName"
+                                       placeholder="Enter material name"
+                                       class="mf-input">
+
                             </div>
 
+
+                            <!-- Type -->
                             <div class="mf-field">
-                                <label for="type" class="mf-label">Type</label>
-                                <input type="text" id="type" th:field="*{type}"
-                                       placeholder="Enter implant type" class="mf-input">
+
+                                <label for="type" class="mf-label">
+                                    Type
+                                </label>
+
+                                <input type="text"
+                                       id="type"
+                                       th:field="*{type}"
+                                       placeholder="Enter implant type"
+                                       class="mf-input">
+
                             </div>
 
+
+                            <!-- Connection Type -->
                             <div class="mf-field">
-                                <label for="connectionType" class="mf-label">Connection Type</label>
-                                <input type="text" id="connectionType" th:field="*{connectionType}"
-                                       placeholder="Enter connecting type" class="mf-input">
+
+                                <label for="connectionType" class="mf-label">
+                                    Connection Type
+                                </label>
+
+                                <input type="text"
+                                       id="connectionType"
+                                       th:field="*{connectionType}"
+                                       placeholder="Enter connecting type"
+                                       class="mf-input">
+
                             </div>
 
+
+                            <!-- Surface Treatment -->
                             <div class="mf-field">
-                                <label for="surfaceTreatment" class="mf-label">Surface Treatment</label>
-                                <input type="text" id="surfaceTreatment" th:field="*{surfaceTreatment}"
-                                       placeholder="Enter surface treatment" class="mf-input">
+
+                                <label for="surfaceTreatment" class="mf-label">
+                                    Surface Treatment
+                                </label>
+
+                                <input type="text"
+                                       id="surfaceTreatment"
+                                       th:field="*{surfaceTreatment}"
+                                       placeholder="Enter surface treatment"
+                                       class="mf-input">
+
                             </div>
 
+
+                            <!-- Country -->
                             <div class="mf-field">
-                                <label for="country" class="mf-label">Country</label>
-                                <input type="text" id="country" name="country"
-                                       placeholder="Enter country" class="mf-input">
+
+                                <label for="country" class="mf-label">
+                                    Country
+                                </label>
+
+                                <input type="text"
+                                       id="country"
+                                       name="country"
+                                       placeholder="Enter country"
+                                       class="mf-input">
+
                             </div>
 
+
+                            <!-- Color -->
                             <div class="mf-field">
-                                <label for="color" class="mf-label">Color</label>
-                                <input type="text" id="color" th:field="*{color}"
-                                       placeholder="Enter color" class="mf-input">
+
+                                <label for="color" class="mf-label">
+                                    Color
+                                </label>
+
+                                <input type="text"
+                                       id="color"
+                                       th:field="*{color}"
+                                       placeholder="Enter color"
+                                       class="mf-input">
+
                             </div>
+
                         </div>
 
-                        <!-- ขนาด -->
+
+                        <!-- ===== Implant Sizes ===== -->
                         <div class="mf-sizes">
-                            <h2 class="mf-sizes-title">Implant Sizes</h2>
-                            <p class="mf-sizes-desc">Add implant diameters and their corresponding lengths.</p>
 
-                            <input type="hidden" id="sizes" name="sizes" value="">
+                            <h2 class="mf-sizes-title">
+                                Implant Sizes
+                            </h2>
 
-                            <div class="mf-size-inputs">
-                                <div class="mf-field">
-                                    <label for="diameterInput" class="mf-size-label">Diameter (mm)</label>
-                                    <input type="number" id="diameterInput" step="0.1" min="0"
-                                           placeholder="e.g. 3.6" class="mf-input mf-input-lg">
-                                </div>
-                                <div class="mf-field">
-                                    <label for="lengthsInput" class="mf-size-label">Lengths (mm)</label>
-                                    <input type="text" id="lengthsInput" placeholder="e.g. 8, 10, 12"
-                                           class="mf-input mf-input-lg">
-                                </div>
-                                <button type="button" id="addSizeBtn" class="mf-add-size">+ Add Size</button>
-                            </div>
-
-                            <p id="sizeError" class="mf-size-error" hidden>
-                                Please enter a valid diameter and at least one length.
+                            <p class="mf-sizes-desc">
+                                Add implant diameters and their corresponding lengths.
                             </p>
 
-                            <div id="sizeToolbar" class="mf-size-toolbar" hidden>
-                                <span id="chipCount"></span>
-                                <button type="button" id="clearAllBtn" class="mf-clear">Clear All</button>
+                            <!-- เก็บข้อมูล Size ก่อนส่งไปยัง Controller -->
+                            <input type="hidden"
+                                   id="sizes"
+                                   name="sizes"
+                                   value="">
+
+
+                            <div class="mf-size-inputs">
+
+                                <!-- Diameter -->
+                                <div class="mf-field">
+
+                                    <label for="diameterInput"
+                                           class="mf-size-label">
+                                        Diameter (mm)
+                                    </label>
+
+                                    <input type="number"
+                                           id="diameterInput"
+                                           step="0.1"
+                                           min="0"
+                                           placeholder="e.g. 3.6"
+                                           class="mf-input mf-input-lg">
+
+                                </div>
+
+
+                                <!-- Lengths -->
+                                <div class="mf-field">
+
+                                    <label for="lengthsInput"
+                                           class="mf-size-label">
+                                        Lengths (mm)
+                                    </label>
+
+                                    <input type="text"
+                                           id="lengthsInput"
+                                           placeholder="e.g. 8, 10, 12"
+                                           class="mf-input mf-input-lg">
+
+                                </div>
+
+
+                                <!-- Add Size Button -->
+                                <button type="button"
+                                        id="addSizeBtn"
+                                        class="mf-add-size">
+                                    + Add Size
+                                </button>
+
                             </div>
 
+
+                            <!-- ข้อความแจ้งเตือนเมื่อกรอก Size ไม่ถูกต้อง -->
+                            <p id="sizeError"
+                               class="mf-size-error"
+                               hidden>
+
+                                Please enter a valid diameter and at least one length.
+
+                            </p>
+
+
+                            <!-- แถบเครื่องมือจัดการ Size -->
+                            <div id="sizeToolbar"
+                                 class="mf-size-toolbar"
+                                 hidden>
+
+                                <span id="chipCount"></span>
+
+                                <button type="button"
+                                        id="clearAllBtn"
+                                        class="mf-clear">
+                                    Clear All
+                                </button>
+
+                            </div>
+
+
+                            <!-- แสดงรายการ Size ที่เพิ่ม -->
                             <div id="sizeChips" class="mf-chips"></div>
+
                         </div>
+
                     </section>
+
                 </form>
+
             </div>
+
         </main>
+
     </div>
+
 </div>
 
+
+<!-- ===== JavaScript ===== -->
 <script th:src="@{/js/model-form.js}"></script>
+
 </body>
 </html>

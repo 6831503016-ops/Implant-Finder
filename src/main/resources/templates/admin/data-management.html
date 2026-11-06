@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -62,11 +63,16 @@
             <div class="dm-top">
                 <nav class="page-nav" aria-label="Breadcrumb">
                     <a th:href="@{/}" class="back-btn" title="Back to Home" aria-label="Back to Home">
-                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/></svg>
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/>
+                        </svg>
                     </a>
                     <div class="crumbs">
                         <a th:href="@{/}">Home</a>
-                        <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
+                        <svg class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 2.5 8.5 8 3 13.5"/>
+                        </svg>
                         <span aria-current="page">Implant Data</span>
                     </div>
                 </nav>
@@ -82,8 +88,11 @@
                 <h1 class="dm-title">Implant Data Management</h1>
 
                 <div class="dm-search">
-                    <input type="text" id="searchInput" oninput="filterModels()"
-                           placeholder="Search models..." aria-label="Search implant models" autocomplete="off">
+                    <input type="text" id="searchInput"
+                           placeholder="Search models..."
+                           aria-label="Search implant models"
+                           autocomplete="off">
+
                     <svg class="dm-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                          stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <circle cx="11" cy="11" r="7.5"/>
@@ -103,6 +112,7 @@
                         <col style="width: 335px">
                         <col>
                     </colgroup>
+
                     <thead>
                         <tr>
                             <th class="col-image">Image</th>
@@ -120,16 +130,20 @@
                             <!-- รูป -->
                             <td class="col-image">
                                 <div class="dm-thumb">
-                                    <img th:src="${m.imageUrl}" alt="Implant model thumbnail"
-                                         onerror="this.style.visibility='hidden'">
+                                    <img th:src="${m.imageUrl}" alt="Implant model thumbnail">
                                 </div>
                             </td>
 
-                            <td class="dm-text brand-cell" th:text="${m.brand != null ? m.brand.brandName : '-'}"></td>
-                            <td class="dm-text model-cell" th:text="${m.modelName}"></td>
-                            <td class="dm-text" th:text="${m.material != null ? m.material.materialName : '-'}"></td>
+                            <td class="dm-text brand-cell"
+                                th:text="${m.brand != null ? m.brand.brandName : '-'}"></td>
 
-                            <!-- ขนาด: ช่วงเส้นผ่านศูนย์กลาง + ช่วงความยาว + จำนวน + View all -->
+                            <td class="dm-text model-cell"
+                                th:text="${m.modelName}"></td>
+
+                            <td class="dm-text"
+                                th:text="${m.material != null ? m.material.materialName : '-'}"></td>
+
+                            <!-- ขนาด -->
                             <td class="size-cell">
                                 <th:block th:if="${#lists.isEmpty(m.sizeList)}">
                                     <span class="dm-text">-</span>
@@ -142,20 +156,28 @@
                                                    dMax=${#numbers.formatDecimal(ds[ds.size() - 1], 1, 'NONE', 1, 'POINT')},
                                                    lMin=${ls[0].stripTrailingZeros().toPlainString()},
                                                    lMax=${ls[ls.size() - 1].stripTrailingZeros().toPlainString()}">
+
                                     <div class="size-line">
                                         <span class="size-range">
-                                            <span class="size-d" th:text="${dMin == dMax ? 'Ø ' + dMin + ' mm' : 'Ø ' + dMin + ' – ' + dMax + ' mm'}"></span>
-                                            <span class="size-l" th:text="${lMin == lMax ? 'L ' + lMin + ' mm' : 'L ' + lMin + ' – ' + lMax + ' mm'}"></span>
+                                            <span class="size-d"
+                                                  th:text="${dMin == dMax ? 'Ø ' + dMin + ' mm' : 'Ø ' + dMin + ' – ' + dMax + ' mm'}"></span>
+
+                                            <span class="size-l"
+                                                  th:text="${lMin == lMax ? 'L ' + lMin + ' mm' : 'L ' + lMin + ' – ' + lMax + ' mm'}"></span>
                                         </span>
-                                        <span class="size-count" th:text="${m.sizeList.size() + ' sizes'}"></span>
+
+                                        <span class="size-count"
+                                              th:text="${m.sizeList.size() + ' sizes'}"></span>
                                     </div>
 
                                     <details class="size-dropdown">
                                         <summary>View all <span class="caret">▾</span></summary>
+
                                         <ul class="size-list">
                                             <li th:each="size : ${m.sizeList}">
                                                 <span th:text="${size.displaySize}"
                                                       th:classappend="${size.status == 'Hidden'} ? ' is-hidden' : ''"></span>
+
                                                 <form th:action="@{'/admin/toggle-size-status/' + ${size.sizeId}}" method="post">
                                                     <button type="submit" class="switch switch-sm"
                                                             th:classappend="${size.status == 'Hidden'} ? ' is-off' : ''"
@@ -173,8 +195,11 @@
                             <!-- Actions -->
                             <td>
                                 <div class="dm-actions">
-                                    <a th:href="@{'/admin/edit-model/' + ${m.modelId}}" class="icon-btn"
-                                       title="Edit" aria-label="Edit model">
+
+                                    <a th:href="@{'/admin/edit-model/' + ${m.modelId}}"
+                                       class="icon-btn"
+                                       title="Edit"
+                                       aria-label="Edit model">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                             <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/>
@@ -191,15 +216,17 @@
                                     </form>
 
                                     <form th:action="@{'/admin/delete/' + ${m.modelId}}" method="post">
-                                        <button type="submit" class="icon-btn icon-btn-delete"
-                                                onclick="return confirm('Delete model?')"
-                                                title="Delete model" aria-label="Delete model">
+                                        <button type="submit"
+                                                class="icon-btn icon-btn-delete"
+                                                title="Delete model"
+                                                aria-label="Delete model">
                                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                                                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                                 <path d="M5 7h14M10 7V4h4v3m-7 0 1 13h8l1-13M10 11v6m4-6v6"/>
                                             </svg>
                                         </button>
                                     </form>
+
                                 </div>
                             </td>
                         </tr>
@@ -211,13 +238,19 @@
                 <!-- ===== Pagination ===== -->
                 <div class="dm-footer">
                     <span id="pageInfo" class="page-info" aria-live="polite"></span>
+
                     <button type="button" id="previousPage" class="page-arrow" aria-label="Previous page">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
-                             stroke-linecap="round" aria-hidden="true"><path d="M19 12H5m0 0 5-5m-5 5 5 5"/></svg>
+                             stroke-linecap="round" aria-hidden="true">
+                            <path d="M19 12H5m0 0 5-5m-5 5 5 5"/>
+                        </svg>
                     </button>
+
                     <button type="button" id="nextPage" class="page-arrow" aria-label="Next page">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
-                             stroke-linecap="round" aria-hidden="true"><path d="M5 12h14m0 0-5-5m5 5-5 5"/></svg>
+                             stroke-linecap="round" aria-hidden="true">
+                            <path d="M5 12h14m0 0-5-5m5 5-5 5"/>
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -225,54 +258,9 @@
     </div>
 </div>
 
-<script>
-    // ===== ค้นหา + แบ่งหน้า (6 แถวต่อหน้า เหมือน Canva) =====
-    const pageSize = 6;
-    const rows = Array.from(document.querySelectorAll('.model-row'));
-    const pageInfo = document.getElementById('pageInfo');
-    const previousPage = document.getElementById('previousPage');
-    const nextPage = document.getElementById('nextPage');
-    const noResults = document.getElementById('noResults');
+<!-- ===== JavaScript ===== -->
+<script th:src="@{/js/model-search.js}"></script>
+<script th:src="@{/js/data-management.js}"></script>
 
-    let currentPage = 1;
-    let filteredRows = rows;
-
-    function renderPage() {
-        const pageCount = Math.max(1, Math.ceil(filteredRows.length / pageSize));
-        currentPage = Math.min(currentPage, pageCount);
-
-        rows.forEach(row => row.style.display = 'none');
-        const start = (currentPage - 1) * pageSize;
-        filteredRows.slice(start, start + pageSize).forEach(row => row.style.display = '');
-
-        noResults.hidden = filteredRows.length > 0;
-        pageInfo.textContent = filteredRows.length ? `Page ${currentPage} of ${pageCount}` : '';
-        previousPage.disabled = currentPage <= 1;
-        nextPage.disabled = currentPage >= pageCount;
-    }
-
-    function filterModels() {
-        const query = document.getElementById('searchInput').value.toLowerCase().trim();
-        filteredRows = rows.filter(row => {
-            const brand = row.querySelector('.brand-cell').textContent.toLowerCase().trim();
-            const model = row.querySelector('.model-cell').textContent.toLowerCase().trim();
-            return brand.startsWith(query) || model.startsWith(query);
-        });
-        currentPage = 1;
-        renderPage();
-    }
-
-    previousPage.addEventListener('click', () => { currentPage--; renderPage(); });
-    nextPage.addEventListener('click', () => { currentPage++; renderPage(); });
-
-    // ปิด dropdown "View all" อันอื่นเมื่อเปิดอันใหม่ / คลิกข้างนอก
-    document.addEventListener('click', e => {
-        document.querySelectorAll('.size-dropdown[open]').forEach(d => {
-            if (!d.contains(e.target)) d.removeAttribute('open');
-        });
-    });
-
-    renderPage();
-</script>
 </body>
 </html>
