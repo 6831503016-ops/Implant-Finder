@@ -317,16 +317,40 @@
     padding: 0 24px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 9px;
+    justify-content: center;
     border-top: 1px solid var(--muted);
 }
 
-.page-info {
-    margin-right: auto;
+.dm-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+}
+
+.page-numbers {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.page-number {
+    min-width: 28px;
+    height: 28px;
+    padding: 0 7px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--gray);
     font-size: 12px;
     font-weight: 700;
-    color: var(--gray);
+    cursor: pointer;
+}
+
+.page-number[aria-current="page"] {
+    background: var(--blue);
+    color: var(--white);
+    cursor: default;
 }
 
 .page-arrow {
@@ -347,6 +371,12 @@
 .page-arrow:not(:disabled):hover { color: var(--blue); border-color: var(--blue); }
 
 .page-arrow:disabled { opacity: .45; cursor: default; }
+
+.page-number:focus-visible,
+.page-arrow:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1200px) {

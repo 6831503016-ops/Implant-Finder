@@ -46,7 +46,7 @@ public class ImplantService {
 
 
     public List<ImplantModel> getAllModelsForAdmin() {
-        return modelRepo.findAll();
+        return modelRepo.findAllByOrderByModelIdDesc();
     }
 
 

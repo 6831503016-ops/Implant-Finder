@@ -7,7 +7,7 @@
 const searchInput = document.getElementById('searchInput');
 const rows = Array.from(document.querySelectorAll('.model-row'));
 
-const pageInfo = document.getElementById('pageInfo');
+const pageNumbers = document.getElementById('pageNumbers');
 const previousPage = document.getElementById('previousPage');
 const nextPage = document.getElementById('nextPage');
 const noResults = document.getElementById('noResults');
@@ -54,9 +54,33 @@ function renderPage() {
     noResults.hidden = filteredRows.length > 0;
 
     // แสดงเลขหน้า
-    pageInfo.textContent = filteredRows.length
-        ? `Page ${currentPage} of ${pageCount}`
-        : '';
+    const numberButtons = Array.from({ length: pageCount }, (_, index) => {
+        const page = index + 1;
+        const button = document.createElement('button');
+
+        button.type = 'button';
+        button.className = 'page-number';
+        button.textContent = page;
+        button.setAttribute('aria-label', `Page ${page}`);
+
+        if (page === currentPage) {
+            button.setAttribute('aria-current', 'page');
+        }
+
+        button.addEventListener('click', () => {
+            if (page !== currentPage) {
+                currentPage = page;
+                renderPage();
+                pageNumbers.querySelector('[aria-current="page"]')?.focus({
+                    preventScroll: true
+                });
+            }
+        });
+
+        return button;
+    });
+
+    pageNumbers.replaceChildren(...(filteredRows.length ? numberButtons : []));
 
     // ปิดปุ่ม Previous เมื่ออยู่หน้าแรก
     previousPage.disabled = currentPage <= 1;
@@ -93,7 +117,7 @@ function filterModels() {
 // ตรวจสอบว่ามีองค์ประกอบของหน้านี้หรือไม่
 if (
     searchInput &&
-    pageInfo &&
+    pageNumbers &&
     previousPage &&
     nextPage &&
     noResults
