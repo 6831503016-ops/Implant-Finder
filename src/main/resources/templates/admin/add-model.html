@@ -84,18 +84,29 @@
 
                 <!-- ===== ฟอร์ม ===== -->
                 <form id="addForm" th:action="@{/admin/add-model}" th:object="${implant}" method="post" class="mf-grid">
-
+                <form id="addForm" th:action="@{/admin/add-model}" th:object="${implant}"
+      method="post" enctype="multipart/form-data" class="mf-grid">
                     <!-- การ์ดรูป -->
                     <section class="mf-image-card">
-                        <div class="mf-image">
-                            <img id="imagePreview" alt="Preview" hidden>
-                            <span id="imagePlaceholder" class="mf-image-placeholder">ADD IMPLANT PICTURE</span>
-                        </div>
+    <div id="dropZone" class="mf-image mf-dropzone" tabindex="0" role="button"
+         aria-label="Upload implant picture">
+        <img id="imagePreview" alt="Preview" hidden>
+        <span id="imagePlaceholder" class="mf-image-placeholder">
+            ADD IMPLANT PICTURE
+            <small>Drag &amp; drop or click to browse</small>
+        </span>
+        <button type="button" id="removeImageBtn" class="mf-image-remove"
+                aria-label="Remove image" hidden>✕</button>
+    </div>
 
-                        <label for="imageUrl" class="mf-image-label">Image URL</label>
-                        <input id="imageUrl" type="url" th:field="*{imageUrl}"
-                               placeholder="https://example.com/image.jpg" class="mf-url-input">
-                    </section>
+    <input type="file" id="imageFile" name="imageFile"
+           accept="image/png,image/jpeg,image/webp" hidden>
+    <p id="imageFileError" class="mf-size-error" hidden></p>
+
+    <label for="imageUrl" class="mf-image-label">Or paste Image URL</label>
+    <input id="imageUrl" type="url" th:field="*{imageUrl}"
+           placeholder="https://example.com/image.jpg" class="mf-url-input">
+</section>
 
                     <!-- การ์ดรายละเอียด -->
                     <section class="mf-panel">

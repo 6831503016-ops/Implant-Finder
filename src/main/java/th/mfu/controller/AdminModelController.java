@@ -1,12 +1,27 @@
 package th.mfu.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.UUID;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import jakarta.servlet.http.HttpSession;
 import th.mfu.domain.Admin;
 import th.mfu.domain.Brand;
 import th.mfu.domain.ImplantModel;
@@ -14,8 +29,6 @@ import th.mfu.repository.AdminRepository;
 import th.mfu.repository.BrandRepository;
 import th.mfu.repository.ImplantModelRepository;
 import th.mfu.service.ImplantService;
-
-
 import static th.mfu.service.ImplantService.blankToNull;
 
 
@@ -38,6 +51,40 @@ public class AdminModelController {
 
     @Autowired
     private BrandRepository brandRepo;
+
+
+    // ===== ตั้งค่าอัปโหลดรูป =====
+    @Value("${app.upload-dir:uploads}")
+    private String uploadDir;
+
+    private static final long MAX_IMAGE_SIZE = 5L * 1024 * 1024; // 5MB
+    private static final Map<String, String> IMAGE_EXT = Map.of(
+            "image/png", ".png",
+            "image/jpeg", ".jpg",
+            "image/webp", ".webp");
+
+
+    /** บันทึกไฟล์รูป แล้วคืน "/uploads/xxx.jpg" หรือ null ถ้าไม่ได้อัปโหลดไฟล์ */
+    private String saveImage(MultipartFile file) throws IOException {
+        if (file == null || file.isEmpty()) return null;
+
+        String ext = IMAGE_EXT.get(file.getContentType());
+        if (ext == null) {
+            throw new IllegalArgumentException("Please upload a PNG, JPG or WEBP image.");
+        }
+        if (file.getSize() > MAX_IMAGE_SIZE) {
+            throw new IllegalArgumentException("Image must be 5 MB or smaller.");
+        }
+
+        Path dir = Paths.get(uploadDir).toAbsolutePath();
+        Files.createDirectories(dir);
+
+        String filename = UUID.randomUUID() + ext; // ไม่ใช้ชื่อไฟล์จากผู้ใช้
+        try (InputStream in = file.getInputStream()) {
+            Files.copy(in, dir.resolve(filename));
+        }
+        return "/uploads/" + filename;
+    }
 
 
     // ===== หน้า Implant Data Management =====
@@ -65,6 +112,7 @@ public class AdminModelController {
             @RequestParam(value = "materialName", required = false) String materialName,
             @RequestParam(value = "sizes", required = false) String sizes,
             @RequestParam(value = "country", required = false) String country,
+            @RequestParam(value = "imageFile", required = false) MultipartFile imageFile,
             HttpSession session,
             RedirectAttributes ra) {
 
@@ -82,6 +130,19 @@ public class AdminModelController {
         // ตรวจรุ่นซ้ำ (FR-06)
         if (modelRepo.findByBrandBrandIdAndModelNameIgnoreCase(brand.getBrandId(), modelName).isPresent()) {
             ra.addFlashAttribute("error", "This implant already exists");
+            return "redirect:/admin/add-model";
+        }
+
+
+        // อัปโหลดรูป (ทำหลังตรวจรุ่นซ้ำ จะได้ไม่เหลือไฟล์ค้างตอนบันทึกไม่ผ่าน)
+        try {
+            String uploaded = saveImage(imageFile);
+            if (uploaded != null) implant.setImageUrl(uploaded);
+        } catch (IllegalArgumentException e) {
+            ra.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/add-model";
+        } catch (IOException e) {
+            ra.addFlashAttribute("error", "Could not save the image. Please try again.");
             return "redirect:/admin/add-model";
         }
 
@@ -134,10 +195,29 @@ public class AdminModelController {
     public String updateModel(@PathVariable Long id, @ModelAttribute ImplantModel form,
             @RequestParam(value = "materialName", required = false) String materialName,
             @RequestParam(value = "sizeValues", required = false) String sizes,
-            @RequestParam(value = "country", required = false) String country) {
+            @RequestParam(value = "country", required = false) String country,
+            @RequestParam(value = "imageFile", required = false) MultipartFile imageFile,
+            RedirectAttributes ra) {
 
 
         ImplantModel implant = modelRepo.findById(id).orElseThrow();
+
+
+        // รูป: ไฟล์ที่อัปโหลดมาก่อน → ถ้าไม่มีดูลิงก์ใหม่ → ถ้าว่างทั้งคู่ใช้รูปเดิม
+        try {
+            String uploaded = saveImage(imageFile);
+            if (uploaded != null) {
+                implant.setImageUrl(uploaded);
+            } else if (form.getImageUrl() != null && !form.getImageUrl().isBlank()) {
+                implant.setImageUrl(form.getImageUrl());
+            }
+        } catch (IllegalArgumentException e) {
+            ra.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/edit-model/" + id;
+        } catch (IOException e) {
+            ra.addFlashAttribute("error", "Could not save the image. Please try again.");
+            return "redirect:/admin/edit-model/" + id;
+        }
 
 
         implant.setModelName(form.getModelName());
@@ -157,12 +237,6 @@ public class AdminModelController {
             Brand brand = implant.getBrand();
             brand.setCountry(blankToNull(country));
             brandRepo.save(brand);
-        }
-
-
-        // เปลี่ยนรูปเฉพาะตอนที่กรอกลิงก์ใหม่ ถ้าเว้นว่างไว้จะใช้รูปเดิม
-        if (form.getImageUrl() != null && !form.getImageUrl().isBlank()) {
-            implant.setImageUrl(form.getImageUrl());
         }
 
 

@@ -4,10 +4,22 @@
    - เพิ่ม/ลบขนาด (Diameter + Lengths) เป็นชิป แล้วเก็บลง input ซ่อน #sizes
 ========================================================= */
 (function () {
-    // ---------- พรีวิวรูป ----------
+        // ---------- พรีวิวรูป ----------
     const imageUrlInput = document.getElementById('imageUrl');
     const preview = document.getElementById('imagePreview');
     const placeholder = document.getElementById('imagePlaceholder');
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('imageFile');
+    const removeBtn = document.getElementById('removeImageBtn');
+    const fileError = document.getElementById('imageFileError');
+
+    const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
+    const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+    let objectUrl = null;
+
+    // จำรูปเดิมตอนโหลดหน้า (หน้า Add จะเป็นค่าว่าง, หน้า Edit จะเป็นรูปปัจจุบัน)
+    const originalSrc = (preview && !preview.hidden) ? (preview.getAttribute('src') || '') : '';
+    const originalUrlValue = imageUrlInput ? imageUrlInput.value : '';
 
     function showPreview(url) {
         if (!preview) return;
@@ -15,23 +27,108 @@
             preview.src = url;
             preview.hidden = false;
             if (placeholder) placeholder.hidden = true;
-        } else if (placeholder) {
+        } else {
+            preview.removeAttribute('src');
             preview.hidden = true;
-            placeholder.hidden = false;
+            if (placeholder) placeholder.hidden = false;
+        }
+        // ปุ่ม ✕ แสดงเฉพาะตอนที่มีการเปลี่ยนรูปจากของเดิม
+        if (removeBtn) removeBtn.hidden = !url || url === originalSrc;
+    }
+
+    function releaseObjectUrl() {
+        if (objectUrl) {
+            URL.revokeObjectURL(objectUrl);
+            objectUrl = null;
         }
     }
 
+    function setFileError(msg) {
+        if (!fileError) return;
+        fileError.textContent = msg || '';
+        fileError.hidden = !msg;
+    }
+
     if (preview) {
-        preview.addEventListener('error', () => {
-            preview.hidden = true;
-            if (placeholder) placeholder.hidden = false;
-        });
+        preview.addEventListener('error', () => showPreview(''));
     }
 
     if (imageUrlInput) {
-        imageUrlInput.addEventListener('input', () => showPreview(imageUrlInput.value.trim()));
+        imageUrlInput.addEventListener('input', () => {
+            const url = imageUrlInput.value.trim();
+            if (url && fileInput) {          // พิมพ์ URL = เลิกใช้ไฟล์ที่เลือกไว้
+                fileInput.value = '';
+                releaseObjectUrl();
+                setFileError('');
+            }
+            showPreview(url);
+        });
     }
 
+    if (dropZone && fileInput) {
+        function handleFile(file) {
+            if (!file) return;
+            if (!ALLOWED_TYPES.includes(file.type)) {
+                setFileError('Please choose a PNG, JPG or WEBP image.');
+                return;
+            }
+            if (file.size > MAX_SIZE) {
+                setFileError('Image must be 5 MB or smaller.');
+                return;
+            }
+            setFileError('');
+            releaseObjectUrl();
+            objectUrl = URL.createObjectURL(file);
+            if (imageUrlInput) imageUrlInput.value = '';   // ใช้ไฟล์แทน URL
+            showPreview(objectUrl);
+        }
+
+        dropZone.addEventListener('click', e => {
+            if (e.target !== removeBtn) fileInput.click();
+        });
+        dropZone.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInput.click();
+            }
+        });
+        fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+
+        ['dragenter', 'dragover'].forEach(evt =>
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropZone.classList.add('is-dragover');
+            }));
+        ['dragleave', 'drop'].forEach(evt =>
+            dropZone.addEventListener(evt, e => {
+                e.preventDefault();
+                dropZone.classList.remove('is-dragover');
+            }));
+        dropZone.addEventListener('drop', e => {
+            const file = e.dataTransfer.files[0];
+            if (!file) return;
+            const dt = new DataTransfer();          // ให้ฟอร์มส่งไฟล์นี้ไปด้วย
+            dt.items.add(file);
+            fileInput.files = dt.files;
+            handleFile(file);
+        });
+
+        // กันเบราว์เซอร์เปิดรูปทั้งหน้า ถ้าปล่อยไฟล์พลาดนอกกรอบ
+        ['dragover', 'drop'].forEach(evt =>
+            window.addEventListener(evt, e => e.preventDefault()));
+
+        // ปุ่ม ✕ = ยกเลิกการเปลี่ยนรูป กลับไปเป็นรูปเดิม (หน้า Add = ล้างว่าง)
+        if (removeBtn) {
+            removeBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                fileInput.value = '';
+                releaseObjectUrl();
+                setFileError('');
+                if (imageUrlInput) imageUrlInput.value = originalUrlValue;
+                showPreview(originalSrc);
+            });
+        }
+    }
     // ---------- ขนาด ----------
     const hiddenSizes = document.getElementById('sizes');
     if (!hiddenSizes) return;

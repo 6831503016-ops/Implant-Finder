@@ -82,20 +82,33 @@
                     </div>
                 </div>
 
+                <p th:if="${error}" class="mf-error" th:text="${error}"></p>
+
                 <!-- ===== ฟอร์ม ===== -->
                 <form id="editForm" th:action="@{'/admin/edit-model/' + ${implant.modelId}}"
-                      th:object="${implant}" method="post" class="mf-grid">
+                      th:object="${implant}" method="post" enctype="multipart/form-data" class="mf-grid">
 
                     <!-- การ์ดรูป -->
                     <section class="mf-image-card">
-                        <div class="mf-image">
-                            <img id="imagePreview" th:src="${implant.imageUrl}" alt="Implant model image"
+                        <div id="dropZone" class="mf-image mf-dropzone" tabindex="0" role="button"
+                             aria-label="Upload implant picture">
+                            <img id="imagePreview" alt="Implant model image"
+                                 th:src="${!#strings.isEmpty(implant.imageUrl)} ? @{${implant.imageUrl}}"
                                  th:hidden="${#strings.isEmpty(implant.imageUrl)}">
                             <span id="imagePlaceholder" class="mf-image-placeholder"
-                                  th:hidden="${!#strings.isEmpty(implant.imageUrl)}">ADD IMPLANT PICTURE</span>
+                                  th:hidden="${!#strings.isEmpty(implant.imageUrl)}">
+                                ADD IMPLANT PICTURE
+                                <small>Drag &amp; drop or click to browse</small>
+                            </span>
+                            <button type="button" id="removeImageBtn" class="mf-image-remove"
+                                    aria-label="Undo image change" title="Undo image change" hidden>✕</button>
                         </div>
 
-                        <label for="imageUrl" class="mf-image-label">Image URL</label>
+                        <input type="file" id="imageFile" name="imageFile"
+                               accept="image/png,image/jpeg,image/webp" hidden>
+                        <p id="imageFileError" class="mf-size-error" hidden></p>
+
+                        <label for="imageUrl" class="mf-image-label">Or paste Image URL</label>
                         <input type="text" id="imageUrl" th:field="*{imageUrl}"
                                placeholder="https://example.com/image.jpg" class="mf-url-input">
                     </section>
