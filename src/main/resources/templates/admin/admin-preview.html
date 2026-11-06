@@ -16,7 +16,6 @@
         </a>
 
         <div class="topbar-actions">
-            <!-- ปุ่มติดต่อ admin (ไอคอนหูฟัง) -->
             <button type="button" id="contactBtn" class="contact-btn"
                     onclick="toggleContact()" aria-label="Contact admin"
                     aria-expanded="false" aria-controls="contactPop">
@@ -40,14 +39,12 @@
 
     <!-- ===== Hero ===== -->
     <section class="hero" id="hero">
-        <!-- ลูกเล่นข้อ 1: ก้อนสีฟุ้ง ๆ ลอยช้า ๆ (ขยับตามเมาส์เล็กน้อย) -->
         <div class="hero-bg" aria-hidden="true">
             <span class="blob blob-1"></span>
             <span class="blob blob-2"></span>
             <span class="blob blob-3"></span>
         </div>
 
-        <!-- ลูกเล่นข้อ 5: คลื่นขยับช้า ๆ ที่ขอบล่าง -->
         <div class="hero-wave" aria-hidden="true">
             <svg class="wave wave-back" viewBox="0 0 2880 80" preserveAspectRatio="none">
                 <path d="M0,40 C180,10 540,70 720,40 C900,10 1260,70 1440,40 C1620,10 1980,70 2160,40 C2340,10 2700,70 2880,40 L2880,80 L0,80 Z"/>
@@ -59,7 +56,6 @@
 
         <div class="hero-content">
             <h1 class="hero-title">
-                <!-- คำแต่ละคำเด้งขึ้นทีละคำ (--i = ลำดับ) -->
                 <span class="hero-line">
                     <span class="hero-word" style="--i:0">Find</span>
                     <span class="hero-word" style="--i:1">the</span>
@@ -113,15 +109,15 @@
     <div id="contactPop" class="contact-popup hidden" role="dialog" aria-label="Contact admin">
         <div id="contactArrow" class="contact-arrow"></div>
         <div class="contact-popup-heading">
-           <div class="contact-popup-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-         stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 14v-2a8 8 0 0 1 16 0v2"/>
-        <rect x="3" y="13" width="4" height="6" rx="1.5"/>
-        <rect x="17" y="13" width="4" height="6" rx="1.5"/>
-        <path d="M19 19c0 1.5-1.8 2.5-4 2.5h-2"/>
-    </svg>
-</div>
+            <div class="contact-popup-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 14v-2a8 8 0 0 1 16 0v2"/>
+                    <rect x="3" y="13" width="4" height="6" rx="1.5"/>
+                    <rect x="17" y="13" width="4" height="6" rx="1.5"/>
+                    <path d="M19 19c0 1.5-1.8 2.5-4 2.5h-2"/>
+                </svg>
+            </div>
             <div>
                 <p class="contact-popup-title">Contact Admin</p>
                 <p class="contact-popup-subtitle">We usually reply within 1–2 days</p>
@@ -131,7 +127,6 @@
             <span id="adminEmail" class="admin-email">admin@implant.com</span>
             <button type="button" onclick="copyEmail()" id="copyBtn" class="copy-btn">Copy</button>
         </div>
-        
     </div>
 
     <!-- ===== Back to Admin (แสดงตลอดในหน้านี้) ===== -->
@@ -226,21 +221,14 @@
         (function () {
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const topbar = document.querySelector('.topbar');
-            const heroContent = document.querySelector('.hero-content');
 
-            // 1) แถบบนมีเงา + ข้อความ hero ค่อย ๆ จางขึ้นไปตอนเลื่อนลง
+            // 1) แถบบนมีเงาเมื่อเลื่อนลง (ข้อความ hero อยู่กับที่)
             let ticking = false;
             function onScroll() {
                 if (ticking) return;
                 ticking = true;
                 requestAnimationFrame(() => {
-                    const y = window.scrollY;
-                    topbar.classList.toggle('is-scrolled', y > 8);
-                    if (!reduceMotion && heroContent) {
-                        const p = Math.min(y / 500, 1);
-                        heroContent.style.transform = 'translateY(' + (y * 0.25) + 'px)';
-                        heroContent.style.opacity = String(1 - p * 0.9);
-                    }
+                    topbar.classList.toggle('is-scrolled', window.scrollY > 8);
                     ticking = false;
                 });
             }
@@ -257,17 +245,15 @@
             cards.forEach(card => card.classList.add('reveal'));
 
             const observer = new IntersectionObserver(entries => {
-                // การ์ดที่โผล่มาพร้อมกันจะขึ้นทีละใบ ห่างกัน 80ms
                 entries.filter(e => e.isIntersecting).forEach((entry, i) => {
                     const el = entry.target;
                     el.style.transitionDelay = (i * 80) + 'ms';
                     el.classList.add('is-in');
                     observer.unobserve(el);
 
-                    // ขึ้นเสร็จแล้วคืนค่าเดิม เพื่อให้ hover ทำงานลื่นเหมือนเดิม
                     if (el.classList.contains('brand-card')) {
                         setTimeout(() => {
-                            el.style.animation = 'none'; // กันไม่ให้ animation ตอนโหลดเล่นซ้ำ
+                            el.style.animation = 'none';
                             el.classList.remove('reveal', 'is-in');
                             el.style.transitionDelay = '';
                         }, 700 + i * 80);
@@ -302,7 +288,6 @@
         })();
     </script>
 
-    <!-- การ์ดแบรนด์เอียงแบบ 3D ตามเมาส์ -->
     <script th:src="@{/js/tilt.js}"></script>
 </body>
 </html>
