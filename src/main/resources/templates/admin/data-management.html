@@ -237,21 +237,23 @@
 
                 <!-- ===== Pagination ===== -->
                 <div class="dm-footer">
-                    <span id="pageInfo" class="page-info" aria-live="polite"></span>
+                    <nav class="dm-pagination" aria-label="Pagination">
+                        <button type="button" id="previousPage" class="page-arrow" aria-label="Previous page">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                                 stroke-linecap="round" aria-hidden="true">
+                                <path d="M19 12H5m0 0 5-5m-5 5 5 5"/>
+                            </svg>
+                        </button>
 
-                    <button type="button" id="previousPage" class="page-arrow" aria-label="Previous page">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
-                             stroke-linecap="round" aria-hidden="true">
-                            <path d="M19 12H5m0 0 5-5m-5 5 5 5"/>
-                        </svg>
-                    </button>
+                        <div id="pageNumbers" class="page-numbers" aria-live="polite"></div>
 
-                    <button type="button" id="nextPage" class="page-arrow" aria-label="Next page">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
-                             stroke-linecap="round" aria-hidden="true">
-                            <path d="M5 12h14m0 0-5-5m5 5-5 5"/>
-                        </svg>
-                    </button>
+                        <button type="button" id="nextPage" class="page-arrow" aria-label="Next page">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                                 stroke-linecap="round" aria-hidden="true">
+                                <path d="M5 12h14m0 0-5-5m5 5-5 5"/>
+                            </svg>
+                        </button>
+                    </nav>
                 </div>
             </div>
         </main>

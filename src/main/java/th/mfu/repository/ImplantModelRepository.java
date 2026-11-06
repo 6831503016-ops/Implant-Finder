@@ -7,6 +7,7 @@ import java.util.Optional;
 
 
 public interface ImplantModelRepository extends JpaRepository<ImplantModel, Long> {
+    List<ImplantModel> findAllByOrderByModelIdDesc();
     List<ImplantModel> findByBrandBrandIdAndStatus(Long brandId, String status);
     List<ImplantModel> findByBrandBrandId(Long brandId);
     List<ImplantModel> findByStatus(String status);
