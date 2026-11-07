@@ -1,37 +1,67 @@
 /* =========================================================
-   avatar.css — Choose Your Avatar (Canva หน้า 10)
+   avatar.css — Choose Your Avatar
    ต้องโหลด base.css ก่อนไฟล์นี้
 ========================================================= */
 
-.avatar-page {
-    padding: 90px 24px 40px;
-    background: var(--bg-gradient);
-}
-
-/* การ์ดขาว 1205 x 720 */
-.avatar-card {
-    width: min(100%, 1205px);
-    min-height: 720px;
-    margin: 0 auto;
-    padding: 68px 109px 37px 107px;
+.avatar-body {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background: var(--hero-wash);
+}
+
+.avatar-main {
+    width: min(1440px, calc(100% - 64px));
+    min-height: calc(100vh - 68px);
+    margin: 0 auto;
+    padding: 24px 0 32px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.avatar-card {
+    width: 100%;
+    flex: 1;
+    min-width: 0;
+    padding: clamp(24px, 4vw, 56px);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(191, 209, 247, 0.65);
     border-radius: 28px;
     background: var(--white);
+    box-shadow: var(--shadow-soft);
+}
+
+.avatar-head {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar-current {
+    width: 72px;
+    height: 72px;
+    flex: 0 0 auto;
+    border: 3px solid var(--blue-soft);
+    border-radius: 50%;
+    object-fit: cover;
+    background: #EFE9DF;
 }
 
 .avatar-title {
     margin: 0;
-    font-size: 32.67px;
+    font-size: clamp(26px, 3vw, 34px);
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.25;
     color: var(--navy);
 }
 
 .avatar-description {
-    margin: 16px 0 0 3px;
+    margin: 8px 0 0;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.5;
     color: var(--gray);
 }
 
@@ -42,56 +72,117 @@
 }
 
 .avatar-grid {
-    margin: 13px 0 0 3px;
+    flex: 1;
+    margin-top: 28px;
     display: grid;
-    grid-template-columns: repeat(5, 147px);
-    justify-content: space-between;
-    row-gap: 105px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-content: center;
+    gap: 18px;
 }
 
 .avatar-option {
     position: relative;
-    width: 147px;
-    height: 147px;
+    min-width: 0;
+    min-height: 164px;
     cursor: pointer;
 }
 
 .avatar-option input {
     position: absolute;
+    width: 1px;
+    height: 1px;
     opacity: 0;
-    pointer-events: none;
+}
+
+.avatar-tile {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 164px;
+    padding: 14px 8px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background: #F8FAFD;
+    transition: border-color .2s ease, background-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 
 .avatar-image {
-    width: 147px;
-    height: 147px;
+    width: clamp(76px, 9vw, 116px);
+    max-width: 100%;
+    aspect-ratio: 1;
     border-radius: 50%;
     object-fit: cover;
     background: #EFE9DF;
-    outline: 4px solid transparent;
-    outline-offset: 4px;
-    transition: transform .2s ease, outline-color .2s ease;
 }
 
-.avatar-option:hover .avatar-image { transform: scale(1.04); }
+.avatar-name {
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+}
 
-.avatar-option input:checked + .avatar-image { outline-color: var(--blue); }
+.avatar-check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--white);
+    opacity: 0;
+    transform: scale(.8);
+    transition: opacity .2s ease, transform .2s ease;
+}
 
-.avatar-option input:focus-visible + .avatar-image { outline-color: var(--muted); }
+.avatar-check svg {
+    width: 14px;
+    height: 14px;
+}
 
-/* ปุ่ม */
+.avatar-option:hover .avatar-tile {
+    border-color: var(--border-blue);
+    background: var(--blue-soft);
+    transform: translateY(-2px);
+}
+
+.avatar-option input:checked + .avatar-tile {
+    border-color: var(--blue);
+    background: var(--blue-soft);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, .12);
+}
+
+.avatar-option input:checked + .avatar-tile .avatar-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.avatar-option input:focus-visible + .avatar-tile {
+    outline: 3px solid var(--muted);
+    outline-offset: 3px;
+}
+
 .avatar-actions {
     margin-top: auto;
-    padding-top: 40px;
+    padding-top: 28px;
     display: flex;
     justify-content: flex-end;
-    gap: 20px;
+    gap: 14px;
 }
 
 .avatar-cancel,
 .avatar-confirm {
-    height: 42px;
-    padding: 0 22px;
+    min-height: 44px;
+    padding: 0 24px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -99,10 +190,11 @@
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
+    transition: background-color .2s ease, border-color .2s ease;
 }
 
 .avatar-cancel {
-    min-width: 92px;
+    min-width: 104px;
     border: 1px solid var(--border);
     background: var(--white);
     color: var(--navy);
@@ -111,25 +203,40 @@
 .avatar-cancel:hover { background: #F7FAFF; }
 
 .avatar-confirm {
-    min-width: 150px;
+    min-width: 160px;
     border: 0;
     background: var(--blue);
     color: var(--white);
 }
 
-.avatar-confirm:hover { background: var(--hover-blue); }
+.avatar-confirm:hover { background: var(--blue-hover); }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 1100px) {
-    .avatar-card { padding: 40px 32px; }
-    .avatar-grid {
-        grid-template-columns: repeat(auto-fill, 147px);
-        justify-content: center;
-        gap: 32px;
-    }
+@media (max-width: 900px) {
+    .avatar-main { width: min(calc(100% - 40px), 760px); }
+    .avatar-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-@media (max-width: 640px) {
-    .avatar-page { padding: 16px; }
-    .avatar-title { font-size: 26px; }
+@media (max-width: 560px) {
+    .avatar-main {
+        width: calc(100% - 28px);
+        padding: 18px 0 24px;
+        gap: 14px;
+    }
+
+    .avatar-card {
+        padding: 22px 16px;
+        border-radius: 20px;
+    }
+
+    .avatar-head { align-items: flex-start; gap: 14px; }
+    .avatar-current { width: 54px; height: 54px; }
+    .avatar-title { font-size: 24px; }
+    .avatar-description { margin-top: 5px; font-size: 13px; }
+    .avatar-grid { margin-top: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .avatar-option,
+    .avatar-tile { min-height: 142px; }
+    .avatar-image { width: 88px; }
+    .avatar-actions { padding-top: 22px; gap: 10px; }
+    .avatar-cancel,
+    .avatar-confirm { min-width: 0; flex: 1; padding: 0 12px; }
 }
