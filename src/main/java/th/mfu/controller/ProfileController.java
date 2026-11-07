@@ -19,18 +19,20 @@ import java.util.List;
 public class ProfileController {
 
 
-    // รูป avatar 10 แบบ (2 แถว x 5 เหมือนใน Canva)
+       // รูป avatar 12 แบบ (อยู่ใน static/images/avatars)
     public static final List<String> AVATARS = List.of(
-        "https://api.dicebear.com/7.x/personas/svg?seed=Admin1&backgroundColor=efe9df",
-        "https://api.dicebear.com/7.x/personas/svg?seed=Mia&backgroundColor=efe9df",
-        "https://api.dicebear.com/7.x/personas/svg?seed=Alex&backgroundColor=efe9df",
-        "https://api.dicebear.com/7.x/personas/svg?seed=Sam&backgroundColor=efe9df",
-        "https://api.dicebear.com/7.x/personas/svg?seed=Taylor&backgroundColor=efe9df",
-        "https://api.dicebear.com/7.x/personas/svg?seed=Jordan&backgroundColor=efe9df",
-        "https://api.dicebear.com/7.x/personas/svg?seed=Riley&backgroundColor=efe9df",
-        "https://api.dicebear.com/7.x/personas/svg?seed=Casey&backgroundColor=efe9df",
-        "https://api.dicebear.com/7.x/personas/svg?seed=Morgan&backgroundColor=efe9df",
-        "https://api.dicebear.com/7.x/personas/svg?seed=Jamie&backgroundColor=efe9df"
+        "/images/avatars/avatar1.png",
+        "/images/avatars/avatar2.png",
+        "/images/avatars/avatar3.png",
+        "/images/avatars/avatar4.png",
+        "/images/avatars/avatar5.png",
+        "/images/avatars/avatar6.png",
+        "/images/avatars/avatar7.png",
+        "/images/avatars/avatar8.png",
+        "/images/avatars/avatar9.png",
+        "/images/avatars/avatar10.png",
+        "/images/avatars/avatar11.png",
+        "/images/avatars/avatar12.png"
     );
 
 

@@ -39,7 +39,8 @@
                 <span>Implant Data</span>
             </a>
 
-            <a th:href="@{/admin/logout}" class="side-link">
+            <a th:href="@{/admin/logout}" class="side-link"
+   onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}">
                 <span class="side-icon">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                          stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
