@@ -1,10 +1,15 @@
 /* =========================================================
    model-form.js — ใช้ร่วมกันในหน้า Add Implant Model และ Edit Model
-   - พรีวิวรูปจาก Image URL
+   - พรีวิวรูปจาก Image URL / ไฟล์ (คลิก + ลากวาง)
    - เพิ่ม/ลบขนาด (Diameter + Lengths) เป็นชิป แล้วเก็บลง input ซ่อน #sizes
+   - อัปโหลดโลโก้แบรนด์ (คลิก + ลากวาง) และแสดงโลโก้เดิมของแบรนด์ที่มีอยู่
+========================================================= */
+
+/* =========================================================
+   1) รูปรุ่น + ขนาด
 ========================================================= */
 (function () {
-        // ---------- พรีวิวรูป ----------
+    // ---------- พรีวิวรูป ----------
     const imageUrlInput = document.getElementById('imageUrl');
     const preview = document.getElementById('imagePreview');
     const placeholder = document.getElementById('imagePlaceholder');
@@ -69,10 +74,12 @@
         function handleFile(file) {
             if (!file) return;
             if (!ALLOWED_TYPES.includes(file.type)) {
+                fileInput.value = '';
                 setFileError('Please choose a PNG, JPG or WEBP image.');
                 return;
             }
             if (file.size > MAX_SIZE) {
+                fileInput.value = '';
                 setFileError('Image must be 5 MB or smaller.');
                 return;
             }
@@ -129,6 +136,7 @@
             });
         }
     }
+
     // ---------- ขนาด ----------
     const hiddenSizes = document.getElementById('sizes');
     if (!hiddenSizes) return;
@@ -227,4 +235,134 @@
     });
 
     render();
+})();
+
+
+/* =========================================================
+   2) โลโก้แบรนด์
+========================================================= */
+(function () {
+    const box = document.getElementById('brandLogoBox');
+    const fileInput = document.getElementById('brandLogoFile');
+    if (!box || !fileInput) return;
+
+    const img = document.getElementById('brandLogoPreview');
+    const placeholder = document.getElementById('brandLogoPlaceholder');
+    const uploadBtn = document.getElementById('brandLogoBtn');
+    const removeBtn = document.getElementById('brandLogoRemove');
+    const errorEl = document.getElementById('brandLogoError');
+    const hintEl = document.getElementById('brandLogoHint');
+    const brandInput = document.getElementById('brandName');
+    const options = document.querySelectorAll('#brandList option');
+
+    const TYPES = ['image/png', 'image/jpeg', 'image/webp'];
+    const MAX = 2 * 1024 * 1024; // 2MB
+    const DEFAULT_HINT = hintEl ? hintEl.textContent : '';
+    let objectUrl = null;
+
+    function setError(msg) {
+        errorEl.textContent = msg || '';
+        errorEl.hidden = !msg;
+    }
+
+    function releaseUrl() {
+        if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
+    }
+
+    function show(src, canRemove) {
+        img.src = src;
+        img.hidden = false;
+        placeholder.hidden = true;
+        removeBtn.hidden = !canRemove;
+    }
+
+    function clear() {
+        releaseUrl();
+        fileInput.value = '';
+        img.removeAttribute('src');
+        img.hidden = true;
+        placeholder.hidden = false;
+        removeBtn.hidden = true;
+    }
+
+    function handleFile(file) {
+        if (!file) return;
+        if (!TYPES.includes(file.type)) {
+            fileInput.value = '';          // ไม่ส่งไฟล์ที่ไม่ผ่านไปกับฟอร์ม
+            setError('Please choose a PNG, JPG or WEBP image.');
+            return;
+        }
+        if (file.size > MAX) {
+            fileInput.value = '';
+            setError('Logo must be 2 MB or smaller.');
+            return;
+        }
+        setError('');
+        releaseUrl();
+        objectUrl = URL.createObjectURL(file);
+        show(objectUrl, true);
+    }
+
+    // แสดงโลโก้เดิมของแบรนด์ที่มีอยู่แล้ว (ดึงจาก data-logo ใน datalist)
+    function existingLogo() {
+        if (!brandInput) return '';
+        const name = brandInput.value.trim().toLowerCase();
+        const match = [...options].find(o => o.value.trim().toLowerCase() === name);
+        return (match && match.dataset.logo) || '';
+    }
+
+    function syncWithBrand() {
+        if (fileInput.files.length) return;      // เลือกไฟล์ใหม่ไว้แล้ว ไม่ทับ
+        const logo = existingLogo();
+        if (logo) {
+            show(logo, false);
+            if (hintEl) hintEl.textContent = 'This brand already has a logo. Upload a new one to replace it.';
+        } else {
+            clear();
+            if (hintEl) hintEl.textContent = DEFAULT_HINT;
+        }
+    }
+
+    box.addEventListener('click', () => fileInput.click());
+    uploadBtn.addEventListener('click', () => fileInput.click());
+    box.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
+    fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+
+    ['dragenter', 'dragover'].forEach(evt =>
+        box.addEventListener(evt, e => {
+            e.preventDefault();
+            box.classList.add('is-dragover');
+        }));
+    ['dragleave', 'drop'].forEach(evt =>
+        box.addEventListener(evt, e => {
+            e.preventDefault();
+            box.classList.remove('is-dragover');
+        }));
+    box.addEventListener('drop', e => {
+        const file = e.dataTransfer.files[0];
+        if (!file) return;
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        fileInput.files = dt.files;
+        handleFile(file);
+    });
+
+    // ปุ่ม Remove = ยกเลิกไฟล์ที่เลือก แล้วกลับไปโลโก้เดิมของแบรนด์ (ถ้ามี)
+    removeBtn.addEventListener('click', () => {
+        setError('');
+        clear();
+        syncWithBrand();
+    });
+
+    if (img) img.addEventListener('error', clear);
+    if (brandInput) {
+        brandInput.addEventListener('input', syncWithBrand);
+        brandInput.addEventListener('change', syncWithBrand);
+        syncWithBrand();
+    }
 })();

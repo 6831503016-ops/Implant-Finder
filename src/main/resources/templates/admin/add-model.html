@@ -271,7 +271,30 @@
                                        class="mf-input">
 
                             </div>
+                            <!-- Brand Logo -->
+                            <div class="mf-field mf-field-full">
+                                <span class="mf-label">Brand Logo</span>
 
+                                <div class="mf-brand-logo">
+                                    <div id="brandLogoBox" class="mf-brand-logo-box"
+                                        tabindex="0" role="button" aria-label="Upload brand logo">
+                                        <img id="brandLogoPreview" alt="Brand logo preview" hidden>
+                                        <span id="brandLogoPlaceholder">+ Logo</span>
+                                    </div>
+
+                                    <div class="mf-brand-logo-info">
+                                        <div class="mf-brand-logo-btns">
+                                            <button type="button" id="brandLogoBtn" class="btn-outline">Upload logo</button>
+                                            <button type="button" id="brandLogoRemove" class="mf-clear" hidden>Remove</button>
+                                        </div>
+                                        <p id="brandLogoHint" class="mf-hint">PNG, JPG, WebP or SVG, max 2 MB</p>
+                                        <p id="brandLogoError" class="mf-size-error" hidden></p>
+                                    </div>
+
+                                    <input type="file" id="brandLogoFile" name="brandLogo"
+                                        accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden>
+                                </div>
+                            </div>
 
                             <!-- Material -->
                             <div class="mf-field">
@@ -484,3 +507,7 @@
 
 </body>
 </html>
+<option th:each="b : ${brands}"
+        th:value="${b.brandName}"
+        th:attr="data-logo=${b.logoUrl}">
+</option>

@@ -361,3 +361,60 @@
 .mf-image-remove[hidden] { display: none; }
 
 #imageFileError { margin-top: 10px; text-align: center; }
+/* ---------- Brand Logo ---------- */
+.mf-field-full { grid-column: 1 / -1; }
+
+.mf-brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mf-brand-logo-box {
+    width: 88px;
+    height: 88px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 2px dashed var(--line);
+    border-radius: 16px;
+    background: #F7FAFF;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: border-color .2s ease, background-color .2s ease;
+}
+
+.mf-brand-logo-box:hover,
+.mf-brand-logo-box:focus-visible { border-color: var(--blue); outline: none; }
+
+.mf-brand-logo-box.is-dragover {
+    border-color: var(--blue);
+    background: var(--light-blue);
+}
+
+.mf-brand-logo-box img {
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    object-fit: contain;
+    background: transparent;
+}
+
+.mf-brand-logo-box img[hidden],
+.mf-brand-logo-box span[hidden] { display: none; }
+
+.mf-brand-logo-btns { display: flex; align-items: center; gap: 14px; }
+
+.mf-hint {
+    margin: 6px 0 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--muted);
+}
+
+@media (max-width: 720px) {
+    .mf-field-full { grid-column: auto; }
+}

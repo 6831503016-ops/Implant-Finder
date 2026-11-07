@@ -63,27 +63,50 @@ public class AdminModelController {
             "image/jpeg", ".jpg",
             "image/webp", ".webp");
 
+    // ===== ตั้งค่าอัปโหลดโลโก้แบรนด์ (ไม่รับ SVG เพื่อความปลอดภัย) =====
+    private static final long MAX_LOGO_SIZE = 2L * 1024 * 1024; // 2MB
+    private static final Map<String, String> LOGO_EXT = Map.of(
+            "image/png", ".png",
+            "image/jpeg", ".jpg",
+            "image/webp", ".webp");
 
-    /** บันทึกไฟล์รูป แล้วคืน "/uploads/xxx.jpg" หรือ null ถ้าไม่ได้อัปโหลดไฟล์ */
+
+    /** บันทึกรูปรุ่น แล้วคืน "/uploads/xxx.jpg" หรือ null ถ้าไม่ได้อัปโหลดไฟล์ */
     private String saveImage(MultipartFile file) throws IOException {
+        return saveFile(file, null, IMAGE_EXT, MAX_IMAGE_SIZE,
+                "Please upload a PNG, JPG or WEBP image.",
+                "Image must be 5 MB or smaller.");
+    }
+
+    /** บันทึกโลโก้แบรนด์ แล้วคืน "/uploads/brands/xxx.png" หรือ null ถ้าไม่ได้อัปโหลดไฟล์ */
+    private String saveBrandLogo(MultipartFile file) throws IOException {
+        return saveFile(file, "brands", LOGO_EXT, MAX_LOGO_SIZE,
+                "Brand logo must be a PNG, JPG or WEBP image.",
+                "Brand logo must be 2 MB or smaller.");
+    }
+
+    /** ตัวกลางบันทึกไฟล์ ใช้ร่วมกันทั้งรูปรุ่นและโลโก้ */
+    private String saveFile(MultipartFile file, String subDir, Map<String, String> allowed,
+                            long maxSize, String typeMsg, String sizeMsg) throws IOException {
         if (file == null || file.isEmpty()) return null;
 
-        String ext = IMAGE_EXT.get(file.getContentType());
+        String ext = allowed.get(file.getContentType());
         if (ext == null) {
-            throw new IllegalArgumentException("Please upload a PNG, JPG or WEBP image.");
+            throw new IllegalArgumentException(typeMsg);
         }
-        if (file.getSize() > MAX_IMAGE_SIZE) {
-            throw new IllegalArgumentException("Image must be 5 MB or smaller.");
+        if (file.getSize() > maxSize) {
+            throw new IllegalArgumentException(sizeMsg);
         }
 
         Path dir = Paths.get(uploadDir).toAbsolutePath();
+        if (subDir != null) dir = dir.resolve(subDir);
         Files.createDirectories(dir);
 
         String filename = UUID.randomUUID() + ext; // ไม่ใช้ชื่อไฟล์จากผู้ใช้
         try (InputStream in = file.getInputStream()) {
             Files.copy(in, dir.resolve(filename));
         }
-        return "/uploads/" + filename;
+        return "/uploads/" + (subDir != null ? subDir + "/" : "") + filename;
     }
 
 
@@ -113,6 +136,7 @@ public class AdminModelController {
             @RequestParam(value = "sizes", required = false) String sizes,
             @RequestParam(value = "country", required = false) String country,
             @RequestParam(value = "imageFile", required = false) MultipartFile imageFile,
+            @RequestParam(value = "brandLogo", required = false) MultipartFile brandLogo,
             HttpSession session,
             RedirectAttributes ra) {
 
@@ -134,10 +158,12 @@ public class AdminModelController {
         }
 
 
-        // อัปโหลดรูป (ทำหลังตรวจรุ่นซ้ำ จะได้ไม่เหลือไฟล์ค้างตอนบันทึกไม่ผ่าน)
+        // อัปโหลดรูป + โลโก้ (ทำหลังตรวจรุ่นซ้ำ จะได้ไม่เหลือไฟล์ค้างตอนบันทึกไม่ผ่าน)
+        String logoUrl = null;
         try {
             String uploaded = saveImage(imageFile);
             if (uploaded != null) implant.setImageUrl(uploaded);
+            logoUrl = saveBrandLogo(brandLogo);
         } catch (IllegalArgumentException e) {
             ra.addFlashAttribute("error", e.getMessage());
             return "redirect:/admin/add-model";
@@ -150,9 +176,17 @@ public class AdminModelController {
         implant.setModelName(modelName);
 
 
-        // บันทึกประเทศของแบรนด์ (ช่อง COUNTRY ในหน้า Add)
+        // บันทึกประเทศและโลโก้ของแบรนด์
+        boolean brandChanged = false;
         if (country != null && !country.isBlank()) {
             brand.setCountry(country.trim());
+            brandChanged = true;
+        }
+        if (logoUrl != null) {
+            brand.setLogoUrl(logoUrl);   // อัปโหลดใหม่ = แทนที่โลโก้เดิมของแบรนด์
+            brandChanged = true;
+        }
+        if (brandChanged) {
             brand = brandRepo.save(brand);
         }
 
@@ -197,6 +231,7 @@ public class AdminModelController {
             @RequestParam(value = "sizeValues", required = false) String sizes,
             @RequestParam(value = "country", required = false) String country,
             @RequestParam(value = "imageFile", required = false) MultipartFile imageFile,
+            @RequestParam(value = "brandLogo", required = false) MultipartFile brandLogo,
             RedirectAttributes ra) {
 
 
@@ -204,6 +239,7 @@ public class AdminModelController {
 
 
         // รูป: ไฟล์ที่อัปโหลดมาก่อน → ถ้าไม่มีดูลิงก์ใหม่ → ถ้าว่างทั้งคู่ใช้รูปเดิม
+        String logoUrl = null;
         try {
             String uploaded = saveImage(imageFile);
             if (uploaded != null) {
@@ -211,6 +247,7 @@ public class AdminModelController {
             } else if (form.getImageUrl() != null && !form.getImageUrl().isBlank()) {
                 implant.setImageUrl(form.getImageUrl());
             }
+            logoUrl = saveBrandLogo(brandLogo);
         } catch (IllegalArgumentException e) {
             ra.addFlashAttribute("error", e.getMessage());
             return "redirect:/admin/edit-model/" + id;
@@ -233,9 +270,10 @@ public class AdminModelController {
         if (form.getBrand() != null && form.getBrand().getBrandId() != null) {
             implant.setBrand(brandRepo.findById(form.getBrand().getBrandId()).orElseThrow());
         }
-        if (country != null && implant.getBrand() != null) {
+        if (implant.getBrand() != null && (country != null || logoUrl != null)) {
             Brand brand = implant.getBrand();
-            brand.setCountry(blankToNull(country));
+            if (country != null) brand.setCountry(blankToNull(country));
+            if (logoUrl != null) brand.setLogoUrl(logoUrl);
             brandRepo.save(brand);
         }
 
