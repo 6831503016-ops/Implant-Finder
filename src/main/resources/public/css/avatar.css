@@ -75,7 +75,7 @@
     flex: 1;
     margin-top: 28px;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+       grid-template-columns: repeat(6, minmax(0, 1fr));
     align-content: center;
     gap: 18px;
 }
@@ -213,7 +213,7 @@
 
 @media (max-width: 900px) {
     .avatar-main { width: min(calc(100% - 40px), 760px); }
-    .avatar-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .avatar-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 @media (max-width: 560px) {
@@ -232,7 +232,7 @@
     .avatar-current { width: 54px; height: 54px; }
     .avatar-title { font-size: 24px; }
     .avatar-description { margin-top: 5px; font-size: 13px; }
-    .avatar-grid { margin-top: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .avatar-grid { margin-top: 20px; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
     .avatar-option,
     .avatar-tile { min-height: 142px; }
     .avatar-image { width: 88px; }
