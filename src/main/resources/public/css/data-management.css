@@ -269,6 +269,86 @@
 
 .icon-btn-delete:hover { color: #DC2626; }
 
+.dm-delete-dialog {
+    width: min(400px, calc(100% - 32px));
+    padding: 32px;
+    border: 0;
+    border-radius: 20px;
+    background: var(--white);
+    color: var(--navy);
+    box-shadow: 0 24px 64px rgba(15, 23, 42, 0.24);
+}
+
+.dm-delete-dialog::backdrop {
+    background: rgba(15, 23, 42, 0.48);
+    backdrop-filter: blur(3px);
+}
+
+.dm-delete-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.dm-delete-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 18px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #FEF2F2;
+    color: #DC2626;
+}
+
+.dm-delete-icon svg { width: 30px; height: 30px; }
+
+.dm-delete-content h2 {
+    margin: 0 0 28px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.dm-delete-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.dm-delete-actions button {
+    min-width: 120px;
+    height: 44px;
+    padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--ease), border-color var(--ease), color var(--ease);
+}
+
+.dm-delete-cancel {
+    border-color: var(--line) !important;
+    background: var(--white);
+    color: var(--text);
+}
+
+.dm-delete-cancel:hover { background: #F8FAFC; }
+
+.dm-delete-confirm {
+    background: #DC2626;
+    color: var(--white);
+}
+
+.dm-delete-confirm:hover { background: #B91C1C; }
+
+.dm-delete-actions button:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+}
+
 /* สวิตช์เปิด/ปิด (สีเขียว = แสดงอยู่) */
 .switch {
     position: relative;

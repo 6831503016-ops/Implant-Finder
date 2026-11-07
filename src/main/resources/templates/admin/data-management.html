@@ -216,7 +216,7 @@
                                     </form>
 
                                     <form th:action="@{'/admin/delete/' + ${m.modelId}}" method="post">
-                                        <button type="submit"
+                                        <button type="button"
                                                 class="icon-btn icon-btn-delete"
                                                 title="Delete model"
                                                 aria-label="Delete model">
@@ -259,6 +259,22 @@
         </main>
     </div>
 </div>
+
+<dialog id="deleteModelDialog" class="dm-delete-dialog" aria-labelledby="deleteModelTitle">
+    <div class="dm-delete-content">
+        <div class="dm-delete-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 7h14M10 7V4h4v3m-7 0 1 13h8l1-13M10 11v6m4-6v6"/>
+            </svg>
+        </div>
+        <h2 id="deleteModelTitle">Delete model?</h2>
+        <div class="dm-delete-actions">
+            <button type="button" class="dm-delete-cancel" autofocus>Cancel</button>
+            <button type="button" id="confirmDeleteModel" class="dm-delete-confirm">Delete</button>
+        </div>
+    </div>
+</dialog>
 
 <!-- ===== JavaScript ===== -->
 <script th:src="@{/js/model-search.js}"></script>
