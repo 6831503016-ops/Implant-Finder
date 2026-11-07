@@ -33,15 +33,40 @@ document.querySelectorAll('.dm-thumb img').forEach(image => {
 
 
 // 3. ยืนยันก่อนลบโมเดล
-document.querySelectorAll('.icon-btn-delete').forEach(button => {
+const deleteDialog = document.getElementById('deleteModelDialog');
+const confirmDeleteButton = document.getElementById('confirmDeleteModel');
+let pendingDeleteForm = null;
 
-    button.addEventListener('click', event => {
+if (deleteDialog && confirmDeleteButton) {
+    document.querySelectorAll('.icon-btn-delete').forEach(button => {
+        button.addEventListener('click', () => {
+            pendingDeleteForm = button.closest('form');
+            if (pendingDeleteForm) {
+                deleteDialog.showModal();
+            }
+        });
+    });
 
-        const confirmed = window.confirm('Delete model?');
+    deleteDialog.querySelector('.dm-delete-cancel').addEventListener('click', () => {
+        deleteDialog.close();
+    });
 
-        // ยกเลิกการส่ง Form หากผู้ใช้กด Cancel
-        if (!confirmed) {
-            event.preventDefault();
+    confirmDeleteButton.addEventListener('click', () => {
+        if (!pendingDeleteForm) return;
+
+        const form = pendingDeleteForm;
+        pendingDeleteForm = null;
+        deleteDialog.close();
+        form.requestSubmit();
+    });
+
+    deleteDialog.addEventListener('click', event => {
+        if (event.target === deleteDialog) {
+            deleteDialog.close();
         }
     });
-});
+
+    deleteDialog.addEventListener('close', () => {
+        pendingDeleteForm = null;
+    });
+}
