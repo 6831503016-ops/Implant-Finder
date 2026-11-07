@@ -86,7 +86,7 @@
 .dm-card {
     min-height: 600px;
     margin-top: 24px;
-    overflow: visible;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     border: 1px solid #C8D1D9;
@@ -104,12 +104,13 @@
     height: 48px;
     padding: 0 12px 0 0;
     border-bottom: 1px solid var(--muted);
+    background: var(--blue-soft);
     font-size: 12px;
     font-weight: 700;
     line-height: 1.4;
     text-align: left;
     text-transform: uppercase;
-    color: var(--navy);
+    color: #000000;
 }
 
 .dm-table th.col-image { color: #000000; }
