@@ -251,7 +251,7 @@
 
 .dm-actions form { margin: 0; }
 
-.icon-btn {
+.icon-edit {
     width: 18px;
     height: 18px;
     padding: 0;
@@ -264,11 +264,32 @@
     transition: color .2s ease;
 }
 
-.icon-btn svg { width: 15px; height: 16px; }
+.icon-edit svg { width: 20px; height: 20px; }
 
-.icon-btn:hover { color: var(--blue); }
+.icon-edit:hover { color: var(--blue); }
 
-.icon-btn-delete:hover { color: #DC2626; }
+.icon-edit-delete:hover { color: #DC2626; }
+
+.icon-delete {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--navy);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+.icon-delete svg {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-delete:hover {
+    color: #DC2626;
+}
 
 .dm-delete-dialog {
     width: min(400px, calc(100% - 32px));
@@ -361,6 +382,10 @@
     background: #22A35A;
     cursor: pointer;
     transition: background-color .2s ease;
+}
+/* ปรับตำแหน่งสวิตช์หลักให้ตรงกับไอคอน */
+.dm-actions .switch {
+    transform: translate(5px, -4px);
 }
 
 .switch-knob {

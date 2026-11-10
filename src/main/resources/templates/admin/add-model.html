@@ -15,7 +15,7 @@
 
 <div class="admin-layout">
 
-    <!-- ===== เมนูข้าง ===== -->
+    <!-- ===== Sidebar ===== -->
     <aside class="sidebar">
 
         <a th:href="@{/}" class="site-logo" aria-label="Implant Finder home">
@@ -72,7 +72,7 @@
     </aside>
 
 
-    <!-- ===== เนื้อหาหลัก ===== -->
+    <!-- ===== Main Content ===== -->
     <div class="admin-main">
 
         <div class="admin-band"></div>
@@ -121,7 +121,7 @@
                 </nav>
 
 
-                <!-- ===== หัวข้อ + ปุ่ม ===== -->
+                <!-- ===== Page Header ===== -->
                 <div class="mf-head">
 
                     <h1 class="mf-title">Add Implant Model</h1>
@@ -143,14 +143,14 @@
                 </div>
 
 
-                <!-- ===== ข้อความแจ้งเตือน ===== -->
+                <!-- ===== Error Message ===== -->
                 <p th:if="${error}"
                    class="mf-error"
                    th:text="${error}">
                 </p>
 
 
-                <!-- ===== ฟอร์มเพิ่ม Implant Model ===== -->
+                <!-- ===== Add Implant Model Form ===== -->
                 <form id="addForm"
                       th:action="@{/admin/add-model}"
                       th:object="${implant}"
@@ -158,69 +158,109 @@
                       enctype="multipart/form-data"
                       class="mf-grid">
 
-                    <!-- ===== การ์ดรูปภาพ ===== -->
+
+                    <!-- =================================
+                         LEFT CARD: IMAGE UPLOAD
+                    ================================== -->
                     <section class="mf-image-card">
 
-                        <div id="dropZone"
-                             class="mf-image mf-dropzone"
-                             tabindex="0"
-                             role="button"
-                             aria-label="Upload implant picture">
+                        <!-- ===== Brand Logo ===== -->
+                        <div class="mf-brand-upload">
 
-                            <img id="imagePreview"
-                                 alt="Preview"
-                                 hidden>
+                            <span class="mf-label">Brand Logo</span>
 
-                            <span id="imagePlaceholder"
-                                  class="mf-image-placeholder">
+                            <!-- Brand Logo Box -->
+                            <div class="mf-brand-logo-box"
+                                 id="brandLogoBox"
+                                 tabindex="0"
+                                 role="button"
+                                 aria-label="Upload brand logo">
 
-                                ADD IMPLANT PICTURE
+                                <img id="brandLogoPreview"
+                                     alt="Brand logo preview"
+                                     hidden>
 
-                                <small>
-                                    Drag &amp; drop or click to browse
-                                </small>
+                                <!-- Placeholder inside the box -->
+                                <span id="brandLogoPlaceholder"
+                                      class="mf-image-placeholder-brand">
 
-                            </span>
+                                    ADD BRAND LOGO
 
-                            <button type="button"
-                                    id="removeImageBtn"
-                                    class="mf-image-remove"
-                                    aria-label="Remove image"
-                                    hidden>
-                                ✕
-                            </button>
+                                    <small>
+                                        Drag &amp; drop or click to add logo
+                                    </small>
+
+                                </span>
+
+                            </div>
+
+                            <!-- Brand Logo File -->
+                            <input type="file"
+                                   id="brandLogoFile"
+                                   name="brandLogo"
+                                   accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                                   hidden>
 
                         </div>
 
 
-                        <!-- เลือกไฟล์รูปภาพจากเครื่อง -->
-                        <input type="file"
-                               id="imageFile"
-                               name="imageFile"
-                               accept="image/png,image/jpeg,image/webp"
+                        <!-- ===== Model Image ===== -->
+                        <div class="mf-model-upload">
+
+                            <span class="mf-label">Model Image</span>
+
+                            <!-- Model Image Box -->
+                            <div id="dropZone"
+                                 class="mf-image mf-dropzone"
+                                 tabindex="0"
+                                 role="button"
+                                 aria-label="Upload implant picture">
+
+                                <img id="imagePreview"
+                                     alt="Preview"
+                                     hidden>
+
+                                <span id="imagePlaceholder"
+                                      class="mf-image-placeholder">
+
+                                    ADD IMPLANT PICTURE
+
+                                    <small>
+                                        Drag &amp; drop or click to add image
+                                    </small>
+
+                                </span>
+
+                                <button type="button"
+                                        id="removeImageBtn"
+                                        class="mf-image-remove"
+                                        aria-label="Remove image"
+                                        hidden>
+                                    ✕
+                                </button>
+
+                            </div>
+
+                            <!-- Model Image File -->
+                            <input type="file"
+                                   id="imageFile"
+                                   name="imageFile"
+                                   accept="image/png,image/jpeg,image/webp"
+                                   hidden>
+
+                            <p id="imageFileError"
+                               class="mf-size-error"
                                hidden>
+                            </p>
 
-                        <p id="imageFileError"
-                           class="mf-size-error"
-                           hidden>
-                        </p>
-
-
-                        <!-- ใส่ URL รูปภาพ -->
-                        <label for="imageUrl" class="mf-image-label">
-                            Or paste Image URL
-                        </label>
-
-                        <input id="imageUrl"
-                               type="url"
-                               th:field="*{imageUrl}"
-                               placeholder="https://example.com/image.jpg"
-                               class="mf-url-input">
+                        </div>
 
                     </section>
 
 
-                    <!-- ===== การ์ดรายละเอียด ===== -->
+                    <!-- =================================
+                         RIGHT CARD: DETAILS
+                    ================================== -->
                     <section class="mf-panel">
 
                         <p class="mf-section-label">
@@ -248,7 +288,8 @@
                                 <datalist id="brandList">
 
                                     <option th:each="b : ${brands}"
-                                            th:value="${b.brandName}">
+                                            th:value="${b.brandName}"
+                                            th:attr="data-logo=${b.logoUrl}">
                                     </option>
 
                                 </datalist>
@@ -271,30 +312,7 @@
                                        class="mf-input">
 
                             </div>
-                            <!-- Brand Logo -->
-                            <div class="mf-field mf-field-full">
-                                <span class="mf-label">Brand Logo</span>
 
-                                <div class="mf-brand-logo">
-                                    <div id="brandLogoBox" class="mf-brand-logo-box"
-                                        tabindex="0" role="button" aria-label="Upload brand logo">
-                                        <img id="brandLogoPreview" alt="Brand logo preview" hidden>
-                                        <span id="brandLogoPlaceholder">+ Logo</span>
-                                    </div>
-
-                                    <div class="mf-brand-logo-info">
-                                        <div class="mf-brand-logo-btns">
-                                            <button type="button" id="brandLogoBtn" class="btn-outline">Upload logo</button>
-                                            <button type="button" id="brandLogoRemove" class="mf-clear" hidden>Remove</button>
-                                        </div>
-                                        <p id="brandLogoHint" class="mf-hint">PNG, JPG, WebP or SVG, max 2 MB</p>
-                                        <p id="brandLogoError" class="mf-size-error" hidden></p>
-                                    </div>
-
-                                    <input type="file" id="brandLogoFile" name="brandLogo"
-                                        accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden>
-                                </div>
-                            </div>
 
                             <!-- Material -->
                             <div class="mf-field">
@@ -394,7 +412,9 @@
                         </div>
 
 
-                        <!-- ===== Implant Sizes ===== -->
+                        <!-- =================================
+                             Implant Sizes
+                        ================================== -->
                         <div class="mf-sizes">
 
                             <h2 class="mf-sizes-title">
@@ -405,12 +425,11 @@
                                 Add implant diameters and their corresponding lengths.
                             </p>
 
-                            <!-- เก็บข้อมูล Size ก่อนส่งไปยัง Controller -->
+                            <!-- Hidden Sizes Input -->
                             <input type="hidden"
                                    id="sizes"
                                    name="sizes"
                                    value="">
-
 
                             <div class="mf-size-inputs">
 
@@ -458,7 +477,7 @@
                             </div>
 
 
-                            <!-- ข้อความแจ้งเตือนเมื่อกรอก Size ไม่ถูกต้อง -->
+                            <!-- Size Error -->
                             <p id="sizeError"
                                class="mf-size-error"
                                hidden>
@@ -468,7 +487,7 @@
                             </p>
 
 
-                            <!-- แถบเครื่องมือจัดการ Size -->
+                            <!-- Size Toolbar -->
                             <div id="sizeToolbar"
                                  class="mf-size-toolbar"
                                  hidden>
@@ -484,7 +503,7 @@
                             </div>
 
 
-                            <!-- แสดงรายการ Size ที่เพิ่ม -->
+                            <!-- Size Chips -->
                             <div id="sizeChips" class="mf-chips"></div>
 
                         </div>
@@ -507,7 +526,3 @@
 
 </body>
 </html>
-<option th:each="b : ${brands}"
-        th:value="${b.brandName}"
-        th:attr="data-logo=${b.logoUrl}">
-</option>

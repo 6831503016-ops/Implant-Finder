@@ -78,7 +78,7 @@
                 </nav>
 
                 <div class="dm-top-actions">
-                    <a th:href="@{/admin/add-model}" class="btn-primary dm-add-btn">+ Add Model</a>
+                    <a th:href="@{/admin/add-model}" class="btn-primary dm-add-btn">+ Add</a>
                     <a th:href="@{/admin/preview}" class="btn-outline dm-view-btn">View as User</a>
                 </div>
             </div>
@@ -197,7 +197,7 @@
                                 <div class="dm-actions">
 
                                     <a th:href="@{'/admin/edit-model/' + ${m.modelId}}"
-                                       class="icon-btn"
+                                       class="icon-edit"
                                        title="Edit"
                                        aria-label="Edit model">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -217,7 +217,7 @@
 
                                     <form th:action="@{'/admin/delete/' + ${m.modelId}}" method="post">
                                         <button type="button"
-                                                class="icon-btn icon-btn-delete"
+                                                class="icon-delete"
                                                 title="Delete model"
                                                 aria-label="Delete model">
                                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -260,7 +260,7 @@
     </div>
 </div>
 
-<dialog id="deleteModelDialog" class="dm-delete-dialog" aria-labelledby="deleteModelTitle">
+<dialog id="deleteModelDialog" class="dm-delete-dialog" aria-labelledby="deleteModelTitle"> <!-- หน้าต้่างป๊อบอัปยืนยันลบ -->
     <div class="dm-delete-content">
         <div class="dm-delete-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
