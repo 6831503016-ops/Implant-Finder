@@ -16,6 +16,13 @@
         </a>
     </header>
 
+    <!-- ===== Toast: แสดงชั่วคราวแล้วหายเอง (เช่น หลังเปลี่ยน Avatar) ===== -->
+    <div th:if="${successMessage}" class="profile-toast" role="status" aria-live="polite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>
+        <span th:text="${successMessage}">Avatar updated successfully!</span>
+    </div>
+
     <main class="profile-page">
 
         <!-- ===== Back + Breadcrumb ===== -->
@@ -53,7 +60,6 @@
                 <input type="hidden" th:field="*{adminId}">
                 <input type="hidden" th:field="*{avatarLink}">
 
-                <p th:if="${successMessage}" class="profile-alert profile-alert-ok" th:text="${successMessage}"></p>
                 <p th:if="${errorMessage}" class="profile-alert profile-alert-error" th:text="${errorMessage}"></p>
 
                 <!-- Account -->
