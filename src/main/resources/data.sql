@@ -94,21 +94,21 @@ INSERT INTO IMPLANT_MODEL
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Astra Tech'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'OsseoSpeed Titanium'),
-    'OsseoSpeed EV', 'Bone level', 'Not specified', 'Internal Conical Connection (EV)', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20%204.5x10%20mm%20%281%29.JPG'
+    'OsseoSpeed EV', 'Bone level', 'Not specified', 'Internal Conical Connection (EV)', 'Visible', '/images/implant/anyridge%20professional%20%204.5x10%20mm%20%281%29_edit_500417377223442.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Astra Tech'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'OsseoSpeed Titanium'),
-    'OsseoSpeed TX', 'Bone level', 'Not specified', 'Internal Conical Connection', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20%204x10%20mm%20%281%29.JPG'
+    'OsseoSpeed TX', 'Bone level', 'Not specified', 'Internal Conical Connection', 'Visible', '/images/implant/anyridge%20professional%20%204x10%20mm%20%281%29_edit_500445608607444.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Astra Tech'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'OsseoSpeed Titanium'),
-    'OsseoSpeed TX Profile', 'Bone level', 'Not specified', 'Internal Conical Connection', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%203.5x10%20mm%20%281%29.JPG'
+    'OsseoSpeed TX Profile', 'Bone level', 'Not specified', 'Internal Conical Connection', 'Visible', '/images/implant/anyridge%20professional%203.5x10%20mm%20%281%29_edit_500460790791983.jpg'
 );
 
 -- DENTAURUM
@@ -117,35 +117,35 @@ INSERT INTO IMPLANT_MODEL
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Dentaurum'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Titanium Grade 5 (Ti-6Al-4V)'),
-    'tioLogic® TWINFIT Implant, Series S (Brown)', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%205x10mm%20%281%29.JPG'
+    'tioLogic® TWINFIT Implant, Series S (Brown)', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/anyridge%20professional%205x10mm%20%281%29_edit_500494873587677.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Dentaurum'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Titanium Grade 5 (Ti-6Al-4V)'),
-    'tioLogic® TWINFIT Implant, Series M (Yellow)', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20fix%203.5x10mm%20%281%29.JPG'
+    'tioLogic® TWINFIT Implant, Series M (Yellow)', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/anyridge%20professional%20fix%203.5x10mm%20%281%29_edit_500511094229525.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Dentaurum'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Titanium Grade 5 (Ti-6Al-4V)'),
-    'tioLogic® TWINFIT Implant, Series L (Red)', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20fix%204.5x10mm%20%281%29.JPG'
+    'tioLogic® TWINFIT Implant, Series L (Red)', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/anyridge%20professional%20fix%204.5x10mm%20%281%29_edit_500523085260371.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Dentaurum'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Titanium Grade 4 (Commercially Pure Titanium - cp Ti)'),
-    'tioLogic® TWINFIT Implant, Series XL (Blue)', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053409Z-1-001/super%20line%203.4mm%20x12.0mm.JPG'
+    'tioLogic® TWINFIT Implant, Series XL (Blue)', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/super%20line%203.4mm%20x12.0mm_edit_500626504297839.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Dentaurum'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Titanium Grade 4 (Commercially Pure Titanium - cp Ti)'),
-    'tioLogic® TWINFIT Implant, Series XXL (Green)', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053409Z-1-001/superline%203.8mmx12.0mm.JPG'
+    'tioLogic® TWINFIT Implant, Series XXL (Green)', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/superline%203.8mmx12.0mm_edit_500649737953225.jpg'
 );
 
 -- MEGAGEN
@@ -154,14 +154,14 @@ INSERT INTO IMPLANT_MODEL
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'MegaGen'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Grade 4 titanium'),
-    'AnyRidge', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053409Z-1-001/superline%204.3mmx12.0mm%20%282%29.JPG'
+    'AnyRidge', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/superline%204.3mmx12.0mm%20%282%29_edit_500688782010151.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'MegaGen'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Grade 4 titanium'),
-    'AnyOne External', 'Bone level', 'Not specified', 'External', 'Visible', '/images/drive-download-20261029T053409Z-1-001/superline4.8mmx12.0mm.JPG'
+    'AnyOne External', 'Bone level', 'Not specified', 'External', 'Visible', '/images/implant/superline4.8mmx12.0mm_edit_500701017639690.jpg'
 );
 
 -- MIS
@@ -170,21 +170,21 @@ INSERT INTO IMPLANT_MODEL
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'MIS'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Ti-6Al-4V ELI (Grade 23 Titanium Alloy)'),
-    'C1', 'Bone level', 'Not specified', 'Conical connection', 'Visible', '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.1x10%20mm.JPG'
+    'C1', 'Bone level', 'Not specified', 'Conical connection', 'Visible', '/images/implant/Bluediamond%204.1x10%20mm_edit_500540960383142.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'MIS'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Ti-6Al-4V ELI (Grade 23 Titanium Alloy)'),
-    'V3', 'Bone level', 'Not specified', 'Conical connection', 'Visible', '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.4x10%20mm%20%28deep%29.JPG'
+    'V3', 'Bone level', 'Not specified', 'Conical connection', 'Visible', '/images/implant/Bluediamond%204.4x10%20mm%20%28deep%29_edit_500556274200296.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'MIS'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Ti-6Al-4V ELI (Grade 23 Titanium Alloy)'),
-    'SEVEN', 'Bone level', 'Not specified', 'Internal Hexagon connection', 'Visible', '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.4x10%20mm.JPG'
+    'SEVEN', 'Bone level', 'Not specified', 'Internal Hexagon connection', 'Visible', '/images/implant/Bluediamond%204.4x10%20mm_edit_500606282765223.jpg'
 );
 
 -- NEODENT
@@ -193,49 +193,49 @@ INSERT INTO IMPLANT_MODEL
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Neodent'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Commercially Pure Titanium Grade 4 / cp Ti Grade 4'),
-    'Titamax GM', 'Bone level', 'NeoPoros Surface', 'Not specified', 'Visible', '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.8x10.0%20mm.JPG'
+    'Titamax GM', 'Bone level', 'NeoPoros Surface', 'Not specified', 'Visible', '/images/implant/Bluediamond%204.8x10.0%20mm_edit_500577235468990.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Neodent'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Commercially Pure Titanium Grade 4 / cp Ti Grade 4'),
-    'Titamax GM Acqua', 'Bone level', 'Acqua Surface', 'Not specified', 'Visible', '/images/drive-download-20261029T053453Z-1-001/Bluediamond%205.3x10%20mm.JPG'
+    'Titamax GM Acqua', 'Bone level', 'Acqua Surface', 'Not specified', 'Visible', '/images/implant/Bluediamond%205.3x10%20mm_edit_500617685459146.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Neodent'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Commercially Pure Titanium Grade 4 / cp Ti Grade 4'),
-    'Drive GM', 'Bone level', 'NeoPoros Surface', 'Not specified', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20%204.5x10%20mm%20%281%29.JPG'
+    'Drive GM', 'Bone level', 'NeoPoros Surface', 'Not specified', 'Visible', '/images/implant/anyridge%20professional%20%204.5x10%20mm%20%281%29_edit_500417377223442.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Neodent'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Commercially Pure Titanium Grade 4 / cp Ti Grade 4'),
-    'Drive GM Acqua', 'Bone level', 'Acqua Surface', 'Not specified', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20%204x10%20mm%20%281%29.JPG'
+    'Drive GM Acqua', 'Bone level', 'Acqua Surface', 'Not specified', 'Visible', '/images/implant/anyridge%20professional%20%204x10%20mm%20%281%29_edit_500445608607444.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Neodent'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Commercially Pure Titanium Grade 4 / cp Ti Grade 4'),
-    'Helix GM', 'Bone level', 'NeoPoros Surface', 'Not specified', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%203.5x10%20mm%20%281%29.JPG'
+    'Helix GM', 'Bone level', 'NeoPoros Surface', 'Not specified', 'Visible', '/images/implant/anyridge%20professional%203.5x10%20mm%20%281%29_edit_500460790791983.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Neodent'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Commercially Pure Titanium Grade 4 / cp Ti Grade 4'),
-    'Helix GM Acqua', 'Bone level', 'Acqua Surface', 'Not specified', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%205x10mm%20%281%29.JPG'
+    'Helix GM Acqua', 'Bone level', 'Acqua Surface', 'Not specified', 'Visible', '/images/implant/anyridge%20professional%205x10mm%20%281%29_edit_500494873587677.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Neodent'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Commercially Pure Titanium Grade 4 / cp Ti Grade 4'),
-    'Helix GM Long', 'Bone level', 'NeoPoros Surface', 'Not specified', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20fix%203.5x10mm%20%281%29.JPG'
+    'Helix GM Long', 'Bone level', 'NeoPoros Surface', 'Not specified', 'Visible', '/images/implant/anyridge%20professional%20fix%203.5x10mm%20%281%29_edit_500511094229525.jpg'
 );
 
 -- NEOBIOTECH
@@ -244,28 +244,28 @@ INSERT INTO IMPLANT_MODEL
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'NeoBiotech'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Ti-6Al-4V ELI, Grade 23'),
-    'S-Narrow', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053334Z-1-001/anyridge%20professional%20fix%204.5x10mm%20%281%29.JPG'
+    'S-Narrow', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/anyridge%20professional%20fix%204.5x10mm%20%281%29_edit_500523085260371.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'NeoBiotech'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Ti-6Al-4V ELI, Grade 23'),
-    'IS-III Active', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053409Z-1-001/super%20line%203.4mm%20x12.0mm.JPG'
+    'IS-III Active', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/super%20line%203.4mm%20x12.0mm_edit_500626504297839.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'NeoBiotech'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Ti-6Al-4V ELI, Grade 23'),
-    'IS-III Active S-Wide', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053409Z-1-001/superline%203.8mmx12.0mm.JPG'
+    'IS-III Active S-Wide', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/superline%203.8mmx12.0mm_edit_500649737953225.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'NeoBiotech'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Ti-6Al-4V ELI, Grade 23'),
-    'S-Mini', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053409Z-1-001/superline%204.3mmx12.0mm%20%282%29.JPG'
+    'S-Mini', 'Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/superline%204.3mmx12.0mm%20%282%29_edit_500688782010151.jpg'
 );
 
 -- PRK
@@ -274,14 +274,14 @@ INSERT INTO IMPLANT_MODEL
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'PRK'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Not specified'),
-    'PRK Dental Implant (Six Smooth Curve)', 'Not specified', 'Not specified', 'Six Smooth Curve Connection', 'Visible', '/images/drive-download-20261029T053409Z-1-001/superline4.8mmx12.0mm.JPG'
+    'PRK Dental Implant (Six Smooth Curve)', 'Not specified', 'Not specified', 'Six Smooth Curve Connection', 'Visible', '/images/implant/superline4.8mmx12.0mm_edit_500701017639690.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'PRK'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Not specified'),
-    'PRK Dental Implant (Hexagonal)', 'Not specified', 'Not specified', 'Hexagonal Connection', 'Visible', '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.1x10%20mm.JPG'
+    'PRK Dental Implant (Hexagonal)', 'Not specified', 'Not specified', 'Hexagonal Connection', 'Visible', '/images/implant/Bluediamond%204.1x10%20mm_edit_500540960383142.jpg'
 );
 
 -- STRAUMANN
@@ -290,14 +290,14 @@ INSERT INTO IMPLANT_MODEL
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Straumann'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'Roxolid'),
-    'Mini Implant', 'Tissue level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.4x10%20mm%20%28deep%29.JPG'
+    'Mini Implant', 'Tissue level', 'Not specified', 'Not specified', 'Visible', '/images/implant/Bluediamond%204.4x10%20mm%20%28deep%29_edit_500556274200296.jpg'
 );
 INSERT INTO IMPLANT_MODEL
     (brand_id, material_id, model_name, type, surface_treatment, connection_type, status, image_url)
 VALUES (
     (SELECT brand_id FROM BRAND WHERE brand_name = 'Straumann'),
     (SELECT material_id FROM MATERIAL WHERE material_name = 'ZrO2 (Zirconium dioxide ceramic)'),
-    'PURE Ceramic Implant Monotype', 'Tissue level / Bone level', 'Not specified', 'Not specified', 'Visible', '/images/drive-download-20261029T053453Z-1-001/Bluediamond%204.4x10%20mm.JPG'
+    'PURE Ceramic Implant Monotype', 'Tissue level / Bone level', 'Not specified', 'Not specified', 'Visible', '/images/implant/Bluediamond%204.4x10%20mm_edit_500606282765223.jpg'
 );
 
 -- =========================================================
