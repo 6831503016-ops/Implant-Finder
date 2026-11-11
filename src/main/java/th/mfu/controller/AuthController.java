@@ -1,9 +1,12 @@
+
 package th.mfu.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import th.mfu.domain.Admin;
 import th.mfu.repository.AdminRepository;
 
@@ -19,27 +22,66 @@ public class AuthController {
     }
 
     @PostMapping("/admin/login")
-    public String login(@RequestParam String email, @RequestParam String password, HttpSession session) {
+    public String login(
+            @RequestParam String email,
+            @RequestParam String password,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
         String cleanInput = email != null ? email.trim() : "";
-        Admin admin = adminRepo.findByEmailOrUsername(cleanInput, cleanInput).orElse(null);
+
+        Admin admin = adminRepo
+                .findByEmailOrUsername(cleanInput, cleanInput)
+                .orElse(null);
 
         if (admin != null && admin.getPasswordHash().equals(password.trim())) {
 
-            // ถ้ายังเป็นรูปเก่า (เช่น ลิงก์ dicebear) หรือว่าง → เปลี่ยนเป็นรูป avatar ใหม่ในโฟลเดอร์ แล้วบันทึกลง DB
-            if (admin.getAvatarLink() == null || !ProfileController.AVATARS.contains(admin.getAvatarLink())) {
+            // Preserve existing avatar handling
+            if (admin.getAvatarLink() == null ||
+                    !ProfileController.AVATARS.contains(admin.getAvatarLink())) {
+
                 admin.setAvatarLink(ProfileController.AVATARS.get(0));
                 admin = adminRepo.save(admin);
             }
 
             session.setAttribute("admin", admin);
+
+            // Login success notification
+            redirectAttributes.addFlashAttribute(
+                    "notificationMessage",
+                    "Welcome back, Admin!"
+            );
+
+            redirectAttributes.addFlashAttribute(
+                    "notificationType",
+                    "success"
+            );
+
             return "redirect:/admin/data-management";
         }
+
+        // Preserve existing unsuccessful login behavior
         return "redirect:/admin/login?error=true";
     }
 
     @GetMapping("/admin/logout")
-    public String logout(HttpSession session) {
+    public String logout(
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
         session.invalidate();
+
+        // Logout success notification
+        redirectAttributes.addFlashAttribute(
+                "notificationMessage",
+                "You have been logged out successfully."
+        );
+
+        redirectAttributes.addFlashAttribute(
+                "notificationType",
+                "success"
+        );
+
         return "redirect:/";
     }
 }

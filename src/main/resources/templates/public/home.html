@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Implant Finder — Find the right implant</title>
-
+    <link rel="stylesheet" th:href="@{/css/admin-notifications.css}">
     <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/homepage.css}">
     <link rel="stylesheet" th:href="@{/css/contact-popup.css}">
 </head>
 <body class="home-page">
 
+<div th:replace="~{admin/fragment :: notifications}"></div>
     <!-- ===== Navbar ===== -->
     <nav class="topbar">
         <a th:href="@{/}" class="site-logo" aria-label="Implant Finder home">
@@ -162,6 +163,6 @@
 
     <!-- ปุ่มติดต่อ admin -->
     <script th:src="@{/js/contact-popup.js}"></script>
-
+    <script th:src="@{/js/admin-notifications.js}"></script>
 </body>
 </html>

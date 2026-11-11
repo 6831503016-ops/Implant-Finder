@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
 <!-- =========================================================
      เมนูข้างของหน้า Admin (ใช้ร่วมกัน: data-management, add-model, edit-model)
-     เรียกใช้:  <aside th:replace="~{admin/fragments :: sidebar('data')}"></aside>
+     เรียกใช้: <aside th:replace="~{admin/fragments :: sidebar('data')}"></aside>
 ========================================================= -->
 <aside th:fragment="sidebar(active)" class="sidebar">
 
@@ -52,12 +53,41 @@
 
 <!-- ลูกศร breadcrumb -->
 <svg th:fragment="chev" class="chev" viewBox="0 0 11 16" fill="none" stroke="currentColor" stroke-width="2.4"
-     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.5 8.5 8 3 13.5"/></svg>
+     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3 2.5 8.5 8 3 13.5"/>
+</svg>
 
 <!-- ปุ่มย้อนกลับ (ลูกศร) -->
 <svg th:fragment="back-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
     <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6-6m-6 6l6 6"/>
 </svg>
+
+<!-- =========================================================
+     Notification fragment (ใช้ร่วมกัน: Admin และ Public pages)
+     เรียกใช้: <div th:replace="~{admin/fragments :: notifications}"></div>
+========================================================= -->
+<div th:fragment="notifications"
+     th:if="${notificationMessage}"
+     class="admin-notification-region">
+
+    <div class="admin-notification"
+         th:classappend="${notificationType == 'success'} ? ' is-success' : ' is-error'">
+
+        <div class="admin-notification-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12l5 5L20 7"/>
+            </svg>
+        </div>
+
+        <span class="admin-notification-message"
+              th:text="${notificationMessage}"></span>
+
+        <button type="button"
+                class="admin-notification-close"
+                aria-label="Close notification">&times;</button>
+    </div>
+</div>
 
 </body>
 </html>
