@@ -45,7 +45,7 @@ public class PublicController {
     public String brandModels(@PathVariable Long id, Model model) {
         model.addAttribute("brand", brandRepo.findById(id).orElse(null));
         model.addAttribute("models", modelRepo.findByBrandBrandId(id).stream()
-               
+                .filter(ImplantService::isPublic)
                 .toList());
         return "public/brand-models";
     }
@@ -59,11 +59,14 @@ public class PublicController {
                               @RequestParam(required = false) BigDecimal fromL,
                               Model model) {
         ImplantModel implant = modelRepo.findById(id).orElse(null);
+        if (implant == null || !isPublic(implant)) {
+            return "redirect:/";
+        }
         model.addAttribute("implant", implant);
 
         // มาจากการกดรุ่นแนะนำ → จำรุ่น/ขนาดก่อนหน้า เพื่อแสดงใน breadcrumb
         if (from != null && !from.equals(id)) {
-            modelRepo.findById(from).ifPresent(prev -> {
+            modelRepo.findById(from).filter(this::isPublic).ifPresent(prev -> {
                 model.addAttribute("fromModel", prev);
                 String link = "/model/" + prev.getModelId();
                 if (fromD != null && fromL != null) {
