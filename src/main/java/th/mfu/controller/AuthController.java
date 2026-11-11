@@ -24,6 +24,13 @@ public class AuthController {
         Admin admin = adminRepo.findByEmailOrUsername(cleanInput, cleanInput).orElse(null);
 
         if (admin != null && admin.getPasswordHash().equals(password.trim())) {
+
+            // ถ้ายังเป็นรูปเก่า (เช่น ลิงก์ dicebear) หรือว่าง → เปลี่ยนเป็นรูป avatar ใหม่ในโฟลเดอร์ แล้วบันทึกลง DB
+            if (admin.getAvatarLink() == null || !ProfileController.AVATARS.contains(admin.getAvatarLink())) {
+                admin.setAvatarLink(ProfileController.AVATARS.get(0));
+                admin = adminRepo.save(admin);
+            }
+
             session.setAttribute("admin", admin);
             return "redirect:/admin/data-management";
         }

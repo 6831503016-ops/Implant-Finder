@@ -49,7 +49,7 @@
     align-items: start;
 }
 
-/* ---------- การ์ดรูป ---------- */
+/* ---------- การ์ดรูป (ใช้ในหน้า Edit) ---------- */
 .mf-image-card {
     min-height: 567px;
     padding: 33px 23px 29px;
@@ -354,6 +354,7 @@
     background: rgba(10, 31, 68, .75);
     color: #fff;
     cursor: pointer;
+    z-index: 2;
 }
 
 .mf-image-remove:hover { background: var(--navy); }
@@ -417,4 +418,136 @@
 
 @media (max-width: 720px) {
     .mf-field-full { grid-column: auto; }
+}
+
+
+/* =========================================================
+   Add Model — คอลัมน์ซ้าย: กล่องโลโก้ (บน) + กล่องรูปโมเดล (ล่าง)
+   คอลัมน์ซ้ายสูงเท่าการ์ดรายละเอียดด้านขวา
+========================================================= */
+.mf-media {
+    align-self: stretch;          /* ยืดตามความสูงการ์ดขวา */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mf-media-card {
+    padding: 18px 20px 20px;
+    border: 3px solid var(--line);
+    border-radius: 24px;
+    background: var(--white);
+}
+
+/* การ์ด Model กินพื้นที่ที่เหลือทั้งหมด */
+.mf-media-card-grow {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.mf-media-head {
+    min-height: 22px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mf-media-clear {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.mf-media-clear:hover { color: #DC2626; }
+.mf-media-clear[hidden] { display: none; }
+
+.mf-logo-drop,
+.mf-model-drop {
+    position: relative;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 2px dashed var(--line);
+    border-radius: 16px;
+    background: #F7FAFF;
+    cursor: pointer;
+    transition: border-color .2s ease, background-color .2s ease;
+}
+
+.mf-logo-drop:hover,
+.mf-logo-drop:focus-visible,
+.mf-model-drop:hover,
+.mf-model-drop:focus-visible {
+    border-color: var(--blue);
+    outline: none;
+}
+
+.mf-logo-drop.is-dragover,
+.mf-model-drop.is-dragover {
+    border-color: var(--blue);
+    background: var(--light-blue);
+}
+
+/* Logo = กล่องแนวนอน */
+.mf-logo-drop { aspect-ratio: 3 / 1; }
+
+.mf-logo-drop img {
+    width: 100%;
+    height: 100%;
+    padding: 12px 18px;
+    object-fit: contain;
+}
+
+/* Model = ยืดเต็มความสูงที่เหลือ */
+.mf-model-drop {
+    flex: 1;
+    min-height: 260px;
+}
+
+/* รูปวางแบบ absolute เพื่อไม่ให้ขนาดรูปดันความสูงกรอบ */
+.mf-model-drop img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: var(--white);
+}
+
+.mf-logo-drop img[hidden],
+.mf-model-drop img[hidden],
+.mf-drop-placeholder[hidden] { display: none; }
+
+.mf-drop-placeholder {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: var(--muted);
+}
+
+.mf-drop-placeholder small {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+.mf-media-card .mf-hint,
+.mf-media-card .mf-size-error { text-align: center; }
+
+@media (max-width: 1100px) {
+    .mf-model-drop {
+        flex: none;
+        aspect-ratio: 1 / 1.05;
+    }
 }

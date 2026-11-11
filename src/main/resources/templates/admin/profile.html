@@ -38,9 +38,9 @@
 
             <!-- ซ้าย: Avatar -->
             <aside class="profile-side">
-                <img class="profile-avatar"
-                     th:src="${#strings.isEmpty(admin.avatarLink)} ? '/images/avatars/avatar1.png' : ${admin.avatarLink}"
-                     alt="Admin avatar">
+               <img class="profile-avatar"
+     th:src="${admin.avatarLink != null and #strings.startsWith(admin.avatarLink, '/images/avatars/')} ? @{${admin.avatarLink}} : @{/images/avatars/avatar1.png}"
+     alt="Admin avatar">
 
                 <h2 class="profile-name" th:text="${#strings.isEmpty(admin.fullName)} ? 'Admin User' : ${admin.fullName}">Admin User</h2>
                 <p class="profile-username" th:text="${admin.username}">@implantadmin</p>

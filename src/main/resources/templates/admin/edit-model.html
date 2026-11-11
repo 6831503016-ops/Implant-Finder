@@ -21,7 +21,7 @@
             <a th:href="@{/admin/profile}" class="side-link">
                 <span class="side-icon">
                     <img class="side-avatar"
-                         th:src="${session.admin != null and !#strings.isEmpty(session.admin.avatarLink)} ? ${session.admin.avatarLink} : 'https://api.dicebear.com/7.x/personas/svg?seed=Admin1&backgroundColor=efe9df'"
+                         th:src="${session.admin != null and session.admin.avatarLink != null and #strings.startsWith(session.admin.avatarLink, '/images/avatars/')} ? @{${session.admin.avatarLink}} : @{/images/avatars/avatar1.png}"
                          alt="Admin avatar">
                 </span>
                 <span>Admin</span>
@@ -40,7 +40,7 @@
             </a>
 
             <a th:href="@{/admin/logout}" class="side-link"
-   onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}">
+               onclick="try { sessionStorage.removeItem('adminPreview'); } catch (e) {}">
                 <span class="side-icon">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                          stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -89,30 +89,97 @@
                 <form id="editForm" th:action="@{'/admin/edit-model/' + ${implant.modelId}}"
                       th:object="${implant}" method="post" enctype="multipart/form-data" class="mf-grid">
 
-                    <!-- การ์ดรูป -->
-                    <section class="mf-image-card">
-                        <div id="dropZone" class="mf-image mf-dropzone" tabindex="0" role="button"
-                             aria-label="Upload implant picture">
-                            <img id="imagePreview" alt="Implant model image"
-                                 th:src="${!#strings.isEmpty(implant.imageUrl)} ? @{${implant.imageUrl}}"
-                                 th:hidden="${#strings.isEmpty(implant.imageUrl)}">
-                            <span id="imagePlaceholder" class="mf-image-placeholder"
-                                  th:hidden="${!#strings.isEmpty(implant.imageUrl)}">
-                                ADD IMPLANT PICTURE
-                                <small>Drag &amp; drop or click to browse</small>
-                            </span>
-                            <button type="button" id="removeImageBtn" class="mf-image-remove"
-                                    aria-label="Undo image change" title="Undo image change" hidden>✕</button>
-                        </div>
+                    <!-- =================================
+                         LEFT COLUMN: Logo (บน) + Model image (ล่าง) — เหมือนหน้า Add
+                    ================================== -->
+                    <div class="mf-media">
 
-                        <input type="file" id="imageFile" name="imageFile"
-                               accept="image/png,image/jpeg,image/webp" hidden>
-                        <p id="imageFileError" class="mf-size-error" hidden></p>
+                        <!-- ===== Brand Logo ===== -->
+                        <section class="mf-media-card">
 
-                        <label for="imageUrl" class="mf-image-label">Or paste Image URL</label>
-                        <input type="text" id="imageUrl" th:field="*{imageUrl}"
-                               placeholder="https://example.com/image.jpg" class="mf-url-input">
-                    </section>
+                            <div class="mf-media-head">
+                                <span class="mf-label">Brand Logo</span>
+                                <button type="button" id="brandLogoRemove"
+                                        class="mf-media-clear" hidden>
+                                    Remove
+                                </button>
+                            </div>
+
+                            <div class="mf-logo-drop"
+                                 id="brandLogoBox"
+                                 tabindex="0"
+                                 role="button"
+                                 aria-label="Upload brand logo">
+
+                                <img id="brandLogoPreview" alt="Brand logo preview" hidden>
+
+                                <span id="brandLogoPlaceholder" class="mf-drop-placeholder">
+                                    LOGO
+                                    <small>Click or drop logo here</small>
+                                </span>
+                            </div>
+
+                            <input type="file"
+                                   id="brandLogoFile"
+                                   name="brandLogo"
+                                   accept="image/png,image/jpeg,image/webp"
+                                   hidden>
+
+                            <p id="brandLogoHint" class="mf-hint">
+                                PNG, JPG or WEBP · max 2 MB
+                            </p>
+
+                            <p id="brandLogoError" class="mf-size-error" hidden></p>
+
+                        </section>
+
+
+                        <!-- ===== Model Image ===== -->
+                        <section class="mf-media-card mf-media-card-grow">
+
+                            <div class="mf-media-head">
+                                <span class="mf-label">Model Image</span>
+                            </div>
+
+                            <div id="dropZone"
+                                 class="mf-model-drop"
+                                 tabindex="0"
+                                 role="button"
+                                 aria-label="Upload implant picture">
+
+                                <img id="imagePreview" alt="Implant model image"
+                                     th:src="${!#strings.isEmpty(implant.imageUrl)} ? @{${implant.imageUrl}}"
+                                     th:hidden="${#strings.isEmpty(implant.imageUrl)}">
+
+                                <span id="imagePlaceholder" class="mf-drop-placeholder"
+                                      th:hidden="${!#strings.isEmpty(implant.imageUrl)}">
+                                    MODEL
+                                    <small>Click or drop implant picture here</small>
+                                </span>
+
+                                <button type="button"
+                                        id="removeImageBtn"
+                                        class="mf-image-remove"
+                                        aria-label="Undo image change"
+                                        title="Undo image change"
+                                        hidden>
+                                    ✕
+                                </button>
+                            </div>
+
+                            <input type="file"
+                                   id="imageFile"
+                                   name="imageFile"
+                                   accept="image/png,image/jpeg,image/webp"
+                                   hidden>
+
+                            <p class="mf-hint">Click the image to replace it · PNG, JPG or WEBP · max 5 MB</p>
+
+                            <p id="imageFileError" class="mf-size-error" hidden></p>
+
+                        </section>
+
+                    </div>
 
                     <!-- การ์ดรายละเอียด -->
                     <section class="mf-panel">
@@ -124,6 +191,7 @@
                                 <select id="brand" name="brand.brandId" class="mf-input mf-select">
                                     <option value="">Select Brand</option>
                                     <option th:each="b : ${brands}" th:value="${b.brandId}" th:text="${b.brandName}"
+                                            th:attr="data-logo=${b.logoUrl}"
                                             th:selected="${implant.brand != null and implant.brand.brandId == b.brandId}"></option>
                                 </select>
                             </div>

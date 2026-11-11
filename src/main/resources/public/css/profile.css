@@ -10,7 +10,8 @@
 }
 
 .profile-page {
-    width: min(1120px, calc(100% - 64px));
+    width: min(1440px, calc(100% - 64px));   /* กว้างเท่าหน้า Choose Avatar */
+    min-height: calc(100vh - 68px);          /* สูงเต็มจอเท่าหน้า Choose Avatar */
     margin: 0 auto;
     padding: 24px 0 32px;
     display: flex;
@@ -20,10 +21,11 @@
 
 /* ---------- กล่องหลัก ---------- */
 .profile-card {
+    flex: 1;                                 /* ยืดกล่องเต็มความสูงที่เหลือ */
     display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 40px;
-    padding: 40px 44px;
+    grid-template-columns: 300px 1fr;
+    gap: 48px;
+    padding: clamp(24px, 4vw, 56px);         /* padding เท่าหน้า Choose Avatar */
     border: 1px solid rgba(191, 209, 247, 0.65);
     border-radius: 28px;
     background: var(--white);
@@ -155,7 +157,8 @@
 
 /* ---------- ปุ่มล่าง ---------- */
 .profile-actions {
-    margin-top: 28px;
+    margin-top: auto;                        /* ปุ่มชิดล่างเหมือนหน้า Choose Avatar */
+    padding-top: 28px;
     display: flex;
     justify-content: flex-end;
     gap: 14px;

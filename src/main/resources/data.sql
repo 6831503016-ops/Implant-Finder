@@ -69,7 +69,7 @@ VALUES (
 -- 2. ADMIN
 INSERT INTO ADMIN (full_name, username, email, password_hash, avatar_link)
 VALUES ('Admin User', '@implantadmin', 'admin@implant.com', '123456',
-'https://api.dicebear.com/7.x/personas/svg?seed=Admin1&backgroundColor=efe9df');
+'/images/avatars/avatar1.png');
 -- =========================================================
 -- 3. MATERIAL
 -- =========================================================

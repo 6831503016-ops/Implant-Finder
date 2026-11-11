@@ -1,6 +1,6 @@
 /* =========================================================
    model-form.js — ใช้ร่วมกันในหน้า Add Implant Model และ Edit Model
-   - พรีวิวรูปจาก Image URL / ไฟล์ (คลิก + ลากวาง)
+   - พรีวิวรูปจากไฟล์ (คลิก + ลากวาง)
    - เพิ่ม/ลบขนาด (Diameter + Lengths) เป็นชิป แล้วเก็บลง input ซ่อน #sizes
    - อัปโหลดโลโก้แบรนด์ (คลิก + ลากวาง) และแสดงโลโก้เดิมของแบรนด์ที่มีอยู่
 ========================================================= */
@@ -10,7 +10,7 @@
 ========================================================= */
 (function () {
     // ---------- พรีวิวรูป ----------
-    const imageUrlInput = document.getElementById('imageUrl');
+    const imageUrlInput = document.getElementById('imageUrl');   // ไม่มีแล้วก็ไม่เป็นไร
     const preview = document.getElementById('imagePreview');
     const placeholder = document.getElementById('imagePlaceholder');
     const dropZone = document.getElementById('dropZone');
@@ -248,11 +248,14 @@
 
     const img = document.getElementById('brandLogoPreview');
     const placeholder = document.getElementById('brandLogoPlaceholder');
-    const uploadBtn = document.getElementById('brandLogoBtn');
+    const uploadBtn = document.getElementById('brandLogoBtn');      // อาจไม่มีในบางหน้า
     const removeBtn = document.getElementById('brandLogoRemove');
     const errorEl = document.getElementById('brandLogoError');
     const hintEl = document.getElementById('brandLogoHint');
-    const brandInput = document.getElementById('brandName');
+
+    // หน้า Add ใช้ input#brandName + datalist, หน้า Edit ใช้ select#brand
+    const brandInput = document.getElementById('brandName') || document.getElementById('brand');
+    const isSelect = brandInput && brandInput.tagName === 'SELECT';
     const options = document.querySelectorAll('#brandList option');
 
     const TYPES = ['image/png', 'image/jpeg', 'image/webp'];
@@ -261,6 +264,7 @@
     let objectUrl = null;
 
     function setError(msg) {
+        if (!errorEl) return;
         errorEl.textContent = msg || '';
         errorEl.hidden = !msg;
     }
@@ -273,7 +277,7 @@
         img.src = src;
         img.hidden = false;
         placeholder.hidden = true;
-        removeBtn.hidden = !canRemove;
+        if (removeBtn) removeBtn.hidden = !canRemove;
     }
 
     function clear() {
@@ -282,7 +286,7 @@
         img.removeAttribute('src');
         img.hidden = true;
         placeholder.hidden = false;
-        removeBtn.hidden = true;
+        if (removeBtn) removeBtn.hidden = true;
     }
 
     function handleFile(file) {
@@ -303,9 +307,13 @@
         show(objectUrl, true);
     }
 
-    // แสดงโลโก้เดิมของแบรนด์ที่มีอยู่แล้ว (ดึงจาก data-logo ใน datalist)
+    // แสดงโลโก้เดิมของแบรนด์ที่มีอยู่แล้ว (ดึงจาก data-logo)
     function existingLogo() {
         if (!brandInput) return '';
+        if (isSelect) {
+            const opt = brandInput.selectedOptions[0];
+            return (opt && opt.dataset.logo) || '';
+        }
         const name = brandInput.value.trim().toLowerCase();
         const match = [...options].find(o => o.value.trim().toLowerCase() === name);
         return (match && match.dataset.logo) || '';
@@ -324,7 +332,7 @@
     }
 
     box.addEventListener('click', () => fileInput.click());
-    uploadBtn.addEventListener('click', () => fileInput.click());
+    if (uploadBtn) uploadBtn.addEventListener('click', () => fileInput.click());
     box.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -353,11 +361,14 @@
     });
 
     // ปุ่ม Remove = ยกเลิกไฟล์ที่เลือก แล้วกลับไปโลโก้เดิมของแบรนด์ (ถ้ามี)
-    removeBtn.addEventListener('click', () => {
-        setError('');
-        clear();
-        syncWithBrand();
-    });
+    if (removeBtn) {
+        removeBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            setError('');
+            clear();
+            syncWithBrand();
+        });
+    }
 
     if (img) img.addEventListener('error', clear);
     if (brandInput) {

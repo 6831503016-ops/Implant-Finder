@@ -40,10 +40,10 @@
         <!-- ===== กรอบหลัก ===== -->
         <section class="avatar-card">
 
-            <!-- หัวกรอบ: รูปที่เลือกอยู่ + หัวข้อ -->
+                       <!-- หัวกรอบ: รูปที่เลือกอยู่ + หัวข้อ -->
             <header class="avatar-head">
                 <img id="avatarPreview" class="avatar-current"
-                     th:src="${admin.avatarLink}" alt="Selected avatar">
+                     th:src="${admin.avatarLink != null and #strings.startsWith(admin.avatarLink, '/images/avatars/')} ? @{${admin.avatarLink}} : @{/images/avatars/avatar1.png}" alt="Selected avatar">
                 <div>
                     <h1 class="avatar-title">Choose Your Avatar</h1>
                     <p class="avatar-description">Select your favorite avatar and confirm your choice.</p>
