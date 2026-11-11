@@ -102,7 +102,43 @@
     font-weight: 700;
 }
 
-.profile-alert-ok { background: #E7F7EE; color: #15803D; }
+/* ---------- Toast (ป๊อปอัปชั่วคราว) ---------- */
+.profile-toast {
+    position: fixed;
+    top: 84px;                               /* อยู่ใต้ topbar (สูง 68px) */
+    left: 50%;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    background: #E7F7EE;
+    color: #15803D;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: var(--shadow-float);
+    pointer-events: none;                    /* ไม่บังการคลิกของหน้า */
+    /* เลื่อนลงมา → อยู่ 3 วินาที → จางหาย (รวม ~4 วินาที) */
+    animation: profile-toast 4s ease forwards;
+}
+
+.profile-toast svg { width: 18px; height: 18px; flex: none; }
+
+@keyframes profile-toast {
+    0%   { opacity: 0; transform: translate(-50%, -16px); visibility: visible; }
+    8%   { opacity: 1; transform: translate(-50%, 0); }
+    85%  { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -8px); visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .profile-toast { animation-name: profile-toast-fade; }
+    @keyframes profile-toast-fade {
+        0%, 85% { opacity: 1; transform: translateX(-50%); visibility: visible; }
+        100%    { opacity: 0; transform: translateX(-50%); visibility: hidden; }
+    }
+}
 .profile-alert-error { background: #FDECEC; color: #DC2626; }
 
 .profile-section-title {

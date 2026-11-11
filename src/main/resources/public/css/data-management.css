@@ -249,43 +249,40 @@
     gap: 13px;
 }
 
-.dm-actions form { margin: 0; }
+.dm-actions form {
+    margin: 0;
+    display: flex;          /* stops the button sitting on a text baseline inside a block form */
+    align-items: center;
+}
 
-.icon-edit {
-    width: 18px;
-    height: 18px;
+.icon-edit,
+.icon-delete {
+    width: 28px;            /* identical hit-box so all icons share one centre line */
+    height: 28px;
     padding: 0;
     border: 0;
     background: transparent;
-    color: var(--gray);
-    display: grid;
-    place-items: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: color .2s ease;
 }
 
-.icon-edit svg { width: 20px; height: 20px; }
+.icon-edit { color: var(--gray); }
+
+.icon-edit svg,
+.icon-delete svg {
+    width: 20px;
+    height: 20px;
+    display: block;         /* removes inline-svg gap */
+}
 
 .icon-edit:hover { color: var(--blue); }
 
 .icon-edit-delete:hover { color: #DC2626; }
 
-.icon-delete {
-    width: 24px;
-    height: 24px;
-    padding: 0;
-    border: none;
-    background: transparent;
-    color: var(--navy);
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-}
-
-.icon-delete svg {
-    width: 20px;
-    height: 20px;
-}
+.icon-delete { color: var(--navy); }
 
 .icon-delete:hover {
     color: #DC2626;
@@ -382,10 +379,6 @@
     background: #22A35A;
     cursor: pointer;
     transition: background-color .2s ease;
-}
-/* ปรับตำแหน่งสวิตช์หลักให้ตรงกับไอคอน */
-.dm-actions .switch {
-    transform: translate(5px, -4px);
 }
 
 .switch-knob {
