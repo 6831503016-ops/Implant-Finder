@@ -149,7 +149,7 @@
     transition: background-color .2s ease;
 }
 
-.login-button:hover { background: var(--hover-blue); }
+.login-button:hover { background: #1D4ED8; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
