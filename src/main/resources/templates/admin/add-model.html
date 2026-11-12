@@ -6,11 +6,15 @@
 
     <title>Add Implant Model</title>
 
+    <link rel="stylesheet" th:href="@{/css/admin-notifications.css}">
     <link rel="stylesheet" th:href="@{/css/base.css}">
     <link rel="stylesheet" th:href="@{/css/model-form.css}">
 </head>
 
 <body>
+
+<!-- Pop-up แจ้งผล (เช่น Duplicated brand) -->
+<div th:replace="~{admin/fragment :: notifications}"></div>
 
 <div class="admin-layout">
 
@@ -347,6 +351,7 @@
 
 <!-- ===== JavaScript ===== -->
 <script th:src="@{/js/model-form.js}"></script>
+<script th:src="@{/js/admin-notifications.js}"></script>
 
 </body>
 </html>
