@@ -1,6 +1,7 @@
 
 /* =========================================
    ADMIN NOTIFICATION TOAST
+   Profile Toast Inspired Design
 ========================================= */
 
 .admin-notification-region {
@@ -11,40 +12,52 @@
     z-index: 9999;
 
     width: min(405px, calc(100vw - 32px));
+
+    pointer-events: none;
 }
 
 .admin-notification {
     width: 100%;
-    min-height: 58px;
-    padding: 10px 16px;
+    min-height: 48px;
+    padding: 12px 20px;
 
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 
     box-sizing: border-box;
 
-    background: #0c36aa;
-    color: #FFFFFF;
+    background: #E7F7EE;
+    color: #15803D;
 
-    border-left: 4px solid #0c36aa;
-    border-radius: 10px;
+    border: none;
+    border-radius: 999px;
 
-    /* Flat appearance */
-    box-shadow: none;
+    box-shadow: 0 8px 24px rgba(30, 64, 175, 0.12);
 
-    animation: notification-appear .25s ease;
+    pointer-events: auto;
+
+    animation: admin-notification-appear .3s ease;
     transition: opacity .25s ease, transform .25s ease;
 }
 
-.admin-notification.is-error {
-    background: #DC2626;
-    border-left-color: #B91C1C;
+/* Success Notification */
+.admin-notification:not(.is-error) {
+    background: #E7F7EE;
+    color: #15803D;
 }
 
+/* Error Notification */
+.admin-notification.is-error {
+    background: #FDECEC;
+    color: #DC2626;
+}
+
+/* Icon */
 .admin-notification-icon {
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
+
     flex-shrink: 0;
 
     display: flex;
@@ -52,7 +65,7 @@
     justify-content: center;
 
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.25);
+    background: transparent;
 }
 
 .admin-notification-icon svg {
@@ -60,17 +73,20 @@
     height: 18px;
 }
 
+/* Message */
 .admin-notification-message {
     flex: 1;
 
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.4;
 }
 
+/* Close Button */
 .admin-notification-close {
     width: 24px;
     height: 24px;
+
     flex-shrink: 0;
 
     padding: 0;
@@ -81,7 +97,7 @@
     justify-content: center;
 
     background: transparent;
-    color: #FFFFFF;
+    color: inherit;
 
     font-size: 21px;
     line-height: 1;
@@ -90,20 +106,20 @@
 }
 
 .admin-notification-close:hover {
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
-/* Hide animation */
+/* Hide Animation */
 .admin-notification.is-hiding {
     opacity: 0;
     transform: translateY(-8px);
 }
 
-/* Appear animation */
-@keyframes notification-appear {
+/* Appear Animation */
+@keyframes admin-notification-appear {
     from {
         opacity: 0;
-        transform: translateY(-8px);
+        transform: translateY(-16px);
     }
 
     to {
@@ -117,5 +133,17 @@
     .admin-notification-region {
         top: 16px;
         width: calc(100vw - 32px);
+    }
+
+    .admin-notification {
+        padding: 11px 16px;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .admin-notification {
+        animation: none;
+        transition: opacity .2s ease;
     }
 }
