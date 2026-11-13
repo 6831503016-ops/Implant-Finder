@@ -532,7 +532,7 @@ body {
     min-height: 54px;
     padding: 12px 24px;
     color: #FFFFFF;
-    background-color: #1D63EE;
+    background-color: #2563EB;
     border: none;
     border-radius: 12px;
     font-family: inherit;
@@ -544,7 +544,7 @@ body {
 }
 
 .mf-add-size:hover {
-    background-color: #1650C8;
+    background-color: #1D4ED8;
 }
 
 

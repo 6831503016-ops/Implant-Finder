@@ -544,7 +544,7 @@ select {
 .add-size-button {
     padding: 12px 20px;
     color: #ffffff;
-    background-color: #1D63EE;
+    background-color: #2563EB;
     border: none;
     border-radius: 12px;
     font-size: 14px;
@@ -556,7 +556,7 @@ select {
 }
 
 .add-size-button:hover {
-    background-color: #1650C8;
+    background-color: #1D4ED8;
 }
 
 

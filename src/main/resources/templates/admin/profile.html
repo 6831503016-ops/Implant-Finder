@@ -16,7 +16,7 @@
         </a>
     </header>
 
-    <!-- ===== Toast: แสดงชั่วคราวแล้วหายเอง (เช่น หลังเปลี่ยน Avatar) ===== -->
+    <!-- ===== Toast: แสดงชั่วคราวแล้วหายเอง (เช่น หลังเปลี่ยน Avatar / Password) ===== -->
     <div th:if="${successMessage}" class="profile-toast" role="status" aria-live="polite">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>
@@ -89,12 +89,12 @@
                     <div class="profile-field">
                         <label for="newPassword" class="profile-label">New password</label>
                         <input type="password" id="newPassword" name="newPassword" class="profile-input"
-                               autocomplete="new-password">
+                               minlength="6" maxlength="10" autocomplete="new-password">
                     </div>
                     <div class="profile-field">
                         <label for="confirmPassword" class="profile-label">Confirm password</label>
                         <input type="password" id="confirmPassword" name="confirmPassword" class="profile-input"
-                               autocomplete="new-password">
+                               maxlength="10" autocomplete="new-password">
                     </div>
                     <div class="profile-field">
                         <label for="currentPassword" class="profile-label">Current password</label>
@@ -112,5 +112,6 @@
         </section>
     </main>
 
+    <script th:src="@{/js/profile-password.js}"></script>
 </body>
 </html>

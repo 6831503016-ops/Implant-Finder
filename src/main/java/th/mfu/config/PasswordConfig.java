@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
 package th.mfu.config;
 
 import org.springframework.context.annotation.Bean;

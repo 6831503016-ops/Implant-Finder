@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import th.mfu.domain.Admin;
@@ -38,8 +39,13 @@ public class AuthController {
                 .findByEmailOrUsername(cleanInput, cleanInput)
                 .orElse(null);
 
+<<<<<<< HEAD
         if (admin != null && admin.getPasswordHash() != null
                 && passwordEncoder.matches(password, admin.getPasswordHash())) {
+=======
+         if (admin != null &&
+        passwordEncoder.matches(password.trim(), admin.getPasswordHash())) {
+>>>>>>> origin/main
 
             // Preserve existing avatar handling
             if (admin.getAvatarLink() == null ||
