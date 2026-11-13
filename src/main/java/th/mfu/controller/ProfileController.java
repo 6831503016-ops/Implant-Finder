@@ -3,6 +3,7 @@ package th.mfu.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,9 @@ public class ProfileController {
 
     @Autowired
     private AdminRepository adminRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @GetMapping("/profile")
@@ -77,8 +81,9 @@ public class ProfileController {
 
 
         // เปลี่ยนรหัสผ่าน (ถ้ากรอก New password)
-        if (newPassword != null && !newPassword.isBlank()) {
-            if (currentPassword == null || !admin.getPasswordHash().equals(currentPassword.trim())) {
+        if (newPassword != null && !newPassword.isEmpty()) {
+            if (currentPassword == null || admin.getPasswordHash() == null
+                    || !passwordEncoder.matches(currentPassword, admin.getPasswordHash())) {
                 ra.addFlashAttribute("errorMessage", "Current password is incorrect.");
                 return "redirect:/admin/profile";
             }
@@ -86,7 +91,7 @@ public class ProfileController {
                 ra.addFlashAttribute("errorMessage", "New password and confirm password do not match.");
                 return "redirect:/admin/profile";
             }
-            admin.setPasswordHash(newPassword.trim());
+            admin.setPasswordHash(passwordEncoder.encode(newPassword));
         }
 
 

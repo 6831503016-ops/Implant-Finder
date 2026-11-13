@@ -1,6 +1,6 @@
 -- =========================================================
 -- Dental Implant Database Management - seed data (5 tables)
--- Order: BRAND, ADMIN, MATERIAL, IMPLANT_MODEL, IMPLANT_SIZE
+-- Order: BRAND, MATERIAL, IMPLANT_MODEL, IMPLANT_SIZE
 -- Works on H2 (local) and Cloud SQL MySQL.
 -- =========================================================
 
@@ -66,12 +66,8 @@ VALUES (
     '/images/logo%20straumann.png'
 );
 
--- 2. ADMIN
-INSERT INTO ADMIN (full_name, username, email, password_hash, avatar_link)
-VALUES ('Admin User', '@implantadmin', 'admin@implant.com', '123456',
-'/images/avatars/avatar1.png');
 -- =========================================================
--- 3. MATERIAL
+-- 2. MATERIAL
 -- =========================================================
 INSERT INTO MATERIAL (material_name) VALUES ('OsseoSpeed Titanium');
 INSERT INTO MATERIAL (material_name) VALUES ('Titanium Grade 5 (Ti-6Al-4V)');
@@ -85,7 +81,7 @@ INSERT INTO MATERIAL (material_name) VALUES ('Roxolid');
 INSERT INTO MATERIAL (material_name) VALUES ('ZrO2 (Zirconium dioxide ceramic)');
 
 -- =========================================================
--- 4. IMPLANT_MODEL (brand_id and material_id are looked up by name)
+-- 3. IMPLANT_MODEL (brand_id and material_id are looked up by name)
 -- =========================================================
 
 -- ASTRA TECH
@@ -301,7 +297,7 @@ VALUES (
 );
 
 -- =========================================================
--- 5. IMPLANT_SIZE (one statement per model)
+-- 4. IMPLANT_SIZE (one statement per model)
 -- =========================================================
 
 -- ASTRA TECH
