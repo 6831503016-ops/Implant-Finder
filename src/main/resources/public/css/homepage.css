@@ -515,9 +515,6 @@
    ลูกเล่นตอนเลื่อนหน้า (ทำงานคู่กับ script ท้าย home.html)
 ========================================================= */
 
-/* แถบบนมีเงาเมื่อเลื่อนลง */
-.home-page .topbar { transition: box-shadow 250ms ease, background-color 250ms ease; }
-
 .home-page .topbar.is-scrolled {
     background: rgba(255, 255, 255, 0.97);
     box-shadow: 0 6px 24px rgba(15, 23, 42, 0.07);

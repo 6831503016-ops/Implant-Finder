@@ -115,8 +115,8 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.03em; }
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: saturate(160%) blur(12px);
+    background: #FFFFFF;
+    backdrop-filter: none;
     border-bottom: 1px solid var(--line);
 }
 
