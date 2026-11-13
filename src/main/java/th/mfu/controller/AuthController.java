@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import th.mfu.domain.Admin;
@@ -15,6 +16,9 @@ public class AuthController {
 
     @Autowired
     private AdminRepository adminRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/admin/login")
     public String loginPage() {
@@ -34,7 +38,8 @@ public class AuthController {
                 .findByEmailOrUsername(cleanInput, cleanInput)
                 .orElse(null);
 
-        if (admin != null && admin.getPasswordHash().equals(password.trim())) {
+         if (admin != null &&
+        passwordEncoder.matches(password.trim(), admin.getPasswordHash())) {
 
             // Preserve existing avatar handling
             if (admin.getAvatarLink() == null ||
