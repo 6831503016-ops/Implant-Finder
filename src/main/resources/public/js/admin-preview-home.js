@@ -5,25 +5,42 @@
 ========================================================== */
 (function () {
 
-    // 1) บันทึกสถานะว่าเว็บไซต์กำลังเปิดในโหมด Admin Preview
-    try {
-        sessionStorage.setItem('adminPreview', '1');
-    } catch (e) {
-        // ป้องกันข้อผิดพลาดหากไม่สามารถเข้าถึง sessionStorage ได้
-    }
-
-    // 2) ดึงปุ่ม Back to Admin จาก HTML
+    const returnEntryKey = 'adminPreviewReturnEntryKey';
     const backButton = document.getElementById('backToAdmin');
 
-    // 3) เมื่อต้องการกลับไปหน้า Admin ให้ลบสถานะ Preview
-    if (backButton) {
-        backButton.addEventListener('click', function () {
-            try {
-                sessionStorage.removeItem('adminPreview');
-            } catch (e) {
-                // ป้องกันข้อผิดพลาดในการเข้าถึง sessionStorage
-            }
-        });
+    function isAdminDataManagementUrl(value) {
+        if (!value) return false;
+
+        const url = new URL(value, window.location.href);
+        const adminUrl = new URL(backButton.href, window.location.href);
+        return url.origin === adminUrl.origin &&
+            url.pathname === adminUrl.pathname;
+    }
+
+    try {
+        sessionStorage.setItem('adminPreview', '1');
+
+        const navigation = window.navigation;
+
+        if (!navigation || typeof navigation.entries !== 'function') return;
+
+        const entries = navigation.entries();
+        const savedKey = sessionStorage.getItem(returnEntryKey);
+        const savedEntry = savedKey && entries.find(entry => entry.key === savedKey);
+
+        if (savedEntry && isAdminDataManagementUrl(savedEntry.url)) return;
+
+        if (savedKey) sessionStorage.removeItem(returnEntryKey);
+
+        const currentEntry = navigation.currentEntry;
+        const previousEntry = currentEntry && entries
+            .find(entry => entry.index === currentEntry.index - 1);
+
+        if (previousEntry?.key && isAdminDataManagementUrl(previousEntry.url)) {
+            sessionStorage.setItem(returnEntryKey, previousEntry.key);
+        }
+    } catch (error) {
+        console.warn('Unable to save the Admin Preview return history entry.', error);
     }
 
 })();

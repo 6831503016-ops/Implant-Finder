@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  
@@ -323,11 +324,12 @@ public class AdminModelController {
  
  
     // ===== สวิตช์ของแต่ละขนาด (ใน View all) =====
-    @PostMapping("/toggle-size-status/{id}")
-    public String toggleSizeStatus(@PathVariable Long id) {
-        implantService.toggleSizeStatus(id);
-        return "redirect:/admin/data-management";
-    }
+   @PostMapping("/toggle-size-status/{id}")
+   @ResponseBody
+   public Map<String, Object> toggleSizeStatus(@PathVariable Long id) {
+    implantService.toggleSizeStatus(id);
+    return Map.of("success", true);
+}
  
  
     // ===== ลบรุ่น =====
