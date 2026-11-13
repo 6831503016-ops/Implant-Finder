@@ -139,3 +139,52 @@
     });
 
 })();
+/* ==========================================================
+   Disable Login ระหว่าง View as User
+   ตอนแอดมินดูหน้าเว็บในมุมผู้ใช้ ปุ่ม Login ต้องกดไม่ได้
+   (Login มีไว้สำหรับแอดมินเท่านั้น ผู้ใช้ทั่วไปไม่ต้องล็อกอิน)
+========================================================== */
+(function () {
+
+    let isPreview = false;
+
+    try {
+        isPreview = sessionStorage.getItem('adminPreview') === '1';
+    } catch (e) {
+        // เข้าถึง sessionStorage ไม่ได้ → ถือว่าไม่ใช่โหมด Preview
+    }
+
+    if (!isPreview) return;
+
+    // หน้า home บอกมาว่าไม่มีแอดมินล็อกอินอยู่ (เช่น เพิ่ง logout)
+    // → ออกจากโหมด Preview แล้วให้ปุ่ม Login ใช้งานได้ตามปกติ
+    if (document.body.dataset.adminSession === 'false') {
+        try {
+            sessionStorage.removeItem('adminPreview');
+            sessionStorage.removeItem('adminPreviewReturnEntryKey');
+        } catch (e) { }
+
+        const backBtn = document.getElementById('backToAdmin');
+        if (backBtn) backBtn.classList.remove('is-visible');
+        return;
+    }
+
+    document.querySelectorAll('.admin-login-btn').forEach(function (btn) {
+
+        // 1) ตัดลิงก์ไปหน้า Login ออก
+        btn.removeAttribute('href');
+
+        // 2) ทำให้ดูเป็นปุ่มที่ปิดอยู่
+        btn.classList.add('is-disabled');
+        btn.setAttribute('aria-disabled', 'true');
+        btn.setAttribute('tabindex', '-1');
+        btn.setAttribute('title', 'Login is disabled while viewing as user');
+
+        // 3) กันการคลิกเผื่อไว้
+        btn.addEventListener('click', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        });
+    });
+
+})();
