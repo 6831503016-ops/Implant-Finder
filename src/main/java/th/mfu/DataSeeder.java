@@ -2,7 +2,6 @@
 package th.mfu;
 
 import javax.sql.DataSource;
-
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,25 +32,24 @@ public class DataSeeder implements CommandLineRunner {
     private BrandRepository brandRepo;
 
     @Autowired
-<<<<<<< HEAD
-=======
-    private AdminRepository adminRepo;
-
-    @Autowired
->>>>>>> origin/main
     private PasswordEncoder passwordEncoder;
 
     @Value("classpath:data.sql")
     private Resource seed;
 
+    // Initial admin password from application.properties or environment variable
     @Value("${app.admin.password:${APP_ADMIN_PASSWORD:}}")
     private String initialAdminPassword;
 
     @Override
     public void run(String... args) {
+
+        // Migrate existing plaintext passwords to BCrypt
         migrateLegacyPasswords();
 
+        // Load sample data if database is empty
         if (brandRepo.count() == 0) {
+
             System.out.println("Database is empty. Loading sample data...");
 
             ResourceDatabasePopulator populator =
@@ -61,10 +59,12 @@ public class DataSeeder implements CommandLineRunner {
             populator.execute(dataSource);
 
             System.out.println("Sample data loaded successfully.");
+
         } else {
             System.out.println("Database already contains data.");
         }
 
+        // Ensure administrator account is secured
         secureAdminAccount();
     }
 
@@ -76,13 +76,14 @@ public class DataSeeder implements CommandLineRunner {
                         "@implantadmin")
                 .orElse(null);
 
+        // Existing administrator account
         if (admin != null) {
 
             String storedPassword = admin.getPasswordHash();
 
-            // Migrate existing plaintext passwords to BCrypt.
+            // Secure password if it is not already a valid BCrypt hash
             if (storedPassword != null &&
-                    !storedPassword.matches("^\\$2[aby]\\$.*")) {
+                    !BCRYPT_HASH.matcher(storedPassword).matches()) {
 
                 admin.setPasswordHash(
                         passwordEncoder.encode(storedPassword));
@@ -96,6 +97,7 @@ public class DataSeeder implements CommandLineRunner {
             return;
         }
 
+        // Do not create an administrator without a configured password
         if (initialAdminPassword == null ||
                 initialAdminPassword.isBlank()) {
 
@@ -106,47 +108,46 @@ public class DataSeeder implements CommandLineRunner {
             return;
         }
 
-<<<<<<< HEAD
+        // Create initial administrator account
         seedAdmin();
 
-        System.out.println("Sample data loaded successfully.");
-=======
-        Admin newAdmin = new Admin();
-
-        newAdmin.setFullName("Admin User");
-        newAdmin.setUsername("@implantadmin");
-        newAdmin.setEmail("admin@implant.com");
-
-        newAdmin.setPasswordHash(
-                passwordEncoder.encode(initialAdminPassword));
-
-        newAdmin.setAvatarLink(
-                "/images/avatars/avatar1.png");
-
-        adminRepo.save(newAdmin);
-
         System.out.println(
-                "Initial administrator account created securely.");
->>>>>>> origin/main
+                "Initial administrator account created successfully.");
     }
 
+    // Migrate existing plaintext passwords to BCrypt
     private void migrateLegacyPasswords() {
+
         for (Admin admin : adminRepo.findAll()) {
+
             String passwordHash = admin.getPasswordHash();
-            if (passwordHash != null && !BCRYPT_HASH.matcher(passwordHash).matches()) {
-                admin.setPasswordHash(passwordEncoder.encode(passwordHash));
+
+            if (passwordHash != null &&
+                    !BCRYPT_HASH.matcher(passwordHash).matches()) {
+
+                admin.setPasswordHash(
+                        passwordEncoder.encode(passwordHash));
+
                 adminRepo.save(admin);
             }
         }
     }
 
+    // Create initial administrator account
     private void seedAdmin() {
+
         Admin admin = new Admin();
+
         admin.setFullName("Admin User");
         admin.setUsername("@implantadmin");
         admin.setEmail("admin@implant.com");
-        admin.setPasswordHash(passwordEncoder.encode("123456"));
+
+        // Use configured password instead of hardcoded password
+        admin.setPasswordHash(
+                passwordEncoder.encode(initialAdminPassword));
+
         admin.setAvatarLink("/images/avatars/avatar1.png");
+
         adminRepo.save(admin);
     }
 }

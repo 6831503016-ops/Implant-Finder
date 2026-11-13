@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import th.mfu.domain.Admin;
@@ -18,6 +17,7 @@ public class AuthController {
     @Autowired
     private AdminRepository adminRepo;
 
+    // ตัวเข้ารหัสรหัสผ่าน BCrypt ตัวเดียวกับที่ใช้ตอนสมัครและเปลี่ยนรหัสผ่าน
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -33,19 +33,18 @@ public class AuthController {
             HttpSession session,
             RedirectAttributes redirectAttributes) {
 
+        // Remove unnecessary spaces from email or username
         String cleanInput = email != null ? email.trim() : "";
 
+        // Find admin using either email or username
         Admin admin = adminRepo
                 .findByEmailOrUsername(cleanInput, cleanInput)
                 .orElse(null);
 
-<<<<<<< HEAD
-        if (admin != null && admin.getPasswordHash() != null
+        // Verify admin account and BCrypt password
+        if (admin != null
+                && admin.getPasswordHash() != null
                 && passwordEncoder.matches(password, admin.getPasswordHash())) {
-=======
-         if (admin != null &&
-        passwordEncoder.matches(password.trim(), admin.getPasswordHash())) {
->>>>>>> origin/main
 
             // Preserve existing avatar handling
             if (admin.getAvatarLink() == null ||
@@ -55,6 +54,7 @@ public class AuthController {
                 admin = adminRepo.save(admin);
             }
 
+            // Store logged-in admin in session
             session.setAttribute("admin", admin);
 
             // Login success notification
@@ -80,6 +80,7 @@ public class AuthController {
             HttpSession session,
             RedirectAttributes redirectAttributes) {
 
+        // Invalidate admin session
         session.invalidate();
 
         // Logout success notification
