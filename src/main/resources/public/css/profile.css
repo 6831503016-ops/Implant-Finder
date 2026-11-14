@@ -132,13 +132,6 @@
     100% { opacity: 0; transform: translate(-50%, -8px); visibility: hidden; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .profile-toast { animation-name: profile-toast-fade; }
-    @keyframes profile-toast-fade {
-        0%, 85% { opacity: 1; transform: translateX(-50%); visibility: visible; }
-        100%    { opacity: 0; transform: translateX(-50%); visibility: hidden; }
-    }
-}
 .profile-alert-error { background: #FDECEC; color: #DC2626; }
 
 .profile-section-title {
@@ -184,6 +177,41 @@
 }
 
 .profile-input:focus { border-color: var(--blue); }
+
+/* ---------- ช่อง Password + ปุ่มรูปตา (แบบเดียวกับหน้า Login) ---------- */
+.password-wrap {
+    position: relative;
+}
+
+.password-wrap .profile-input {
+    padding-right: 48px; /* เว้นที่ให้ปุ่มรูปตา */
+}
+
+/* ซ่อนปุ่มแสดงรหัสของเบราว์เซอร์ Edge ไม่ให้ซ้อนกับปุ่มของเรา */
+.password-wrap .profile-input::-ms-reveal,
+.password-wrap .profile-input::-ms-clear {
+    display: none;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--gray);
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+.toggle-password:hover { color: var(--blue); }
+
+.toggle-password svg { width: 20px; height: 20px; }
 
 .profile-divider {
     margin: 24px 0;

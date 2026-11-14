@@ -1,4 +1,3 @@
-
 # Dental Implant Database Management System
 ---
 
@@ -86,7 +85,7 @@ The project contains five main entity classes:
 For local development, the project uses the H2 database. Sample data is loaded from `data.sql` when the `Brand` table is empty.
 
 ---
-## How to Run the Project
+## How to Run the Project (Local Database)
 
 Follow these steps to run Implant Finder on your computer.
 
@@ -94,10 +93,8 @@ Follow these steps to run Implant Finder on your computer.
 Open a terminal and run:
 
 ```bash
-git clone [https://github.com/6831503016-ops/Implant-Finder.git](https://github.com/6831503016-ops/Implant-Finder.git)
+git clone https://github.com/6831503016-ops/Implant-Finder.git
 ```
-
-*(Replace `YOUR_GITHUB_REPOSITORY_URL` with the actual GitHub repository URL if cloning from a different fork/repository.)*
 
 ### Step 2: Open the Project Folder
 Navigate into the project directory:
@@ -108,8 +105,10 @@ cd Implant-Finder
 
 Make sure you are in the main project directory where the `pom.xml` file is located.
 
-### Step 3: Configure the Initial Administrator Password
-Before running the application for the first time, configure an initial administrator password.
+### Step 3 (Optional): Choose an Administrator Password
+When you run the project locally (Step 4), it uses its own local H2 database, and the administrator account is created automatically with the demo password **`admin1234`**.
+
+To use your own password instead, set it before Step 4:
 
 **For macOS or Linux:**
 ```bash
@@ -121,18 +120,32 @@ export APP_ADMIN_PASSWORD='YourStrongPassword123!'
 $env:APP_ADMIN_PASSWORD="YourStrongPassword123!"
 ```
 
-Replace the example password with your own password. The application uses this password to create the initial administrator account if one does not already exist. The password is automatically hashed using BCrypt before being stored in the database.
+The password is hashed with BCrypt before it is stored in the database.
 
 > **Important:** Do not upload real passwords or other private credentials to GitHub.
 
-### Step 4: Run the Application
+### Step 4: Run the Application (Local Database)
 From the project root directory, run:
 
+**For macOS, Linux or Windows Command Prompt:**
 ```bash
-mvn spring-boot:run
+mvn spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
-Maven will download the required dependencies, compile the project, and start the Spring Boot application. Wait until the terminal indicates that the application has started successfully.
+**For Windows PowerShell:**
+```powershell
+mvn spring-boot:run "-Dspring-boot.run.profiles=local"
+```
+
+Maven will download the required dependencies, compile the project, and start the Spring Boot application. Wait until the terminal shows `Started App`.
+
+The `local` profile (`application-local.properties`) runs the project with a local H2 database stored in the `data/` folder, so **no Google Cloud account or Cloud SQL access is needed**. On the first run, sample brands, materials, implant models and sizes are loaded automatically from `data.sql`.
+
+> **Note:** Running `mvn spring-boot:run` *without* `-Dspring-boot.run.profiles=local` connects to the group's Google Cloud SQL database, which requires Google Cloud credentials. That mode is used for the deployed website on Cloud Run.
+
+To start again with a fresh database, stop the application and delete the `data/` folder.
+
+To look inside the local database, open http://localhost:8080/h2-console and use JDBC URL `jdbc:h2:file:./data/implantdb`, user `sa`, and an empty password.
 
 ### Step 5: Open the Application
 Open your web browser and visit:
@@ -149,7 +162,7 @@ Use the following information to access the administrator login page:
 | :--- | :--- |
 | **Email** | `admin@implant.com` |
 | **Username** | `@implantadmin` |
-| **Password** | The password configured in Step 3 |
+| **Password** | `123456`, or the password you set in Step 3 |
 
 > **Note:** The initial administrator account is created only if an account with the configured administrator email or username does not already exist. If an administrator account already exists, use its existing password.
 
@@ -159,6 +172,140 @@ To stop the application, return to the terminal and press:
 ```text
 Ctrl + C
 ```
+
+---
+## Running the Project as a Contributor 
+
+### 1. Open the project
+Choose one of these:
+
+- **GitHub Codespaces (no installation needed):** On the repository page, click **Code** → **Codespaces** → **Create codespace on main** (or open your existing codespace). Wait until the terminal shows `/workspaces/Implant-Finder`.
+
+### 2. Run and test with the local database
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=local
+```
+- In Codespaces, open the **PORTS** tab and click the globe icon next to port **8080** to open the website.
+- Log in at `/admin/login` with `admin@implant.com` and `admin1234` (or the password you set with `APP_ADMIN_PASSWORD`).
+- The local profile uses its own H2 database, so you can add, edit and delete test data **without changing the real website's data**.
+- After changing Java code, stop the app with `Ctrl + C` and run the command again. After changing HTML, CSS or JavaScript, refresh the browser with `Ctrl + F5`.
+
+
+
+---
+## Running the Project with the Cloud SQL Database
+
+Use this mode only when you need to work with the **real data** used by the deployed website.
+
+> **Warning:** In this mode, anything you add, edit or delete changes the live database used by the website on Cloud Run. Use the local database (above) for testing.
+
+### Requirements
+- Access to the group's Google Cloud project **My Project 9173** (project ID `sonorous-mix-511409-k3`) with at least the **Cloud SQL Client** role. Ask the project owner to add your Google account in **IAM & Admin → IAM** if you do not have access.
+- The database password for the user `implant_admin`. Get it **privately** from the team. Never write it in the code, README or chat groups.
+
+The Cloud SQL connection details are already configured in `application.properties`:
+
+| Setting | Value |
+| :--- | :--- |
+| Instance | `free-trial-first-project` (region `asia-southeast1`) |
+| Database | `implant_finder` |
+| User | `implant_admin` |
+| Password | read from the `DB_PASSWORD` environment variable |
+
+### Step 1: Install the Google Cloud CLI
+Skip this step if `gcloud --version` already shows a version number.
+
+**Codespaces, macOS or Linux:**
+```bash
+curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts
+echo 'source ~/google-cloud-sdk/path.bash.inc' >> ~/.bashrc
+source ~/.bashrc
+gcloud --version
+```
+
+**Windows:** Download and run the installer from https://cloud.google.com/sdk/docs/install, then open a new PowerShell window.
+
+### Step 2: Sign in to Google Cloud for the application
+```bash
+gcloud auth application-default login
+```
+1. Open the link that appears and sign in with the Google account that has access to the project.
+2. Allow all requested permissions.
+3. Click **Copy** on the page and paste the code into the terminal **once**, then press Enter.
+4. You should see `Credentials saved to file`. A warning about a quota project can be ignored.
+
+### Step 3: Set the password environment variables
+**Codespaces, macOS or Linux:**
+```bash
+export DB_PASSWORD='the-database-password'
+export APP_ADMIN_PASSWORD='the-admin-password'
+```
+To keep them for new terminals in Codespaces, add them to `~/.bashrc` instead:
+```bash
+echo "export DB_PASSWORD='the-database-password'" >> ~/.bashrc
+echo "export APP_ADMIN_PASSWORD='the-admin-password'" >> ~/.bashrc
+source ~/.bashrc
+```
+
+**Windows PowerShell:**
+```powershell
+$env:DB_PASSWORD="the-database-password"
+$env:APP_ADMIN_PASSWORD="the-admin-password"
+```
+
+> Type these commands yourself. Copying from chat apps can insert curly quotes (`” “`), which breaks the commands.
+
+### Step 4: Run the application
+```bash
+mvn spring-boot:run
+```
+Do **not** add `-Dspring-boot.run.profiles=local`. Check the log:
+
+- `No active profile set, falling back to 1 default profile: "default"` → using Cloud SQL ✅
+- `HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl` → connected to the database ✅
+- `Started App in ... seconds` → the website is ready at port 8080 ✅
+
+### Step 5: View the data in Cloud SQL Studio
+1. Open https://console.cloud.google.com/sql/instances?project=sonorous-mix-511409-k3
+2. Click **free-trial-first-project** → **Cloud SQL Studio**.
+3. Sign in with database `implant_finder`, user `implant_admin` and the database password.
+4. Run a query, for example:
+   ```sql
+   SELECT * FROM brand ORDER BY brand_id DESC;
+   ```
+
+> On the instance page, do **not** click **Restart**, **Stop**, **Delete** or **Import sample data**.
+
+### Troubleshooting (Cloud SQL mode)
+
+| Error message | Cause | Fix |
+| :--- | :--- | :--- |
+| `Your default credentials were not found` | Not signed in to Google Cloud for the app | Do Step 2 again |
+| `Access denied for user 'implant_admin'` | MySQL 8.4 password cache is empty (see note below) | Sign in once to **Cloud SQL Studio** (Step 5), then run Step 4 again |
+| `403` / `NOT_AUTHORIZED` | Your Google account has no access to the project | Ask the project owner to give you the **Cloud SQL Client** role |
+| `gcloud: command not found` | Google Cloud CLI not installed or not loaded | Do Step 1 again, or run `source ~/.bashrc` |
+| `Malformed auth code` | The code was pasted incorrectly | Do Step 2 again; use the **Copy** button and paste once |
+| `syntax error near unexpected token '&&'` | A command was split across lines | Type the whole command on one line |
+
+> **Note about `Access denied`:** The Cloud SQL instance runs MySQL 8.4, which uses `caching_sha2_password` authentication. The Java connector cannot perform the first full password check by itself, so it relies on the server's password cache. Signing in once through Cloud SQL Studio fills that cache. The cache is cleared when the password is changed or the database restarts, so **do not run `gcloud sql users set-password`** unless the whole team agrees. Changing the password also requires updating the Cloud Run settings and every team member's `DB_PASSWORD`.
+
+### Deploying the website to Cloud Run (project owners only)
+After your changes are merged into `main`:
+```bash
+git checkout main
+git pull
+gcloud auth login
+gcloud config set project sonorous-mix-511409-k3
+gcloud run deploy implant-finder --source . --region=asia-southeast1 --allow-unauthenticated \
+  --add-cloudsql-instances=sonorous-mix-511409-k3:asia-southeast1:free-trial-first-project \
+  --set-env-vars=DB_PASSWORD=the-database-password,APP_ADMIN_PASSWORD=the-admin-password
+```
+The build takes about 5–10 minutes. When it finishes, the command prints the website's `Service URL`. To see the website's logs:
+```bash
+gcloud run services logs read implant-finder --region=asia-southeast1 --limit=50
+```
+
+> Files uploaded through the website on Cloud Run (such as new brand logos) are stored inside the running container and can be lost when Cloud Run restarts.
 
 ---
 ## Security Information
@@ -189,7 +336,8 @@ Implant-Finder/
         │           ├── repository/
         │           └── DataSeeder.java
         └── resources/
-            ├── application.properties
+            ├── application.properties        # Cloud SQL settings (default)
+            ├── application-local.properties  # Local H2 settings (local profile)
             ├── data.sql
             ├── templates/
             └── public/

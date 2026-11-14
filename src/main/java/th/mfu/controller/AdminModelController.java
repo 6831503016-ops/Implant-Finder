@@ -5,12 +5,14 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -333,9 +335,31 @@ public class AdminModelController {
  
  
     // ===== ลบรุ่น =====
+    // ลบเฉพาะรุ่นที่กด (ขนาดของรุ่นถูกลบตามไปด้วยผ่าน cascade)
+    // รุ่นอื่นของแบรนด์เดียวกันและตัวแบรนด์ยังอยู่
+    // ถ้าลบแล้วแบรนด์นั้นไม่เหลือรุ่นไหนเลย จึงลบแบรนด์ออกจากฐานข้อมูลด้วย
+    // @Transactional: ถ้าขั้นไหนผิดพลาด จะยกเลิกทั้งหมด ไม่เหลือข้อมูลลบไม่ครบ
+    @Transactional
     @PostMapping("/delete/{id}")
     public String deleteModel(@PathVariable Long id) {
-        modelRepo.deleteById(id);
+        ImplantModel implant = modelRepo.findById(id).orElse(null);
+        if (implant == null) {
+            return "redirect:/admin/data-management";
+        }
+
+        Brand brand = implant.getBrand();
+
+        // 1) ลบเฉพาะรุ่นนี้
+        modelRepo.delete(implant);
+        modelRepo.flush();
+
+        // 2) ถ้าแบรนด์ไม่เหลือรุ่นแล้ว ให้ลบแบรนด์ด้วย
+        if (brand != null) {
+            List<ImplantModel> remaining = modelRepo.findByBrandBrandId(brand.getBrandId());
+            if (remaining.isEmpty()) {
+                brandRepo.delete(brand);
+            }
+        }
         return "redirect:/admin/data-management";
     }
 }

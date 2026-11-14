@@ -1,14 +1,8 @@
-
 /* ==========================================================
    Homepage Effects
    จัดการเอฟเฟกต์ Navbar และการแสดงผลเมื่อเลื่อนหน้า
 ========================================================== */
 (function () {
-
-    // 1) ตรวจสอบว่าผู้ใช้ตั้งค่าให้ลดการเคลื่อนไหวหรือไม่
-    const reduceMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-    ).matches;
 
     // 2) ดึง Navbar จาก HTML
     const topbar = document.querySelector('.topbar');
@@ -40,9 +34,8 @@
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    // 4) หากผู้ใช้เลือกปิดเอฟเฟกต์ หรือเบราว์เซอร์ไม่รองรับ
-    // IntersectionObserver ให้หยุดการทำงานส่วนนี้
-    if (reduceMotion || !('IntersectionObserver' in window)) return;
+    // 4) หากเบราว์เซอร์ไม่รองรับ IntersectionObserver ให้หยุดการทำงานส่วนนี้
+    if (!('IntersectionObserver' in window)) return;
 
     // 5) ดึงหัวข้อ Brands และการ์ดแบรนด์ทั้งหมด
     const title = document.querySelector('.brands-title');

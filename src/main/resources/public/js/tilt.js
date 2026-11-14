@@ -3,12 +3,11 @@
    ใช้กับทุก element ที่มี data-tilt (ใส่ตัวเลข = องศาสูงสุด เช่น data-tilt="8")
    - ตั้งค่า CSS variables: --rx, --ry (องศาเอียง), --px, --py (ตำแหน่งแสงสะท้อน)
    - ใส่ class "is-tilting" ตอนเมาส์อยู่บน element
-   ทำงานเฉพาะเครื่องที่มีเมาส์ และปิดเองถ้าผู้ใช้ตั้งค่าลดการเคลื่อนไหว
+   ทำงานเฉพาะเครื่องที่มีเมาส์
 ========================================================= */
 (function () {
     const hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!hasMouse || reduceMotion) return;
+    if (!hasMouse) return;
 
     document.querySelectorAll('[data-tilt]').forEach(el => {
         const maxDeg = parseFloat(el.dataset.tilt) || 8;

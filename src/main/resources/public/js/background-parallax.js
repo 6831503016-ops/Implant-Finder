@@ -1,4 +1,3 @@
-
 /* ==========================================================
    Background Parallax
    ทำให้ก้อนสีพื้นหลังขยับตามตำแหน่งเมาส์
@@ -14,13 +13,8 @@
         '(hover: hover) and (pointer: fine)'
     ).matches;
 
-    // 3) ตรวจสอบการตั้งค่าลดการเคลื่อนไหว
-    const reduceMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-    ).matches;
-
     // หยุดการทำงานหากไม่ตรงตามเงื่อนไข
-    if (!background || !canHover || reduceMotion) return;
+    if (!background || !canHover) return;
 
     // 4) ตรวจจับเมื่อเมาส์เคลื่อนที่ภายใน Section
     section.addEventListener('pointermove', event => {
