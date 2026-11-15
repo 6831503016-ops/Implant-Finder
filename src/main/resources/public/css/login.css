@@ -14,10 +14,7 @@
    ถ้ายังไม่มี จะใช้รูปสำรองชั้นล่าง */
 .login-photo {
     background-color: #FFFFFF;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.07)),
-        url("../images/login-photo.jpg"),
-        url("https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1200&auto=format&fit=crop");
+    background-image: url("../images/login.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
